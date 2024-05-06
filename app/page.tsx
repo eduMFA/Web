@@ -168,7 +168,7 @@ export default function Home() {
             <footer className="bg-gray-800 text-white py-4">
                 <div className="container mx-auto px-4 text-center">
                     <p>&copy; 2024 eduMFA. All rights reserved.</p>
-                    <a href="imprint.html" className="text-white hover:text-gray-300">Imprint</a>
+                    <Link href="/imprint" className="text-white hover:text-gray-300">Imprint</Link>
                 </div>
             </footer>
         </main>
