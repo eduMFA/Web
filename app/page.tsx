@@ -125,7 +125,7 @@ export default function Home() {
                         network. It
                         enables multi-factor authentication, making traditional username-password combinations obsolete.
                         The
-                        'Passkeys' method, a focus of eduMFA, locks a security key into a safe, accessible only through
+                        &apos;Passkeys&apos; method, a focus of eduMFA, locks a security key into a safe, accessible only through
                         additional
                         methods like biometric scans or PINs. Passkeys are resistant to phishing attacks, can be
                         synchronized
