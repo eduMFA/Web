@@ -139,11 +139,13 @@ export default function Home() {
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Organizations Using eduMFA</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+                    <div
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                         <OrganizationBox logoSrc={'/organizations/fu_berlin.png'} orgLink={'https://fu-berlin.de'}/>
                         <OrganizationBox logoSrc={'/organizations/hm.png'} orgLink={'https://hm.edu/'}/>
                         <OrganizationBox logoSrc={'/organizations/uni_bamberg.png'}
                                          orgLink={'https://www.uni-bamberg.de/'}/>
+                        <OrganizationBox logoSrc={'/organizations/gwdg.png'} orgLink={'https://www.gwdg.de/'}/>
                     </div>
                 </section>
 
