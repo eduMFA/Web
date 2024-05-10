@@ -1,29 +1,75 @@
 'use client'
 
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
+import organizations from '../data/organizations.json';
+import ReactMarkdown from 'react-markdown';
 
 type OrganizationBoxProps = {
+    name: string;
+    description: string;
     logoSrc: string;
-    orgLink: string;
+    link: string;
 };
 
-const OrganizationBox: React.FC<OrganizationBoxProps> = ({logoSrc, orgLink}) => {
+const OrganizationBox: React.FC<OrganizationBoxProps> = ({name, description, logoSrc, link}) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const handleBoxClick = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
+
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                handleCloseModal();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
     return (
-        <Link href={orgLink}>
-            <div className="bg-white rounded-lg shadow-md relative overflow-hidden cursor-pointer">
-                <div className="h-32 content-center">
-                    <Image
-                        src={logoSrc}
-                        alt="Organization Logo"
-                        fill={true}
-                        objectFit={'contain'}
-                        className={'p-2'}
-                    />
-                </div>
+        <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
+            <div className="h-32 content-center  cursor-pointer" onClick={handleBoxClick}>
+                <Image
+                    src={logoSrc}
+                    alt="Organization Logo"
+                    fill={true}
+                    objectFit={'contain'}
+                    className={'p-2'}
+                />
             </div>
-        </Link>
+            {isModalVisible && (
+                <div onClick={handleCloseModal}
+                     className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+                    <div onClick={(e) => e.stopPropagation()}
+                         className="bg-white p-8 rounded-lg shadow-md max-w-xl max-h-full overflow-auto relative ">
+                        <h2 className="text-xl font-bold mb-2">{name}</h2>
+                        <ReactMarkdown className="mb-4">{description}</ReactMarkdown>
+                        <Link href={link} className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md">
+                            Visit
+                        </Link>
+                        <button onClick={handleCloseModal} className="absolute top-2 right-2">
+                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                                 stroke="currentColor"
+                                 aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 };
 
@@ -143,14 +189,17 @@ export default function Home() {
                     <h2 className="text-2xl font-bold mb-4">Organizations Using eduMFA</h2>
                     <div
                         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-                        <OrganizationBox logoSrc={'/organizations/fu_berlin.png'} orgLink={'https://fu-berlin.de'}/>
-                        <OrganizationBox logoSrc={'/organizations/hm.png'} orgLink={'https://hm.edu/'}/>
-                        <OrganizationBox logoSrc={'/organizations/uni_bamberg.png'}
-                                         orgLink={'https://www.uni-bamberg.de/'}/>
-                        <OrganizationBox logoSrc={'/organizations/gwdg.png'} orgLink={'https://www.gwdg.de/'}/>
+                        {organizations.map((org, index) => (
+                            <OrganizationBox
+                                key={index}
+                                name={org.name}
+                                description={org.description}
+                                logoSrc={org.logoSrc}
+                                link={org.link}
+                            />
+                        ))}
                     </div>
                 </section>
-
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Installation</h2>
