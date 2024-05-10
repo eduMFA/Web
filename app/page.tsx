@@ -11,18 +11,18 @@ type OrganizationBoxProps = {
 
 const OrganizationBox: React.FC<OrganizationBoxProps> = ({logoSrc, orgLink}) => {
     return (
-        <Link href={orgLink}>
-            <div className="bg-white rounded-lg shadow-md relative overflow-hidden cursor-pointer">
-                <div className="h-28 w-56 content-center">
-                    <Image
-                        src={logoSrc}
-                        alt="Organization Logo"
-                        width={500}
-                        height={128}
-                    />
-                </div>
+        <div className="bg-white rounded-lg shadow-md relative overflow-hidden cursor-pointer">
+            <div className="h-32 content-center">
+                <Image
+                    src={logoSrc}
+                    alt="Organization Logo"
+                    fill={true}
+                    objectFit={'contain'}
+                    className={'p-2'}
+                />
             </div>
-        </Link>
+        </div>
+
     );
 };
 
@@ -139,7 +139,7 @@ export default function Home() {
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Organizations Using eduMFA</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                         <OrganizationBox logoSrc={'/organizations/fu_berlin.png'} orgLink={'https://fu-berlin.de'}/>
                         <OrganizationBox logoSrc={'/organizations/hm.png'} orgLink={'https://hm.edu/'}/>
                         <OrganizationBox logoSrc={'/organizations/uni_bamberg.png'}
