@@ -125,7 +125,8 @@ export default function Home() {
                         network. It
                         enables multi-factor authentication, making traditional username-password combinations obsolete.
                         The
-                        &apos;Passkeys&apos; method, a focus of eduMFA, locks a security key into a safe, accessible only through
+                        &apos;Passkeys&apos; method, a focus of eduMFA, locks a security key into a safe, accessible
+                        only through
                         additional
                         methods like biometric scans or PINs. Passkeys are resistant to phishing attacks, can be
                         synchronized
@@ -170,7 +171,7 @@ export default function Home() {
             <footer className="bg-gray-800 text-white py-4">
                 <div className="container mx-auto px-4 text-center">
                     <p>&copy; 2024 eduMFA. All rights reserved.</p>
-                    <Link href="/imprint" className="text-white hover:text-gray-300">Imprint</Link>
+                    <Link href="https://hm.edu/impressum/index.de.html" className="text-white hover:text-gray-300">Imprint</Link>
                 </div>
             </footer>
         </main>
