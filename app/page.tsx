@@ -56,7 +56,8 @@ const OrganizationBox: React.FC<OrganizationBoxProps> = ({name, description, log
                          className="bg-white p-8 rounded-lg shadow-md max-w-xl max-h-full overflow-auto relative ">
                         <h2 className="text-xl font-bold mb-2">{name}</h2>
                         <ReactMarkdown className="mb-4">{description}</ReactMarkdown>
-                        <Link href={link} className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md">
+                        <Link href={link} target={"_blank"}
+                              className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md">
                             Visit
                         </Link>
                         <button onClick={handleCloseModal} className="absolute top-2 right-2">
@@ -123,11 +124,11 @@ export default function Home() {
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
-                                    <Link href="https://github.com/eduMFA/eduMFA/"
+                                    <Link href="https://github.com/eduMFA/eduMFA/" target={"_blank"}
                                           className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Github</Link>
-                                    <Link href="https://edumfa.readthedocs.io/"
+                                    <Link href="https://edumfa.readthedocs.io/" target={"_blank"}
                                           className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Documentation</Link>
-                                    <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users"
+                                    <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users" target={"_blank"}
                                           className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mailing
                                         List</Link>
                                 </div>
@@ -140,11 +141,11 @@ export default function Home() {
                 {isOpen && (
                     <div className="sm:hidden" id="mobile-menu">
                         <div className="space-y-1 px-2 pb-3 pt-2">
-                            <Link href="https://github.com/eduMFA/eduMFA/"
+                            <Link href="https://github.com/eduMFA/eduMFA/" target={"_blank"}
                                   className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Github</Link>
-                            <Link href="https://edumfa.readthedocs.io/"
+                            <Link href="https://edumfa.readthedocs.io/" target={"_blank"}
                                   className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Documentation</Link>
-                            <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users"
+                            <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users" target={"_blank"}
                                   className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Mailing
                                 List</Link>
                         </div>
@@ -210,9 +211,9 @@ export default function Home() {
                     </p>
                     <br/>
                     <p className="text-gray-700">
-                        You can learn more about the installation process in the <a
-                        href="https://edumfa.readthedocs.io/en/latest/installation/index.html"
-                        className="text-blue-600 hover:underline">documentation</a>.
+                        You can learn more about the installation process in the <Link
+                        href={"https://edumfa.readthedocs.io/en/latest/installation/index.html"} target={"_blank"}
+                        className="text-blue-600 hover:underline">documentation</Link>.
                     </p>
                 </section>
 
