@@ -1,157 +1,184 @@
 'use client'
 
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    NavbarMenu,
+    NavbarMenuItem,
+    NavbarMenuToggle
+} from "@nextui-org/navbar";
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
-import Link from "next/link";
-import organizations from '../data/organizations.json';
-import ReactMarkdown from 'react-markdown';
+import React from "react";
+import organizationData from "@/data/users.json";
+import {OrganizationImplementationPhase, User} from "@/types/organizationTypes";
+import {Card} from "@nextui-org/card";
+import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure} from "@nextui-org/modal";
+import {Link} from "@nextui-org/link";
+import {Tooltip} from "@nextui-org/tooltip";
+import {Chip} from "@nextui-org/chip";
+import {ScrollShadow} from "@nextui-org/scroll-shadow";
 
-type OrganizationBoxProps = {
-    name: string;
-    description: string;
-    logoSrc: string;
-    link: string;
-};
+const organizations = organizationData as User[];
 
-const OrganizationBox: React.FC<OrganizationBoxProps> = ({name, description, logoSrc, link}) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const handleBoxClick = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalVisible(false);
-    };
-
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                handleCloseModal();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
+interface OrganizationBoxProps {
+    user: User
+}
+const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return (
-        <div className="bg-white rounded-lg shadow-md relative overflow-hidden">
-            <div className="h-32 content-center  cursor-pointer" onClick={handleBoxClick}>
+        <>
+            <Card isPressable className="h-32 content-center border-none" onPress={() => onOpen()}>
                 <Image
-                    src={logoSrc}
-                    alt="Organization Logo"
+                    src={user.logoSrc}
+                    alt={user.name}
                     fill={true}
                     objectFit={'contain'}
                     className={'p-2'}
                 />
-            </div>
-            {isModalVisible && (
-                <div onClick={handleCloseModal}
-                     className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 ">
-                    <div onClick={(e) => e.stopPropagation()}
-                         className="bg-white p-8 rounded-lg shadow-md max-w-xl max-h-full overflow-auto relative ">
-                        <h2 className="text-xl font-bold mb-2">{name}</h2>
-                        <ReactMarkdown className="mb-4">{description}</ReactMarkdown>
-                        <Link href={link} target={"_blank"}
-                              className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md">
-                            Visit
-                        </Link>
-                        <button onClick={handleCloseModal} className="absolute top-2 right-2">
-                            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                 stroke="currentColor"
-                                 aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
+            </Card>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader  className="flex flex-col gap-1">
+                                <Link isExternal showAnchorIcon href={user.link} color="foreground">{user.name}</Link>
+                            </ModalHeader>
+                            <ModalBody>
+                                {user.userCount != undefined && (
+                                    <div className="flex items-center mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" className="size-5 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+                                        </svg>
+                                        <p className=" text-gray-700">Approx. User Count: <span
+                                            className="font-bold">{new Intl.NumberFormat('en', {
+                                            notation: 'compact',
+                                            maximumFractionDigits: 2
+                                        },).format(user.userCount)}</span></p>
+                                    </div>
+                                )}
+                                {user.phase && (
+                                    <div className="flex items-center mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" className="size-5 mr-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
+                                        </svg>
+                                        <p className=" text-gray-700 pr-2">Implementation Phase: </p>
+                                        <Tooltip showArrow content="Evaluation">
+                                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.EVALUATION ? 'bg-blue-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
+                                                E
+                                            </div>
+                                        </Tooltip>
+                                        <Tooltip showArrow content="Testing">
+                                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.TESTING ? 'bg-yellow-500 text-black' : 'bg-gray-300'} mr-2 group relative`}>
+                                                T
+                                            </div>
+                                        </Tooltip>
+                                        <Tooltip showArrow content="Production">
+                                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.PRODUCTION ? 'bg-green-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
+                                                P
+                                            </div>
+                                        </Tooltip>
+                                    </div>
+                                )}
+                                {user.tokenTypes && user.tokenTypes.length > 0 && (
+                                    <div className="mb-4">
+                                        <div className="flex items-center mb-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 stroke-width="1.5" stroke="currentColor" className="size-6 mr-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/>
+                                            </svg>
+                                            <p className="text-gray-700">Token Types:</p>
+                                        </div>
+                                        <div className="flex gap-2 flex-wrap">
+                                            {user.tokenTypes.map((type, index) => (
+                                                <Chip key={index}>{type}</Chip>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+        </>
     );
-};
+}
 
 export default function Home() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+    const menuLinks = {
+        "Github": "https://github.com/eduMFA/eduMFA/",
+        "Documentation": "https://edumfa.readthedocs.io/",
+        "Mailing List": "https://www.listserv.dfn.de/sympa/info/edumfa-users"
+    }
+
 
     return (
         <main className="flex flex-col min-h-screen bg-gray-100">
-            <nav className="bg-gray-800">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                    <div className="relative flex h-16 items-center justify-between">
-                        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                            <button
-                                type="button"
-                                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                                aria-controls="mobile-menu"
-                                aria-expanded="false"
-                                onClick={() => setIsOpen(!isOpen)}
+            <Navbar
+                shouldHideOnScroll
+                isMenuOpen={isMenuOpen}
+                onMenuOpenChange={setIsMenuOpen}
+            >
+                <NavbarContent className="sm:hidden" justify="start">
+                    <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"}/>
+                </NavbarContent>
+
+                <NavbarContent className="sm:hidden pr-3" justify="center">
+                    <NavbarBrand>
+                        <Image
+                            src="/logo.png"
+                            alt="eduMFA Logo"
+                            width={64}
+                            height={64}
+                            priority
+                        />
+                    </NavbarBrand>
+                </NavbarContent>
+
+                <NavbarContent className="hidden sm:flex gap-4" justify="start">
+                    <NavbarBrand>
+                        <Image
+                            src="/logo.png"
+                            alt="eduMFA Logo"
+                            width={70}
+                            height={70}
+                            priority
+                        />
+                    </NavbarBrand>
+                    {Object.entries(menuLinks).map(([label, link], index) => (
+                        <NavbarItem key={index}>
+                            <Link isExternal color="foreground" href={link}>
+                                {label}
+                            </Link>
+                        </NavbarItem>
+                    ))}
+                </NavbarContent>
+
+                <NavbarMenu>
+                    {Object.entries(menuLinks).map(([label, link], index) => (
+                        <NavbarMenuItem key={`${label}-${index}`}>
+                            <Link
+                                isExternal
+                                href={link}
+                                color="foreground"
+                                className="w-full"
                             >
-                                <span className="sr-only">Open main menu</span>
-
-                                {!isOpen && (
-                                    <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                         stroke="currentColor"
-                                         aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-                                    </svg>
-                                )}
-
-                                {isOpen && (
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                         stroke="currentColor"
-                                         aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                )}
-
-
-                            </button>
-                        </div>
-                        <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                            <div className="flex flex-shrink-0 items-center">
-                                <Image
-                                    src="/logo.png"
-                                    alt="eduMFA Logo"
-                                    width={64}
-                                    height={64}
-                                    priority
-                                />
-                            </div>
-                            <div className="hidden sm:ml-6 sm:block">
-                                <div className="flex space-x-4">
-                                    <Link href="https://github.com/eduMFA/eduMFA/" target={"_blank"}
-                                          className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Github</Link>
-                                    <Link href="https://edumfa.readthedocs.io/" target={"_blank"}
-                                          className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Documentation</Link>
-                                    <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users" target={"_blank"}
-                                          className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Mailing
-                                        List</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                {isOpen && (
-                    <div className="sm:hidden" id="mobile-menu">
-                        <div className="space-y-1 px-2 pb-3 pt-2">
-                            <Link href="https://github.com/eduMFA/eduMFA/" target={"_blank"}
-                                  className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Github</Link>
-                            <Link href="https://edumfa.readthedocs.io/" target={"_blank"}
-                                  className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Documentation</Link>
-                            <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users" target={"_blank"}
-                                  className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Mailing
-                                List</Link>
-                        </div>
-                    </div>
-                )}
-            </nav>
+                                {label}
+                            </Link>
+                        </NavbarMenuItem>
+                    ))}
+                </NavbarMenu>
+            </Navbar>
 
             <div className="container mx-auto px-4 py-8 flex-grow">
                 <section className="mb-8">
@@ -188,19 +215,16 @@ export default function Home() {
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Organizations Using eduMFA</h2>
-                    <div
-                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-                        {organizations.map((org, index) => (
-                            <OrganizationBox
-                                key={index}
-                                name={org.name}
-                                description={org.description}
-                                logoSrc={org.logoSrc}
-                                link={org.link}
-                            />
-                        ))}
-                    </div>
+                    <ScrollShadow className="max-h-96">
+                        <div
+                            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 p-4">
+                            {organizations.map((org, index) => (
+                                <OrganizationBox user={org} key={index}/>
+                            ))}
+                        </div>
+                    </ScrollShadow>
                 </section>
+
 
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Installation</h2>
@@ -216,7 +240,6 @@ export default function Home() {
                         className="text-blue-600 hover:underline">documentation</Link>.
                     </p>
                 </section>
-
             </div>
 
             <footer className="bg-gray-800 text-white py-4">

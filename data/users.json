@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Freie Universität Berlin",
+    "logoSrc": "/organizations/fu_berlin.png",
+    "link": "https://fu-berlin.de",
+    "userCount": 900,
+    "phase": "Production",
+    "tokenTypes": ["IndexedSecret", "TOTP", "WebAuthn", "SMS"]
+  },
+  {
+    "name": "Hochschule München",
+    "logoSrc": "/organizations/hm.png",
+    "link": "https://hm.edu"
+  },
+  {
+    "name": "Universität Bamberg",
+    "logoSrc": "/organizations/uni_bamberg.png",
+    "link": "https://uni-bamberg.de"
+  },
+  {
+    "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
+    "logoSrc": "/organizations/gwdg.png",
+    "link": "https://gwdg.de"
+  }
+]
