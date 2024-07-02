@@ -35,8 +35,7 @@ const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                     src={user.logoSrc}
                     alt={user.name}
                     fill={true}
-                    objectFit={'contain'}
-                    className={'p-2'}
+                    className={'p-2 object-contain'}
                 />
             </Card>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
