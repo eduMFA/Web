@@ -103,6 +103,9 @@ const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         </div>
                                     </div>
                                 )}
+                                {user.userCount == undefined && user.phase == undefined && (user.tokenTypes == undefined || user.tokenTypes.length === 0) && (
+                                    <p className="text-gray-700 mb-4">No additional information available.</p>
+                                )}
                             </ModalBody>
                         </>
                     )}
