@@ -8,20 +8,29 @@ a React framework and [NextUI](https://nextui.org/).
 We like to feature organizations that implemented eduMFA. If you like to add your organization, please create a pull
 request. Follow these steps:
 1. Take your organization logo, name it appropriately for your organization and place it in the `public/organizations` folder.
-2. Add an Entry to the json file `public/users.json`. The entry should look like this:
+2. Add an Entry to the json file `public/users.json`, as shown in the Documentation below.
+3. Submit a pull request.
+
+### Documentation
+`?` - Optional field
+
+| Field       | Type     | Description                                                       |
+|-------------|----------|-------------------------------------------------------------------|
+| name        | string   | The name of the organization.                                     |
+| logoSrc     | string   | The Path to the organization logo, starting with `organizations/` |
+| url         | string   | The URL to the organization.                                      |
+| userCount?  | number   | The approximate number of users using eduMFA, if available.       |
+| phase?      | string   | The phase of the organization implementing eduMFA.                |
+| tokenTypes? | string[] | An array of token types the organization uses.                    |
+
+**Example:**
 ```json
 {
-  "name": "Your Organization Name",
-  "logo": "organizations/your-organization-logo-name.png",
-  "url": "https://your-organization-url.com",
+  "name": "Example Org",
+  "logoSrc": "organizations/example_org.png",
+  "url": "https://example.org",
   "userCount": 1000,
-  "phase": "Evaluation/Testing/Production",
-  "tokenTypes": ["IndexedSecret", "TOTP", ...]
+  "phase": "Testing",
+  "tokenTypes": ["IndexedSecret", "TOTP", "WebAuthn"]
 }
 ```
-- `name` is your official organization name.
-- `logo` is the path to your logo you placed in the `public/organizations` folder.
-- `url` is the URL to your organization.
-- `userCount` is the approximate number of users using eduMFA. It's optional.
-- `phase` is the phase of your organization implementing eduMFA. Applicable values are `Evaluation`, `Testing`, `Production`. It's optional.
-- `tokenTypes` is an array of token types your organization uses. Please refer to the `OrganizationTokenType` enum in `types/organizationTypes.ts` for possible values. It's optional.
