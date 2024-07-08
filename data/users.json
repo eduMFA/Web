@@ -10,7 +10,10 @@
   {
     "name": "Hochschule München",
     "logoSrc": "/organizations/hm.png",
-    "link": "https://hm.edu"
+    "link": "https://hm.edu",
+    "userCount": 100,
+    "phase": "Production",
+    "tokenTypes": ["TOTP", "WebAuthn"]
   },
   {
     "name": "Universität Bamberg",
