@@ -138,22 +138,22 @@ export default function Home() {
                 <NavbarContent className="sm:hidden pr-3" justify="center">
                     <NavbarBrand>
                         <Image
-                            src="/logo.png"
+                            src="/logo.svg"
                             alt="eduMFA Logo"
-                            width={64}
-                            height={64}
+                            width={128}
+                            height={128}
                             priority
                         />
                     </NavbarBrand>
                 </NavbarContent>
 
-                <NavbarContent className="hidden sm:flex gap-4" justify="start">
+                <NavbarContent className="hidden mx-auto sm:flex gap-4" justify="start">
                     <NavbarBrand>
                         <Image
-                            src="/logo.png"
+                            src="/logo.svg"
                             alt="eduMFA Logo"
-                            width={70}
-                            height={70}
+                            width={128}
+                            height={128}
                             priority
                         />
                     </NavbarBrand>
