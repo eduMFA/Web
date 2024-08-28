@@ -3,7 +3,7 @@
     "name": "Freie Universität Berlin",
     "logoSrc": "/organizations/fu_berlin.png",
     "link": "https://fu-berlin.de",
-    "userCount": 900,
+    "userCount": 3000,
     "phase": "Production",
     "tokenTypes": ["IndexedSecret", "TOTP", "WebAuthn", "SMS"]
   },
