@@ -1,0 +1,41 @@
+name: Add an organization
+description: Request an organization to be added and featured on edumfa.io
+labels: organization
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for taking the time to add an organization to edumfa.io! If you're 
+
+        If possible, we ask you to create a pull request with the changes directly. This shortens the processing time. 
+        If you're unable to do so, please fill out the form below and we'll get to it as soon as possible.
+  - type: input
+    attributes:
+      label: Organization Name
+      description: The name of your organization.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Organization URL
+      description: The URL of your organization.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Implementation Phase
+      description: What phase of implementation of eduMFA is your organization in?
+      options:
+        - Evaluation
+        - Testing
+        - Production
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Token Types
+      description: The types of tokens your organization uses. (e.g. TOTP, SMS, Email) Optional.
+  - type: input
+    attributes:
+      label: Approximate User Count
+      description: The approximate number of users in your organization. Optional.
