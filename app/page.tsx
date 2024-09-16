@@ -92,33 +92,78 @@ export default function Home() {
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">About eduMFA</h2>
                     <p className="text-gray-700">
-                        eduMFA is a modular authentication system that enhances existing applications with a second
-                        factor
-                        during authentication, boosting security. Originally used for OTP authentication devices, it now
-                        supports other methods like challenge response and SSH keys. It runs on Linux and is completely
-                        open
-                        source, licensed under the AGPLv3.
+                        eduMFA is a comprehensive authentication system that enhances existing applications with
+                        multi-factor authentication, significantly improving security. Originally forked from
+                        privacyIDEA version 3.9.2, eduMFA has evolved into a robust solution deeply integrated with
+                        Shibboleth, making
+                        it particularly suited for academic and research environments. It supports various
+                        authentication methods, including OTP devices, challenge-response mechanisms, SSH keys, and the
+                        cutting-edge Passkeys technology.
+                    </p>
+                    <p className="text-gray-700 mt-2">
+                        Running on Linux and entirely open-source under the AGPLv3 license, eduMFA offers a flexible and
+                        powerful plugin system. This allows for seamless integration with various identity management
+                        systems and applications, extending its functionality to meet diverse authentication needs. All
+                        features of eduMFA can be used free of charge.
                     </p>
                 </section>
 
                 <section className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Why eduMFA?</h2>
+                    <h2 className="text-2xl font-bold mb-4">Key Features and Goals</h2>
+                    <ul className="list-disc list-inside text-gray-700">
+                        <li>Multi-factor authentication support for enhanced security</li>
+                        <li>Deep integration with Shibboleth for academic and research environments</li>
+                        <li>Support for modern authentication methods, including Passkeys</li>
+                        <li>Easy migration path from privacyIDEA and other authentication systems</li>
+                        <li>Continuous development based on the scientific community&apos;s requirements</li>
+                        <li>Focus on using and maintaining up-to-date, current software components</li>
+                        <li>Support for the latest Python versions (currently Python 3.8 to 3.12)</li>
+                        <li>Official support for container deployment, enabling seamless scaling in Kubernetes
+                            clusters
+                        </li>
+                        <li>eduMFA Authenticator App for push notifications</li>
+                    </ul>
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Why Choose eduMFA?</h2>
                     <p className="text-gray-700">
-                        eduMFA provides enhanced protection against hacking attacks for IT services in the academic
-                        network. It
-                        enables multi-factor authentication, making traditional username-password combinations obsolete.
-                        The
-                        &apos;Passkeys&apos; method, a focus of eduMFA, locks a security key into a safe, accessible
-                        only through
-                        additional
-                        methods like biometric scans or PINs. Passkeys are resistant to phishing attacks, can be
-                        synchronized
-                        between compatible devices, and offer a seamless user experience with strong, secure
-                        authentication. eduMFA
-                        is already in use at several universities and is being further developed according to the
-                        requirements of
-                        the scientific community.
+                        eduMFA provides robust protection against hacking attacks for IT services in academic networks
+                        and beyond. By enabling multi-factor authentication, it renders traditional username-password
+                        combinations obsolete. The &apos;Passkeys&apos; method, a key focus of eduMFA, securely stores
+                        authentication keys, accessible only through additional methods like biometric scans or PINs.
+                        This approach offers strong resistance to phishing attacks, allows synchronization between
+                        compatible devices, and delivers a seamless user experience without compromising on security.
                     </p>
+                    <p className="text-gray-700 mt-2">
+                        Already in use at several universities across Europe, including institutions in Germany, Czech
+                        Republic, and Norway, eduMFA is continuously evolving to meet the dynamic
+                        needs of the scientific and broader IT community. Its commitment to using current, up-to-date
+                        software ensures that users always have access to the latest security features and improvements.
+                    </p>
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Support and Development</h2>
+                    <p className="text-gray-700">
+                        eduMFA benefits from a strong support network and an active development community:
+                    </p>
+                    <ul className="list-disc list-inside text-gray-700 mt-2">
+                        <li>Commercial support, consulting, implementation, 2nd-level support, and managed services are
+                            available from trusted companies like DAASI International, GWDG, and Ssystems.
+                        </li>
+                        <li>The development team includes contributors from leading institutions such as Freie
+                            Universität Berlin, GWDG, Hochschule München, and University of Bamberg.
+                        </li>
+                        <li>This collaborative approach ensures that eduMFA remains at the forefront of authentication
+                            technology, addressing real-world needs in academic and research environments.
+                        </li>
+                        <li>A <Link href="https://www.listserv.dfn.de/sympa/info/edumfa-users" isExternal
+                                    showAnchorIcon>user mailing list</Link> is available for community support and
+                            discussions.
+                        </li>
+                        <li>Issues and feature requests can be submitted on the GitHub repository.</li>
+                    </ul>
                 </section>
 
                 <section className="mb-8">
@@ -133,7 +178,6 @@ export default function Home() {
                     </ScrollShadow>
                 </section>
 
-
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Installation</h2>
                     <p className="text-gray-700">
@@ -144,8 +188,8 @@ export default function Home() {
                     <br/>
                     <p className="text-gray-700">
                         You can learn more about the installation process in the <Link
-                        href={"https://edumfa.readthedocs.io/en/latest/installation/index.html"} target={"_blank"}
-                        className="text-blue-600 hover:underline">documentation</Link>.
+                        href="https://edumfa.readthedocs.io/en/latest/installation/index.html" isExternal
+                        showAnchorIcon>documentation</Link>.
                     </p>
                 </section>
             </div>
