@@ -5,8 +5,7 @@ a React framework and [NextUI](https://nextui.org/).
 
 ## Add your Organization
 
-We like to feature organizations that implemented eduMFA. If you like to add your organization, please [create an issue](https://github.com/eduMFA/Web/issues/new?labels=organization&template=add_organization.yml).
-
+We like to feature organizations that implemented eduMFA. If you like to add your organization, please [create an issue](https://github.com/eduMFA/Web/issues/new?labels=organization&title=%5BOrg%5D+&template=add_organization.yml).
 ### Organization Documentation
 
 `?` - Optional field
