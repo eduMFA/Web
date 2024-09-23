@@ -1,9 +1,7 @@
 name: Add an organization
 description: Request an organization to be added and featured on edumfa.io
-title: "[Org]: "
+title: "[Org] "
 labels: organization
-assignees:
-  - luc1412
 body:
   - type: markdown
     attributes:

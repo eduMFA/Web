@@ -5,16 +5,9 @@ a React framework and [NextUI](https://nextui.org/).
 
 ## Add your Organization
 
-> [!NOTE]
-> If you are inexperienced with git and creating pull requests, you can also [open a pull request](https://github.com/eduMFA/Web/issues/new?assignees=luc1412&labels=organization&projects=&template=add_organization.yml).
+We like to feature organizations that implemented eduMFA. If you like to add your organization, please [create an issue](https://github.com/eduMFA/Web/issues/new?labels=organization&template=add_organization.yml).
 
-We like to feature organizations that implemented eduMFA. If you like to add your organization, please create a pull
-request. Follow these steps:
-1. Take your organization logo, name it appropriately for your organization and place it in the `public/organizations` folder.
-2. Add an Entry to the json file `data/users.json`, as shown in the Documentation below.
-3. Submit a pull request.
-
-### Documentation
+### Organization Documentation
 
 `?` - Optional field
 
