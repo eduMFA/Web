@@ -35,8 +35,8 @@
   },
   {
     "name": "Hochschule Landshut",
-    "logoSrc": "organizations/hochschule-landshut.png",
-    "url": "www.haw-landshut.de",
+    "logoSrc": "organizations/hochschule-landshut.svg",
+    "url": "https://haw-landshut.de",
     "userCount": 5500,
     "phase": "Evaluation",
     "tokenTypes": [
