@@ -18,7 +18,7 @@ body:
   - type: input
     attributes:
       label: Organization URL
-      description: The URL of your organization.
+      description: The URL leading to your organization's website. Should start with `https://`.
     validations:
       required: true
   - type: textarea
