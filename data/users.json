@@ -1,7 +1,7 @@
 [
   {
     "name": "Freie Universität Berlin",
-    "logoSrc": "/organizations/fu_berlin.png",
+    "logoSrc": "/organizations/freie-universitaet-berlin.png",
     "link": "https://fu-berlin.de",
     "userCount": 3000,
     "phase": "Production",
@@ -14,7 +14,7 @@
   },
   {
     "name": "Hochschule München",
-    "logoSrc": "/organizations/hm.png",
+    "logoSrc": "/organizations/hochschule-muenchen.png",
     "link": "https://hm.edu",
     "userCount": 100,
     "phase": "Production",
@@ -25,12 +25,12 @@
   },
   {
     "name": "Universität Bamberg",
-    "logoSrc": "/organizations/uni_bamberg.png",
+    "logoSrc": "/organizations/universitaet-bamberg.png",
     "link": "https://uni-bamberg.de"
   },
   {
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
-    "logoSrc": "/organizations/gwdg.png",
+    "logoSrc": "/organizations/gesellschaft-fuer-wissenschaftliche-datenverarbeitung.png",
     "link": "https://gwdg.de"
   },
   {
