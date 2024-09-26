@@ -65,5 +65,15 @@
       "TOTP",
       "PUSH"
     ]
+  },
+  {
+    "name": "Universität Potsdam",
+    "logoSrc": "/organizations/universit-t-potsdam.50220f21-a0ea-4cd4-b336-ac2cf9320090",
+    "url": "https://www.uni-potsdam.de/",
+    "userCount": null,
+    "phase": "Evaluation",
+    "tokenTypes": [
+      "null"
+    ]
   }
 ]
