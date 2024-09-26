@@ -54,5 +54,16 @@
     "tokenTypes": [
       "TOTP"
     ]
+  },
+  {
+    "name": "University of Oslo",
+    "logoSrc": "organizations/university-of-oslo.svg",
+    "url": "https://uio.no",
+    "userCount": 30000,
+    "phase": "Evaluation",
+    "tokenTypes": [
+      "TOTP",
+      "PUSH"
+    ]
   }
 ]
