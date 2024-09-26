@@ -34,6 +34,18 @@
     "link": "https://gwdg.de"
   },
   {
+    "name": "Hochschule Landshut",
+    "logoSrc": "organizations/hochschule-landshut.svg",
+    "url": "https://haw-landshut.de",
+    "userCount": 5500,
+    "phase": "Evaluation",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn",
+      "Email"
+    ]
+  },
+  {
     "name": "University of Hohenheim",
     "logoSrc": "organizations/university-of-hohenheim.png",
     "url": "https://www.uni-hohenheim.de",

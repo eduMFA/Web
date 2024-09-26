@@ -22,12 +22,12 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          ORG_NAME=$(echo "$ISSUE_BODY" | grep -i '### Organization Name' -A 2 | tail -n1 | xargs)
-          ORG_URL=$(echo "$ISSUE_BODY" | grep -i '### Organization URL' -A 2 | tail -n1 | xargs)
-          ORG_IMAGE=$(echo "$ISSUE_BODY" | grep -i '### Organization Image' -A 2 | tail -n1 | xargs)
-          ORG_PHASE=$(echo "$ISSUE_BODY" | grep -i '### Implementation Phase' -A 2 | tail -n1 | xargs)
-          ORG_TOKENS=$(echo "$ISSUE_BODY" | grep -i '### Token Types' -A 2 | tail -n1 | xargs)
-          ORG_USER_COUNT=$(echo "$ISSUE_BODY" | grep -i '### Approximate User Count' -A 2 | tail -n1 | xargs)
+          ORG_NAME=$(echo "$ISSUE_BODY" | awk '/### Organization Name/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          ORG_URL=$(echo "$ISSUE_BODY" | awk '/### Organization URL/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          ORG_IMAGE=$(echo "$ISSUE_BODY" | awk '/### Organization Image/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          ORG_PHASE=$(echo "$ISSUE_BODY" | awk '/### Implementation Phase/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          ORG_TOKENS=$(echo "$ISSUE_BODY" | awk '/### Token Types/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          ORG_USER_COUNT=$(echo "$ISSUE_BODY" | awk '/### Approximate User Count/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
 
           # Handle image parsing: check for both URL and markdown image format
           if [[ "$ORG_IMAGE" =~ \!\[.*\]\((.*)\) ]]; then
@@ -54,22 +54,17 @@ jobs:
           key: ORG_NAME
       - name: Download organization image
         run: |
-          # Download the image with the correct extension
-          curl -sL "$ORG_IMAGE" -o "public/organizations/$ORG_NAME_SLUG.png"
-          CURL_EXIT_CODE=$?
-          
-          # Check if the download was successful
-          if [ $CURL_EXIT_CODE -ne 0 ]; then
-            echo "Image download failed. Creating an issue comment."
-            # Create an issue comment to notify about the failure
-            gh issue comment ${{ github.event.issue.number }} --body "The image download for the organization has failed. Please verify that you either provided a valid image URL or pasted the image directly."
-            exit 1
-          fi
+          # Download the image with the original name
+          curl -O -J -L "$ORG_IMAGE"
+          FILE_NAME=$(ls -t | head -n1)
+          IMAGE_EXT="${FILE_NAME##*.}"
+          echo "IMAGE_EXT=$IMAGE_EXT" >> $GITHUB_ENV
+          mv "$FILE_NAME" "public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT"
       - name: Update users.json
         run: |
           ORG_ENTRY=$(jq -n \
           --arg name "$ORG_NAME" \
-          --arg logo "organizations/$ORG_NAME_SLUG.png" \
+          --arg logo "organizations/$ORG_NAME_SLUG.$IMAGE_EXT" \
           --arg url "$ORG_URL" \
           --argjson userCount "${ORG_USER_COUNT:-null}" \
           --arg phase "$ORG_PHASE" \
@@ -81,7 +76,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/organizations/$ORG_NAME_SLUG.png data/users.json
+          git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT data/users.json
           git commit -m "Add organization $ORG_NAME"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -99,4 +94,6 @@ jobs:
           labels: organization
           reviewers: luc1412
       - name: Comment on issue
-        run: gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!\nA pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!
+          A pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
