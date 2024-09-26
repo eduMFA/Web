@@ -5,7 +5,12 @@
     "link": "https://fu-berlin.de",
     "userCount": 3000,
     "phase": "Production",
-    "tokenTypes": ["IndexedSecret", "TOTP", "WebAuthn", "SMS"]
+    "tokenTypes": [
+      "IndexedSecret",
+      "TOTP",
+      "WebAuthn",
+      "SMS"
+    ]
   },
   {
     "name": "Hochschule München",
@@ -13,7 +18,10 @@
     "link": "https://hm.edu",
     "userCount": 100,
     "phase": "Production",
-    "tokenTypes": ["TOTP", "WebAuthn"]
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn"
+    ]
   },
   {
     "name": "Universität Bamberg",
@@ -24,5 +32,17 @@
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
     "logoSrc": "/organizations/gwdg.png",
     "link": "https://gwdg.de"
+  },
+  {
+    "name": "Hochschule Landshut",
+    "logoSrc": "organizations/hochschule-landshut.svg",
+    "url": "https://haw-landshut.de",
+    "userCount": 5500,
+    "phase": "Evaluation",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn",
+      "Email"
+    ]
   }
 ]
