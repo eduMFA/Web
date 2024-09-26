@@ -22,12 +22,12 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          ORG_NAME=$(echo "$ISSUE_BODY" | grep -i '### Organization Name' -A 2 | tail -n1 | xargs)
-          ORG_URL=$(echo "$ISSUE_BODY" | grep -i '### Organization URL' -A 2 | tail -n1 | xargs)
-          ORG_IMAGE=$(echo "$ISSUE_BODY" | grep -i '### Organization Image' -A 2 | tail -n1 | xargs)
-          ORG_PHASE=$(echo "$ISSUE_BODY" | grep -i '### Implementation Phase' -A 2 | tail -n1 | xargs)
-          ORG_TOKENS=$(echo "$ISSUE_BODY" | grep -i '### Token Types' -A 2 | tail -n1 | xargs)
-          ORG_USER_COUNT=$(echo "$ISSUE_BODY" | grep -i '### Approximate User Count' -A 2 | tail -n1 | xargs)
+          ORG_NAME=$(echo "$ISSUE_BODY" | awk '/### Organization Name/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
+          ORG_URL=$(echo "$ISSUE_BODY" | awk '/### Organization URL/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
+          ORG_IMAGE=$(echo "$ISSUE_BODY" | awk '/### Organization Image/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
+          ORG_PHASE=$(echo "$ISSUE_BODY" | awk '/### Implementation Phase/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
+          ORG_TOKENS=$(echo "$ISSUE_BODY" | awk '/### Token Types/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
+          ORG_USER_COUNT=$(echo "$ISSUE_BODY" | awk '/### Approximate User Count/{getline; while($0 ~ /^ *$/){getline}; print; exit}')
 
           # Handle image parsing: check for both URL and markdown image format
           if [[ "$ORG_IMAGE" =~ \!\[.*\]\((.*)\) ]]; then
