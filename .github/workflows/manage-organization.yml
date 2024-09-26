@@ -57,13 +57,14 @@ jobs:
           # Download the image with the original name
           curl -O -J -L "$ORG_IMAGE"
           FILE_NAME=$(ls -t | head -n1)
-          EXT="${FILE_NAME##*.}"
-          mv "$FILE_NAME" "public/organizations/$ORG_NAME_SLUG.$EXT"
+          IMAGE_EXT="${FILE_NAME##*.}"
+          echo "IMAGE_EXT=$IMAGE_EXT" >> $GITHUB_ENV
+          mv "$FILE_NAME" "public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT"
       - name: Update users.json
         run: |
           ORG_ENTRY=$(jq -n \
           --arg name "$ORG_NAME" \
-          --arg logo "organizations/$ORG_NAME_SLUG.$EXT" \
+          --arg logo "organizations/$ORG_NAME_SLUG.$IMAGE_EXT" \
           --arg url "$ORG_URL" \
           --argjson userCount "${ORG_USER_COUNT:-null}" \
           --arg phase "$ORG_PHASE" \
@@ -75,7 +76,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/organizations/$ORG_NAME_SLUG.$EXT data/users.json
+          git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT data/users.json
           git commit -m "Add organization $ORG_NAME"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
