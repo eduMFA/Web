@@ -35,7 +35,7 @@
   },
   {
     "name": "Hochschule Landshut",
-    "logoSrc": "organizations/hochschule-landshut.svg",
+    "logoSrc": "/organizations/hochschule-landshut.svg",
     "url": "https://haw-landshut.de",
     "userCount": 5500,
     "phase": "Evaluation",
@@ -47,7 +47,7 @@
   },
   {
     "name": "University of Hohenheim",
-    "logoSrc": "organizations/university-of-hohenheim.svg",
+    "logoSrc": "/organizations/university-of-hohenheim.svg",
     "url": "https://www.uni-hohenheim.de",
     "userCount": 11000,
     "phase": "Production",
@@ -57,7 +57,7 @@
   },
   {
     "name": "University of Oslo",
-    "logoSrc": "organizations/university-of-oslo.svg",
+    "logoSrc": "/organizations/university-of-oslo.jpeg",
     "url": "https://uio.no",
     "userCount": 30000,
     "phase": "Evaluation",
