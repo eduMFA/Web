@@ -6,10 +6,9 @@ body:
   - type: markdown
     attributes:
       value: >
-        Thanks for taking the time to add an organization to edumfa.io!
-
-        If possible, we ask you to create a pull request with the changes directly. This shortens the processing time. 
-        If you're unable to do so, please fill out the form below and we'll get to it as soon as possible.
+        Thanks for taking the time to add an organization to edumfa.io! 
+        
+        Please fill out the following information to request an organization to be added and featured on the site.
   - type: input
     attributes:
       label: Organization Name
@@ -25,7 +24,7 @@ body:
   - type: textarea
     attributes:
       label: Organization Image
-      description: The image of your organization. Please provide a link or paste the image directly.
+      description: The image of your organization. Please provide a link or paste the image directly. Preferably with transparent background.
     validations:
       required: true
   - type: dropdown
