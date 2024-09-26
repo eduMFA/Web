@@ -93,4 +93,6 @@ jobs:
           labels: organization
           reviewers: luc1412
       - name: Comment on issue
-        run: gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!\nA pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!
+          A pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
