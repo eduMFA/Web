@@ -31,7 +31,13 @@
   {
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
     "logoSrc": "/organizations/gesellschaft-fuer-wissenschaftliche-datenverarbeitung.png",
-    "link": "https://gwdg.de"
+    "link": "https://gwdg.de",
+    "userCount": 8000,
+    "phase": "Production",
+    "tokenTypes": [
+      "TOTP",
+      "PUSH"
+    ]
   },
   {
     "name": "Hochschule Landshut",
