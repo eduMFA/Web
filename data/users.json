@@ -77,5 +77,16 @@
     "logoSrc": "/organizations/universitaet-potsdam.png",
     "url": "https://www.uni-potsdam.de/",
     "phase": "Evaluation"
+  },
+  {
+    "name": "Technische Hochschule Aschaffenburg",
+    "logoSrc": "/organizations/technische-hochschule-aschaffenburg.svg",
+    "link": "https://th-ab.de",
+    "userCount": 4000,
+    "phase": "Production",
+    "tokenTypes": [
+       "TOTP",
+       "WebAuthn"
+    ]
   }
 ]
