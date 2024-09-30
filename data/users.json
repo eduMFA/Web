@@ -24,9 +24,17 @@
     ]
   },
   {
-    "name": "Universität Bamberg",
-    "logoSrc": "/organizations/universitaet-bamberg.png",
-    "link": "https://uni-bamberg.de"
+    "name": "Otto-Friedrich-Universität Bamberg",
+    "logoSrc": "/organizations/otto-friedrich-universitaet-bamberg.png",
+    "link": "https://uni-bamberg.de",
+    "userCount": 1000,
+    "phase": "Production",
+    "tokenTypes": [
+      "WebAuthn",
+      "TOTP",
+      "HOTP",
+      "Remote"
+    ]
   },
   {
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
