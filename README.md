@@ -15,7 +15,7 @@ We like to feature organizations that implemented eduMFA. If you like to add you
 | name        | string   | The name of the organization.                                     |
 | logoSrc     | string   | The Path to the organization logo, starting with `organizations/` |
 | url         | string   | The URL to the organization.                                      |
-| userCount?  | number   | The approximate number of users using eduMFA, if available.       |
+| userCount?  | number   | The approximate number of users enrolled to eduMFA, if available. |
 | phase?      | string   | The phase of the organization implementing eduMFA.                |
 | tokenTypes? | string[] | An array of token types the organization uses.                    |
 
