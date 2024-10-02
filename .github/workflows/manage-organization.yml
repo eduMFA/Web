@@ -54,7 +54,7 @@ jobs:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
             try {
-              core.setOutput('valid', String(script({github, context, core})));
+              core.setOutput('valid', String(await script({github, context, core})));
             } catch (error) {
               core.setFailed(`Script execution failed: ${error.message}`);
             }

@@ -1,7 +1,7 @@
 [
   {
     "name": "Freie Universität Berlin",
-    "logoSrc": "/organizations/freie-universitaet-berlin.png",
+    "logoSrc": "/organizations/freie-universitat-berlin.png",
     "link": "https://fu-berlin.de",
     "userCount": 3000,
     "phase": "Production",
@@ -14,7 +14,7 @@
   },
   {
     "name": "Hochschule München",
-    "logoSrc": "/organizations/hochschule-muenchen.png",
+    "logoSrc": "/organizations/hochschule-munchen.png",
     "link": "https://hm.edu",
     "userCount": 100,
     "phase": "Production",
@@ -25,7 +25,7 @@
   },
   {
     "name": "Otto-Friedrich-Universität Bamberg",
-    "logoSrc": "/organizations/otto-friedrich-universitaet-bamberg.png",
+    "logoSrc": "/organizations/otto-friedrich-universitat-bamberg.png",
     "link": "https://uni-bamberg.de",
     "userCount": 1000,
     "phase": "Production",
@@ -38,7 +38,7 @@
   },
   {
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
-    "logoSrc": "/organizations/gesellschaft-fuer-wissenschaftliche-datenverarbeitung.png",
+    "logoSrc": "/organizations/gesellschaft-fur-wissenschaftliche-datenverarbeitung.png",
     "link": "https://gwdg.de",
     "userCount": 8000,
     "phase": "Production",
@@ -80,7 +80,7 @@
   },
   {
     "name": "Universität Potsdam",
-    "logoSrc": "/organizations/universitaet-potsdam.png",
+    "logoSrc": "/organizations/universitat-potsdam.png",
     "url": "https://www.uni-potsdam.de/",
     "phase": "Evaluation"
   },
