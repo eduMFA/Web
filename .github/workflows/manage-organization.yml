@@ -11,8 +11,7 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  create-pull-request:
-    if: contains(github.event.issue.labels.*.name, 'organization')
+  open-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,63 +21,53 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          ORG_NAME=$(echo "$ISSUE_BODY" | awk '/### Organization Name/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
-          ORG_URL=$(echo "$ISSUE_BODY" | awk '/### Organization URL/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
-          ORG_IMAGE=$(echo "$ISSUE_BODY" | awk '/### Organization Image/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
-          ORG_PHASE=$(echo "$ISSUE_BODY" | awk '/### Implementation Phase/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
-          ORG_TOKENS=$(echo "$ISSUE_BODY" | awk '/### Token Types/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
-          ORG_USER_COUNT=$(echo "$ISSUE_BODY" | awk '/### Approximate User Count/{flag=1; next} /^###/{flag=0} flag' | awk 'NF')
+          declare -A fields=(
+            ["ORG_NAME"]="Organization Name"
+            ["ORG_URL"]="Organization URL"
+            ["ORG_IMAGE"]="Organization Image"
+            ["ORG_PHASE"]="Implementation Phase"
+            ["ORG_TOKENS"]="Token Types"
+            ["ORG_USER_COUNT"]="Approximate eduMFA enrolled users"
+          )
 
-          # Handle image parsing: check for both URL and markdown image format
-          if [[ "$ORG_IMAGE" =~ \!\[.*\]\((.*)\) ]]; then
-            ORG_IMAGE="${BASH_REMATCH[1]}"
-          fi
-
-          # Replace "_No response_" with null
-          if [[ "$ORG_TOKENS" == "_No response_" ]]; then
-            ORG_TOKENS="null"
-          fi
-          if [[ "$ORG_USER_COUNT" == "_No response_" ]]; then
-            ORG_USER_COUNT="null"
-          fi
-
-          echo "ORG_NAME=$ORG_NAME" >> $GITHUB_ENV
-          echo "ORG_URL=$ORG_URL" >> $GITHUB_ENV
-          echo "ORG_IMAGE=$ORG_IMAGE" >> $GITHUB_ENV
-          echo "ORG_PHASE=$ORG_PHASE" >> $GITHUB_ENV
-          echo "ORG_TOKENS=$ORG_TOKENS" >> $GITHUB_ENV
-          echo "ORG_USER_COUNT=$ORG_USER_COUNT" >> $GITHUB_ENV
-      - name: Slugify organization name
-        uses: rlespinasse/slugify-value@v1
+          for key in "${!fields[@]}"; do
+            value=$(echo "$ISSUE_BODY" | awk "/### ${fields[$key]}/{flag=1; next} /^###/{flag=0} flag" | awk 'NF')
+            if [[ "$key" == "ORG_IMAGE" && "$value" =~ \!\[.*\]\((.*)\) ]]; then
+              value="${BASH_REMATCH[1]}"
+            fi
+            if [[ "$value" == "_No response_" ]]; then
+              value="null"
+            fi
+            echo "$key=$value" >> $GITHUB_ENV
+          done
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          key: ORG_NAME
-      - name: Download organization image
-        run: |
-          # Download the image with the original name
-          curl -O -J -L "$ORG_IMAGE"
-          FILE_NAME=$(ls -t | head -n1)
-          IMAGE_EXT="${FILE_NAME##*.}"
-          echo "IMAGE_EXT=$IMAGE_EXT" >> $GITHUB_ENV
-          mv "$FILE_NAME" "public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT"
-      - name: Update users.json
-        run: |
-          ORG_ENTRY=$(jq -n \
-          --arg name "$ORG_NAME" \
-          --arg logo "/organizations/$ORG_NAME_SLUG.$IMAGE_EXT" \
-          --arg url "$ORG_URL" \
-          --argjson userCount "${ORG_USER_COUNT:-null}" \
-          --arg phase "$ORG_PHASE" \
-          --argjson tokens "$(echo "$ORG_TOKENS" | jq -R 'split(",") | map(select(length > 0)) | map(gsub("^\\s+|\\s+$"; ""))')" \
-          '{name: $name, logoSrc: $logo, url: $url, userCount: $userCount, phase: $phase, tokenTypes: $tokens}')
-
-          jq --argjson entry "$ORG_ENTRY" '. += [$entry]' data/users.json > tmp.json && mv tmp.json data/users.json
+          node-version: 20
+      - run: |
+          npm install -g slugify
+          npm link slugify
+      - name: Update data
+        id: update_data
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
+            try {
+              core.setOutput('valid', String(script({github, context, core})));
+            } catch (error) {
+              core.setFailed(`Script execution failed: ${error.message}`);
+            }
       - name: Commit changes
+        if: steps.update_data.outputs.valid == 'true'
         run: |
+          echo "Valid status: ${{ steps.update_data.outputs.valid }}"
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT data/users.json
           git commit -m "Add organization $ORG_NAME"
       - name: Create Pull Request
+        if: steps.update_data.outputs.valid == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "Added ${{ env.ORG_NAME }} organization"
@@ -94,6 +83,7 @@ jobs:
           labels: organization
           reviewers: luc1412
       - name: Comment on issue
+        if: steps.update_data.outputs.valid == 'true'
         run: |
           gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!
           A pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
