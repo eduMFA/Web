@@ -1,14 +1,14 @@
-name: Add an organization
-description: Request an organization to be added and featured on edumfa.io
+name: Add or update an organization
+description: Request an organization to be added or updated on edumfa.io
 title: "[Org] "
 labels: organization
 body:
   - type: markdown
     attributes:
       value: >
-        Thanks for taking the time to add an organization to edumfa.io! 
+        Thanks for taking the time to add or update an organization to edumfa.io! 
         
-        Please fill out the following information to request an organization to be added and featured on the site.
+        If you want to update an existing organization, please make sure to provide the exact same **Organization Name** as the one already listed on the site.
   - type: input
     attributes:
       label: Organization Name
@@ -24,7 +24,8 @@ body:
   - type: textarea
     attributes:
       label: Organization Image
-      description: The image of your organization. Please provide a link or paste the image directly. Preferably with transparent background.
+      description: >
+        The image of your organization. Please provide a link or paste the image directly. Preferably with transparent background. Supported formats: PNG, JPEG, WEBP, SVG.
     validations:
       required: true
   - type: dropdown
