@@ -106,7 +106,7 @@ module.exports = async ({ github, context, core }) => {
   }
   if (orgUserCount) user.userCount = orgUserCount
   if (orgEnrolledUserCount) user.enrolledUserCount = orgEnrolledUserCount
-  if (orgTokens) user.tokens = orgTokens.split(',').map(token => token.trim())
+  if (orgTokens) user.tokenTypes = orgTokens.split(',').map(token => token.trim())
 
   // Check if org with name already exists. If it does, update the existing org, else add the new org
   const existingOrgIndex = users.findIndex(user => user.name === orgName)

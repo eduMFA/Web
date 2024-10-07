@@ -105,7 +105,7 @@
     "url": "https://charite.de",
     "phase": "Production",
     "userCount": "30000",
-    "tokens": [
+    "tokenTypes": [
       "TOTP",
       "YubiKey"
     ]
