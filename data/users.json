@@ -98,5 +98,16 @@
       "TOTP",
       "WebAuthn"
     ]
+  },
+  {
+    "name": "Charité – Universitätsmedizin Berlin",
+    "logoSrc": "/organizations/charite-universitatsmedizin-berlin.svg",
+    "url": "https://charite.de",
+    "phase": "Production",
+    "userCount": "30000",
+    "tokens": [
+      "TOTP",
+      "YubiKey"
+    ]
   }
 ]
