@@ -176,6 +176,11 @@ export default function Home() {
                             ))}
                         </div>
                     </ScrollShadow>
+                    <p className="text-gray-500 mt-2 text-sm italic">
+                        Is your organization using eduMFA? <Link
+                        href="https://github.com/eduMFA/Web/issues/new?labels=organization&title=%5BOrg%5D+&template=manage_organization.yml"
+                        isExternal>Add it to the list</Link>.
+                    </p>
                 </section>
 
                 <section className="mb-8">
