@@ -53,6 +53,7 @@
     "logoSrc": "/organizations/hochschule-landshut.svg",
     "url": "https://haw-landshut.de",
     "phase": "Evaluation",
+    "userCount": 5500,
     "tokenTypes": [
       "TOTP",
       "WebAuthn",
@@ -74,6 +75,7 @@
     "logoSrc": "/organizations/university-of-oslo.jpeg",
     "url": "https://uio.no",
     "phase": "Evaluation",
+    "userCount": 30000,
     "tokenTypes": [
       "TOTP",
       "PUSH"
