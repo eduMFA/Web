@@ -119,5 +119,18 @@
       "TOTP",
       "YubiKey"
     ]
+  },
+  {
+    "updatedAt": "2024-10-07T15:28:32.544Z",
+    "name": "RPTU Kaiserslautern-Landau",
+    "logoSrc": "/organizations/rptu-kaiserslautern-landau.svg",
+    "url": "https://rptu.de",
+    "phase": "Testing",
+    "userCount": "23000",
+    "tokenTypes": [
+      "IndexedSecret",
+      "TOTP",
+      "WebAuthn"
+    ]
   }
 ]
