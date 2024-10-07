@@ -43,6 +43,7 @@ interface Organization {
 export interface Creator extends Organization {}
 
 export interface User extends Organization {
+    updatedAt: string;
     phase: OrganizationImplementationPhase;
     userCount?: number;
     enrolledUserCount?: number;

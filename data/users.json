@@ -1,5 +1,6 @@
 [
   {
+    "updatedAt": "2024-10-07T12:00:00.000Z",
     "name": "Freie Universität Berlin",
     "logoSrc": "/organizations/freie-universitat-berlin.png",
     "link": "https://fu-berlin.de",
@@ -14,6 +15,7 @@
     ]
   },
   {
+    "updatedAt": "2024-10-07T14:00:00.000Z",
     "name": "Hochschule München",
     "logoSrc": "/organizations/hochschule-munchen.png",
     "link": "https://hm.edu",
@@ -26,6 +28,7 @@
     ]
   },
   {
+    "updatedAt": "2024-09-30T14:00:00.000Z",
     "name": "Otto-Friedrich-Universität Bamberg",
     "logoSrc": "/organizations/otto-friedrich-universitat-bamberg.png",
     "link": "https://uni-bamberg.de",
@@ -39,6 +42,7 @@
     ]
   },
   {
+    "updatedAt": "2024-09-27T08:00:00.000Z",
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
     "logoSrc": "/organizations/gesellschaft-fur-wissenschaftliche-datenverarbeitung.png",
     "link": "https://gwdg.de",
@@ -50,6 +54,7 @@
     ]
   },
   {
+    "updatedAt": "2024-09-26T09:00:00.000Z",
     "name": "Hochschule Landshut",
     "logoSrc": "/organizations/hochschule-landshut.svg",
     "url": "https://haw-landshut.de",
@@ -62,6 +67,7 @@
     ]
   },
   {
+    "updatedAt": "2024-09-26T09:00:00.000Z",
     "name": "University of Hohenheim",
     "logoSrc": "/organizations/university-of-hohenheim.svg",
     "url": "https://www.uni-hohenheim.de",
@@ -72,6 +78,7 @@
     ]
   },
   {
+    "updatedAt": "2024-09-26T09:00:00.000Z",
     "name": "University of Oslo",
     "logoSrc": "/organizations/university-of-oslo.jpeg",
     "url": "https://uio.no",
@@ -83,12 +90,14 @@
     ]
   },
   {
+    "updatedAt": "2024-09-26T14:00:00.000Z",
     "name": "Universität Potsdam",
     "logoSrc": "/organizations/universitat-potsdam.png",
     "url": "https://www.uni-potsdam.de/",
     "phase": "Evaluation"
   },
   {
+    "updatedAt": "2024-09-27T20:00:00.000Z",
     "name": "Technische Hochschule Aschaffenburg",
     "logoSrc": "/organizations/technische-hochschule-aschaffenburg.svg",
     "link": "https://th-ab.de",
@@ -100,6 +109,7 @@
     ]
   },
   {
+    "updatedAt": "2024-10-07T13:00:00.000Z",
     "name": "Charité – Universitätsmedizin Berlin",
     "logoSrc": "/organizations/charite-universitatsmedizin-berlin.svg",
     "url": "https://charite.de",

@@ -99,6 +99,7 @@ module.exports = async ({ github, context, core }) => {
   const users = JSON.parse(fs.readFileSync(usersPath)) // Load the users
 
   let user = {
+    updatedAt: new Date().toISOString(),
     name: orgName,
     logoSrc: `/organizations/${orgNameSlug}.${imageExtension}`,
     url: orgUrl,

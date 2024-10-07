@@ -13,6 +13,10 @@ interface OrganizationBoxProps {
 
 export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const nf = new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 2});
+    const rtf = new Intl.RelativeTimeFormat('en', {numeric: 'auto'});
+
+    const updatedDaysDiff = Math.round((new Date(user.updatedAt).getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24);
 
     return (
         <>
@@ -42,19 +46,19 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         {(user.userCount != undefined && user.enrolledUserCount != undefined) && (
                                             <p className=" text-gray-700">
                                                 Approx. Enrolled Users: <span
-                                                className="font-bold">{formatNumber(user.enrolledUserCount)} / {formatNumber(user.userCount)} (~{Math.round(user.enrolledUserCount / user.userCount * 100)}%)</span>
+                                                className="font-bold">{nf.format(user.enrolledUserCount)} / {nf.format(user.userCount)} (~{Math.round(user.enrolledUserCount / user.userCount * 100)}%)</span>
                                             </p>
                                         )}
                                         {(user.userCount == undefined && user.enrolledUserCount != undefined) && (
                                             <p className=" text-gray-700">
                                                 Approx. Enrolled Users: <span
-                                                className="font-bold">{formatNumber(user.enrolledUserCount)}</span>
+                                                className="font-bold">{nf.format(user.enrolledUserCount)}</span>
                                             </p>
                                         )}
                                         {(user.userCount != undefined && user.enrolledUserCount == undefined) && (
                                             <p className=" text-gray-700">
                                                 Approx. Users: <span
-                                                className="font-bold">{formatNumber(user.userCount)}</span>
+                                                className="font-bold">{nf.format(user.userCount)}</span>
                                             </p>
                                         )}
                                     </div>
@@ -86,7 +90,7 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                     </Tooltip>
                                 </div>
                                 {user.tokenTypes && user.tokenTypes.length > 0 && (
-                                    <div className="mb-4">
+                                    <>
                                         <div className="flex items-center mb-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  strokeWidth="1.5" stroke="currentColor" className="size-6 mr-2">
@@ -100,11 +104,10 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                                 <Chip key={index}>{type}</Chip>
                                             ))}
                                         </div>
-                                    </div>
+                                    </>
                                 )}
-                                {user.userCount == undefined && user.phase == undefined && (user.tokenTypes == undefined || user.tokenTypes.length === 0) && (
-                                    <p className="text-gray-700 mb-4">No additional information available.</p>
-                                )}
+                                <div className="text-xs text-gray-500">
+                                    Last updated {rtf.format(updatedDaysDiff, 'day')}</div>
                             </ModalBody>
                         </>
                     )}
@@ -112,8 +115,4 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
             </Modal>
         </>
     );
-}
-
-const formatNumber = (number: number) => {
-    return new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 2},).format(number);
 }
