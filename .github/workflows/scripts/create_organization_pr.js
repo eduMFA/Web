@@ -100,7 +100,7 @@ module.exports = async ({ github, context, core }) => {
 
   let user = {
     name: orgName,
-    logo: `/organizations/${orgNameSlug}.${imageExtension}`,
+    logoSrc: `/organizations/${orgNameSlug}.${imageExtension}`,
     url: orgUrl,
     phase: orgPhase,
   }
