@@ -43,7 +43,8 @@ interface Organization {
 export interface Creator extends Organization {}
 
 export interface User extends Organization {
-    userCount: number;
     phase: OrganizationImplementationPhase;
-    tokenTypes: OrganizationTokenType[];
+    userCount?: number;
+    enrolledUserCount?: number;
+    tokenTypes?: OrganizationTokenType[];
 }

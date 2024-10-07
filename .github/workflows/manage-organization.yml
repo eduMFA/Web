@@ -26,8 +26,9 @@ jobs:
             ["ORG_URL"]="Organization URL"
             ["ORG_IMAGE"]="Organization Image"
             ["ORG_PHASE"]="Implementation Phase"
+            ["ORG_USER_COUNT"]="Approximate user count"
+            ["ORG_ENROLLED_USER_COUNT"]="Approximate eduMFA enrolled users"
             ["ORG_TOKENS"]="Token Types"
-            ["ORG_USER_COUNT"]="Approximate eduMFA enrolled users"
           )
 
           for key in "${!fields[@]}"; do

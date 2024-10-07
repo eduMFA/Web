@@ -3,8 +3,9 @@
     "name": "Freie Universität Berlin",
     "logoSrc": "/organizations/freie-universitat-berlin.png",
     "link": "https://fu-berlin.de",
-    "userCount": 3000,
     "phase": "Production",
+    "userCount": 40000,
+    "enrolledUserCount": 8500,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
@@ -16,8 +17,8 @@
     "name": "Hochschule München",
     "logoSrc": "/organizations/hochschule-munchen.png",
     "link": "https://hm.edu",
-    "userCount": 100,
     "phase": "Production",
+    "enrolledUserCount": 100,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
@@ -27,8 +28,8 @@
     "name": "Otto-Friedrich-Universität Bamberg",
     "logoSrc": "/organizations/otto-friedrich-universitat-bamberg.png",
     "link": "https://uni-bamberg.de",
-    "userCount": 1000,
     "phase": "Production",
+    "enrolledUserCount": 1000,
     "tokenTypes": [
       "WebAuthn",
       "TOTP",
@@ -40,8 +41,8 @@
     "name": "Gesellschaft für wissenschaftliche Datenverarbeitung",
     "logoSrc": "/organizations/gesellschaft-fur-wissenschaftliche-datenverarbeitung.png",
     "link": "https://gwdg.de",
-    "userCount": 8000,
     "phase": "Production",
+    "enrolledUserCount": 8000,
     "tokenTypes": [
       "TOTP",
       "PUSH"
@@ -62,8 +63,8 @@
     "name": "University of Hohenheim",
     "logoSrc": "/organizations/university-of-hohenheim.svg",
     "url": "https://www.uni-hohenheim.de",
-    "userCount": 11000,
     "phase": "Production",
+    "userCount": 11000,
     "tokenTypes": [
       "TOTP"
     ]
@@ -88,8 +89,8 @@
     "name": "Technische Hochschule Aschaffenburg",
     "logoSrc": "/organizations/technische-hochschule-aschaffenburg.svg",
     "link": "https://th-ab.de",
-    "userCount": 4000,
     "phase": "Production",
+    "enrolledUserCount": 4000,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"

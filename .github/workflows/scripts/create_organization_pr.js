@@ -9,8 +9,9 @@ module.exports = async ({ github, context, core }) => {
   const orgUrl = process.env.ORG_URL
   const orgImage = process.env.ORG_IMAGE
   const orgPhase = process.env.ORG_PHASE
-  const orgTokens = getEnvVar('ORG_TOKENS')
   const orgUserCount = getEnvVar('ORG_USER_COUNT')
+  const orgEnrolledUserCount = getEnvVar('ORG_ENROLLED_USER_COUNT')
+  const orgTokens = getEnvVar('ORG_TOKENS')
 
   // Verify orgUrl is a valid URL including the protocol
   if (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== 'https:') {
@@ -31,12 +32,12 @@ module.exports = async ({ github, context, core }) => {
   }
 
   // Validate org user count being a valid number
-  if (orgUserCount && isNaN(orgUserCount)) {
+  if (orgUserCount && isNaN(orgUserCount) || orgEnrolledUserCount && isNaN(orgEnrolledUserCount)) {
     github.rest.issues.createComment({
       issue_number: context.issue.number,
       owner: context.repo.owner,
       repo: context.repo.repo,
-      body: `The provided Approximate eduMFA enrolled user count is invalid. Please provide a valid number. Please open a new PR with the correct count.`,
+      body: `The provided Organization User Count or Enrolled User Count is invalid. Please provide a valid number or leave it empty. Please open a new PR with the correct number.`,
     })
     github.rest.issues.update({
       issue_number: context.issue.number,
@@ -104,6 +105,7 @@ module.exports = async ({ github, context, core }) => {
     phase: orgPhase,
   }
   if (orgUserCount) user.userCount = orgUserCount
+  if (orgEnrolledUserCount) user.enrolledUserCount = orgEnrolledUserCount
   if (orgTokens) user.tokens = orgTokens.split(',').map(token => token.trim())
 
   // Check if org with name already exists. If it does, update the existing org, else add the new org
