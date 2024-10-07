@@ -18,7 +18,8 @@
     "logoSrc": "/organizations/hochschule-munchen.png",
     "link": "https://hm.edu",
     "phase": "Production",
-    "enrolledUserCount": 100,
+    "userCount": 20000,
+    "enrolledUserCount": 150,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
