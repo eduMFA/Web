@@ -28,6 +28,7 @@ We like to feature organizations that implemented eduMFA. If you like to add you
   "logoSrc": "organizations/example_org.png",
   "url": "https://example.org",
   "userCount": 1000,
+  "enrolledUserCount": 20000,
   "phase": "Testing",
   "tokenTypes": [
     "IndexedSecret",
