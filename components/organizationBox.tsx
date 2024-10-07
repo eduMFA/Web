@@ -1,6 +1,6 @@
 import {OrganizationImplementationPhase, User} from "@/types/organizationTypes";
 import React from "react";
-import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure} from "@nextui-org/modal";
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@nextui-org/modal";
 import {Card} from "@nextui-org/card";
 import Image from "next/image";
 import {Link} from "@nextui-org/link";
@@ -106,9 +106,12 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         </div>
                                     </>
                                 )}
-                                <div className="text-xs text-gray-500">
-                                    Last updated {rtf.format(updatedDaysDiff, 'day')}</div>
                             </ModalBody>
+                            <ModalFooter>
+                                <div className="text-xs text-gray-500">
+                                    Last updated {rtf.format(updatedDaysDiff, 'day')}
+                                </div>
+                            </ModalFooter>
                         </>
                     )}
                 </ModalContent>
