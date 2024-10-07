@@ -10,14 +10,15 @@ We like to feature organizations that implemented eduMFA. If you like to add you
 
 `?` - Optional field
 
-| Field       | Type     | Description                                                       |
-|-------------|----------|-------------------------------------------------------------------|
-| name        | string   | The name of the organization.                                     |
-| logoSrc     | string   | The Path to the organization logo, starting with `organizations/` |
-| url         | string   | The URL to the organization.                                      |
-| userCount?  | number   | The approximate number of users enrolled to eduMFA, if available. |
-| phase?      | string   | The phase of the organization implementing eduMFA.                |
-| tokenTypes? | string[] | An array of token types the organization uses.                    |
+| Field              | Type     | Description                                                                                  |
+|--------------------|----------|----------------------------------------------------------------------------------------------|
+| name               | string   | The name of the organization.                                                                |
+| logoSrc            | string   | The Path to the organization logo, starting with `organizations/`                            |
+| url                | string   | The URL to the organization.                                                                 |
+| phase              | string   | The phase of the organization implementing eduMFA.                                           |
+| userCount?         | number   | The approximate number of users in your organization.                                        |
+| enrolledUserCount? | number   | The approximate number of enrolled users to eduMFA. Leave blank if when in evaluation phase. |
+| tokenTypes?        | string[] | An array of token types the organization uses.                                               |
 
 **Example:**
 
