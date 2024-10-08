@@ -132,5 +132,19 @@
       "TOTP",
       "WebAuthn"
     ]
+  },
+  {
+    "updatedAt": "2024-10-08T12:36:55.348Z",
+    "name": "Bauhaus-Universität Weimar",
+    "logoSrc": "/organizations/bauhaus-universitat-weimar.png",
+    "url": "https://www.uni-weimar.de",
+    "phase": "Evaluation",
+    "userCount": "5000",
+    "enrolledUserCount": "40",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn",
+      "PUSH"
+    ]
   }
 ]
