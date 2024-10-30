@@ -1,12 +1,12 @@
 [
   {
-    "updatedAt": "2024-10-07T12:00:00.000Z",
+    "updatedAt": "2024-10-07T10:00:00.000Z",
     "name": "Freie Universität Berlin",
     "logoSrc": "/organizations/freie-universitat-berlin.png",
     "link": "https://fu-berlin.de",
     "phase": "Production",
     "userCount": 40000,
-    "enrolledUserCount": 8500,
+    "enrolledUserCount": 10000,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
