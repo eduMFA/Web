@@ -146,5 +146,19 @@
       "WebAuthn",
       "PUSH"
     ]
+  },
+  {
+    "updatedAt": "2024-11-06T09:34:47.127Z",
+    "name": "ESMT European School of Management and Technology GmbH",
+    "logoSrc": "/organizations/esmt-european-school-of-management-and-technology-gmbh.svg",
+    "url": "https://esmt.berlin",
+    "phase": "Production",
+    "userCount": "400",
+    "enrolledUserCount": "400",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn",
+      "Email"
+    ]
   }
 ]
