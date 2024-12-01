@@ -174,5 +174,18 @@
       "YubiKey",
       "TAN"
     ]
+  },
+  {
+    "updatedAt": "2024-12-01T23:27:57.914Z",
+    "name": "Hochschule Trier",
+    "logoSrc": "/organizations/hochschule-trier.svg",
+    "url": "https://www.hochschule-trier.de",
+    "phase": "Production",
+    "userCount": "9000",
+    "enrolledUserCount": "4000",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn"
+    ]
   }
 ]
