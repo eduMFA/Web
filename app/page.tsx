@@ -8,13 +8,13 @@ import {
     NavbarMenu,
     NavbarMenuItem,
     NavbarMenuToggle
-} from "@nextui-org/navbar";
+} from "@heroui/navbar";
 import Image from "next/image";
 import React from "react";
 import organizationData from "@/data/users.json";
 import {User} from "@/types/organizationTypes";
-import {Link} from "@nextui-org/link";
-import {ScrollShadow} from "@nextui-org/scroll-shadow";
+import {Link} from "@heroui/link";
+import {ScrollShadow} from "@heroui/scroll-shadow";
 import {OrganizationBox} from "@/components/organizationBox";
 
 const organizations = organizationData as User[];
