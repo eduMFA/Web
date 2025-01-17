@@ -30,7 +30,7 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
             </Card>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
-                    {(onClose) => (
+                    {() => (
                         <>
                             <ModalHeader className="flex flex-col gap-1">
                                 <Link isExternal showAnchorIcon href={user.link} color="foreground">{user.name}</Link>
