@@ -6,15 +6,21 @@ import Image from "next/image";
 import {Link} from "@heroui/link";
 import {Tooltip} from "@heroui/tooltip";
 import {Chip} from "@heroui/chip";
+import {useLocale, useTranslations} from "next-intl";
 
 interface OrganizationBoxProps {
     user: User
 }
 
 export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
+    const t = useTranslations('OrganizationBox');
+    const locale = useLocale();
+
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const nf = new Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 2});
-    const rtf = new Intl.RelativeTimeFormat('en', {numeric: 'auto'});
+
+    const nf = new Intl.NumberFormat(locale, {notation: 'compact', maximumFractionDigits: 2});
+    const rtf = new Intl.RelativeTimeFormat(locale, {numeric: 'auto'});
+
 
     const updatedDaysDiff = Math.round((new Date(user.updatedAt).getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24);
 
@@ -45,19 +51,19 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         </svg>
                                         {(user.userCount != undefined && user.enrolledUserCount != undefined) && (
                                             <p className=" text-gray-700">
-                                                Approx. Enrolled Users: <span
+                                                {t('enrolledCount')} <span
                                                 className="font-bold">{nf.format(user.enrolledUserCount)} / {nf.format(user.userCount)} (~{Math.round(user.enrolledUserCount / user.userCount * 100)}%)</span>
                                             </p>
                                         )}
                                         {(user.userCount == undefined && user.enrolledUserCount != undefined) && (
                                             <p className=" text-gray-700">
-                                                Approx. Enrolled Users: <span
+                                                {t('enrolledCount')} <span
                                                 className="font-bold">{nf.format(user.enrolledUserCount)}</span>
                                             </p>
                                         )}
                                         {(user.userCount != undefined && user.enrolledUserCount == undefined) && (
                                             <p className=" text-gray-700">
-                                                Approx. Users: <span
+                                                {t('userCount')} <span
                                                 className="font-bold">{nf.format(user.userCount)}</span>
                                             </p>
                                         )}
@@ -69,23 +75,23 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         <path strokeLinecap="round" strokeLinejoin="round"
                                               d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
                                     </svg>
-                                    <p className=" text-gray-700 pr-2">Implementation Phase: </p>
-                                    <Tooltip showArrow content="Evaluation">
+                                    <p className=" text-gray-700 pr-2">{t('implementationPhase')} </p>
+                                    <Tooltip showArrow content={t('phaseEval')}>
                                         <div
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.EVALUATION ? 'bg-blue-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
-                                            E
+                                            {t('phaseEval').charAt(0).toUpperCase()}
                                         </div>
                                     </Tooltip>
-                                    <Tooltip showArrow content="Testing">
+                                    <Tooltip showArrow content={t('phaseTest')}>
                                         <div
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.TESTING ? 'bg-yellow-500 text-black' : 'bg-gray-300'} mr-2 group relative`}>
-                                            T
+                                            {t('phaseTest').charAt(0).toUpperCase()}
                                         </div>
                                     </Tooltip>
-                                    <Tooltip showArrow content="Production">
+                                    <Tooltip showArrow content={t('phaseProd')}>
                                         <div
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.PRODUCTION ? 'bg-green-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
-                                            P
+                                            {t('phaseProd').charAt(0).toUpperCase()}
                                         </div>
                                     </Tooltip>
                                 </div>
@@ -97,7 +103,7 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                                 <path strokeLinecap="round" strokeLinejoin="round"
                                                       d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/>
                                             </svg>
-                                            <p className="text-gray-700">Token Types:</p>
+                                            <p className="text-gray-700">{t('tokenTypes')}</p>
                                         </div>
                                         <div className="flex gap-2 flex-wrap">
                                             {user.tokenTypes.map((type, index) => (
@@ -109,7 +115,7 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                             </ModalBody>
                             <ModalFooter>
                                 <div className="text-xs text-gray-500">
-                                    Last updated {rtf.format(updatedDaysDiff, 'day')}
+                                    {t('lastUpdated')} {rtf.format(updatedDaysDiff, 'day')}
                                 </div>
                             </ModalFooter>
                         </>

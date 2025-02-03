@@ -1,12 +1,16 @@
-'use client'
-
 import {HeroUIProvider} from "@heroui/system"
 import React from "react";
+import {NextIntlClientProvider} from "next-intl";
+import {getMessages} from "next-intl/server";
 
-export function Providers({children}: { children: React.ReactNode }) {
+export async function Providers({children}: { children: React.ReactNode }) {
+    const messages = await getMessages();
+
     return (
-        <HeroUIProvider>
-            {children}
-        </HeroUIProvider>
+        <NextIntlClientProvider messages={messages}>
+            <HeroUIProvider>
+                {children}
+            </HeroUIProvider>
+        </NextIntlClientProvider>
     )
 }

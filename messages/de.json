@@ -1,0 +1,35 @@
+{
+  "NavigationBar": {
+    "github": "GitHub",
+    "documentation": "Dokumentation",
+    "mailingList": "Mailing Liste"
+  },
+  "HomePage": {
+    "aboutTitle": "Über eduMFA",
+    "aboutContent": "eduMFA ist ein umfassendes Authentifizierungssystem, das bestehende Anwendungen um eine Multi-Faktor-Authentifizierung erweitert und damit die Sicherheit erheblich verbessert. Ursprünglich von privacyIDEA Version 3.9.2 abgeleitet, hat sich eduMFA zu einer robusten, tief in Shibboleth integrierten Lösung entwickelt, die sich besonders für akademische und Forschungsumgebungen eignet. Es unterstützt verschiedene Authentifizierungsmethoden, einschließlich OTP-Geräte, Challenge-Response-Mechanismen, SSH-Schlüssel und die innovative Passkeys-Technologie.<br></br><br></br>eduMFA läuft auf Linux und ist vollständig Open-Source unter der AGPLv3-Lizenz und bietet ein flexibles und leistungsstarkes Plugin-System. Dies ermöglicht eine nahtlose Integration mit verschiedenen Identitätsmanagement-Systemen und -Anwendungen und erweitert die Funktionalität, um verschiedene Authentifizierungsanforderungen zu erfüllen. Alle Funktionen von eduMFA können kostenlos genutzt werden.",
+    "featuresTitle": "Wesentliche Merkmale und Ziele",
+    "featuresContent": "<ul><li>Unterstützung von Multi-Faktor-Authentifizierung für mehr Sicherheit</li><li>Tiefe Integration mit Shibboleth für akademische und Forschungsumgebungen</li><li>Unterstützung für moderne Authentifizierungsmethoden, einschließlich Passkeys</li><li>Einfacher Migrationspfad von privacyIDEA und anderen Authentifizierungssystemen</li><li>Kontinuierliche Entwicklung auf der Grundlage der Anforderungen der wissenschaftlichen Gemeinschaft</li><li>Konzentration auf die Verwendung und Pflege aktueller Softwarekomponenten</li><li>Unterstützung für die neuesten Python-Versionen (derzeit Python {minPyVersion} bis {maxPyVersion})</li><li>Offizielle Unterstützung für die Bereitstellung von Containern, die eine nahtlose Skalierung in Kubernetes-Clustern ermöglicht</li><li>eduMFA Authenticator App für Push-Benachrichtigungen</li></ul>",
+    "reasonTitle": "Warum eduMFA?",
+    "reasonContent": "eduMFA bietet robusten Schutz gegen Hackerangriffe für IT-Dienste in akademischen Netzwerken und darüber hinaus. Durch die Ermöglichung von Multi-Faktor-Authentifizierung macht es traditionelle Benutzername-Passwort-Kombinationen überflüssig. Die „Passkeys“-Methode, ein Hauptaugenmerk von eduMFA, speichert sicher Authentifizierungsschlüssel, die nur durch zusätzliche Methoden wie biometrische Scans oder PINs zugänglich sind. Dieser Ansatz bietet starken Widerstand gegen Phishing-Angriffe, ermöglicht die Synchronisierung zwischen kompatiblen Geräten und bietet eine nahtlose Benutzererfahrung ohne Kompromisse bei der Sicherheit.<br></br><br></br>eduMFA ist bereits an mehreren Universitäten in Europa im Einsatz, darunter Institutionen in Deutschland, der Tschechischen Republik und Norwegen. eduMFA wird kontinuierlich weiterentwickelt, um den dynamischen Anforderungen der wissenschaftlichen und breiteren IT-Gemeinschaft gerecht zu werden. Die Verpflichtung, aktuelle Software zu verwenden, stellt sicher, dass die Benutzer immer Zugang zu den neuesten Sicherheitsfunktionen und Verbesserungen haben.",
+    "supportTitle": "Support und Entwicklung",
+    "supportContent": "eduMFA profitiert von einem starken Unterstützungsnetzwerk und einer aktiven Entwicklungsgemeinschaft:<ul><li>Kommerzielle Unterstützung, Beratung, Implementierung, 2nd-Level-Support und verwaltete Dienste sind von vertrauenswürdigen Unternehmen wie DAASI International, GWDG und Ssystems erhältlich.</li><li>Das Entwicklerteam besteht aus Mitarbeitern führender Institutionen wie der Freien Universität Berlin, der GWDG, der Hochschule München und der Universität Bamberg.</li><li>Dieser kollaborative Ansatz stellt sicher, dass eduMFA an der Spitze der Authentifizierungstechnologie bleibt und den realen Bedürfnissen in akademischen und Forschungsumgebungen gerecht wird.</li><li>Eine <userMailingListLink>Nutzer-Mailingliste</userMailingListLink> steht der Community für Unterstützung und Diskussionen zur Verfügung.</li><li>Issues und Feature Requests können über das GitHub Repository eingereicht werden.</li></ul>",
+    "orgTitle": "Organisationen, die eduMFA verwenden",
+    "orgFooter": "Verwendet Ihre Organisation eduMFA? <addOrgLink>Reichen sie ihre Organisation ein</addOrgLink>.",
+    "installTitle": "Installation",
+    "installContent": "Das System ist in Python geschrieben, verwendet Flask als Web-Framework und eine SQL-Datenbank als Datenspeicher. Die Installation ist unkompliziert und bietet einen schlanken Installationsprozess.<br></br><br></br>Weitere Informationen über den Installationsprozess finden Sie in der <documentationLink>Dokumentation</documentationLink>."
+  },
+  "OrganizationBox": {
+    "enrolledCount": "Ungefähr registrierte Nutzer:",
+    "userCount": "Ungefähre Nutzer:",
+    "implementationPhase": "Implementierungsphase:",
+    "tokenTypes": "Token-Typen:",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "phaseEval": "Evaluierung",
+    "phaseTest": "Test",
+    "phaseProd": "Produktion"
+  },
+  "Footer": {
+    "copyright": "© 2024 eduMFA. Alle Rechte vorbehalten.",
+    "imprint": "Impressum"
+  }
+}

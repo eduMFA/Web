@@ -10,14 +10,17 @@ import {
 import React from "react";
 import Image from "next/image";
 import {Link} from "@heroui/link";
+import {useTranslations} from "next-intl";
 
 export const NavigationBar: React.FC = () => {
+    const t = useTranslations('NavigationBar');
+
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const menuLinks = {
-        "Github": "https://github.com/eduMFA/eduMFA/",
-        "Documentation": "https://edumfa.readthedocs.io/",
-        "Mailing List": "https://www.listserv.dfn.de/sympa/info/edumfa-users"
+        github: "https://github.com/eduMFA/eduMFA/",
+        documentation: "https://edumfa.readthedocs.io/",
+        mailingList: "https://www.listserv.dfn.de/sympa/info/edumfa-users"
     }
 
     return (
@@ -57,25 +60,25 @@ export const NavigationBar: React.FC = () => {
                         />
                     </Link>
                 </NavbarBrand>
-                {Object.entries(menuLinks).map(([label, link], index) => (
+                {Object.entries(menuLinks).map(([labelKey, link], index) => (
                     <NavbarItem key={index}>
                         <Link isExternal color="foreground" href={link}>
-                            {label}
+                            {t(labelKey)}
                         </Link>
                     </NavbarItem>
                 ))}
             </NavbarContent>
 
             <NavbarMenu>
-                {Object.entries(menuLinks).map(([label, link], index) => (
-                    <NavbarMenuItem key={`${label}-${index}`}>
+                {Object.entries(menuLinks).map(([labelKey, link], index) => (
+                    <NavbarMenuItem key={index}>
                         <Link
                             isExternal
                             href={link}
                             color="foreground"
                             className="w-full"
                         >
-                            {label}
+                            {t(labelKey)}
                         </Link>
                     </NavbarMenuItem>
                 ))}

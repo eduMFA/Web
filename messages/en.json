@@ -1,0 +1,35 @@
+{
+  "NavigationBar": {
+    "github": "GitHub",
+    "documentation": "Documentation",
+    "mailingList": "Mailing List"
+  },
+  "HomePage": {
+    "aboutTitle": "About eduMFA",
+    "aboutContent": "eduMFA is a comprehensive authentication system that enhances existing applications with multi-factor authentication, significantly improving security. Originally forked from privacyIDEA version 3.9.2, eduMFA has evolved into a robust solution deeply integrated with Shibboleth, making it particularly suited for academic and research environments. It supports various authentication methods, including OTP devices, challenge-response mechanisms, SSH keys, and the cutting-edge Passkeys technology.<br></br><br></br>Running on Linux and entirely open-source under the AGPLv3 license, eduMFA offers a flexible and powerful plugin system. This allows for seamless integration with various identity management systems and applications, extending its functionality to meet diverse authentication needs. All features of eduMFA can be used free of charge.",
+    "featuresTitle": "Key Features and Goals",
+    "featuresContent": "<ul><li>Multi-factor authentication support for enhanced security</li><li>Deep integration with Shibboleth for academic and research environments</li><li>Support for modern authentication methods, including Passkeys</li><li>Easy migration path from privacyIDEA and other authentication systems</li><li>Continuous development based on the scientific community's requirements</li><li>Focus on using and maintaining up-to-date, current software components</li><li>Support for the latest Python versions (currently Python {minPyVersion} to {maxPyVersion})</li><li>Official support for container deployment, enabling seamless scaling in Kubernetes clusters</li><li>eduMFA Authenticator App for push notifications</li></ul>",
+    "reasonTitle": "Why Choose eduMFA?",
+    "reasonContent": "eduMFA provides robust protection against hacking attacks for IT services in academic networks and beyond. By enabling multi-factor authentication, it renders traditional username-password combinations obsolete. The 'Passkeys' method, a key focus of eduMFA, securely stores authentication keys, accessible only through additional methods like biometric scans or PINs. This approach offers strong resistance to phishing attacks, allows synchronization between compatible devices, and delivers a seamless user experience without compromising on security.<br></br><br></br>Already in use at several universities across Europe, including institutions in Germany, Czech Republic, and Norway, eduMFA is continuously evolving to meet the dynamic needs of the scientific and broader IT community. Its commitment to using current, up-to-date software ensures that users always have access to the latest security features and improvements.",
+    "supportTitle": "Support and Development",
+    "supportContent": "eduMFA benefits from a strong support network and an active development community:<ul><li>Commercial support, consulting, implementation, 2nd-level support, and managed services are available from trusted companies like DAASI International, GWDG, and Ssystems.</li><li>The development team includes contributors from leading institutions such as Freie Universität Berlin, GWDG, Hochschule München, and University of Bamberg.</li><li>This collaborative approach ensures that eduMFA remains at the forefront of authentication technology, addressing real-world needs in academic and research environments.</li><li>A <userMailingListLink>user mailing list</userMailingListLink> is available for community support and discussions.</li><li>Issues and feature requests can be submitted on the GitHub repository.</li></ul>",
+    "orgTitle": "Organizations Using eduMFA",
+    "orgFooter": "Is your organization using eduMFA? <addOrgLink>Submit your organization</addOrgLink>.",
+    "installTitle": "Installation",
+    "installContent": "The system is written in Python, uses Flask as the web framework, and an SQL database as the datastore. Installation is straightforward, providing a lean installation process.<br></br><br></br>You can learn more about the installation process in the <documentationLink>documentation</documentationLink>."
+  },
+  "OrganizationBox": {
+    "enrolledCount": "Approx. Enrolled Users:",
+    "userCount": "Approx. Users:",
+    "implementationPhase": "Implementation Phase:",
+    "tokenTypes": "Token Types:",
+    "lastUpdated": "Last updated",
+    "phaseEval": "Evaluation",
+    "phaseTest": "Test",
+    "phaseProd": "Production"
+  },
+  "Footer": {
+    "copyright": "© 2024 eduMFA. All rights reserved.",
+    "imprint": "Imprint"
+  }
+}
