@@ -95,7 +95,7 @@ module.exports = async ({ github, context, core }) => {
   }
 
   // Update the users.json file
-  const usersPath = path.join(__dirname, '../../../data/users.json')
+  const usersPath = path.join(__dirname, '../../../src/data/users.json')
   const users = JSON.parse(fs.readFileSync(usersPath)) // Load the users
 
   let user = {

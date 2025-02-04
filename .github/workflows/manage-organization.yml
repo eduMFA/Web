@@ -64,7 +64,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT data/users.json
+          git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT src/data/users.json
           git commit -m "Add organization $ORG_NAME"
       - name: Create Pull Request
         if: steps.update_data.outputs.valid == 'true'
