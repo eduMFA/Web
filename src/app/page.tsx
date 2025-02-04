@@ -5,11 +5,11 @@ import organizationData from "@/data/users.json";
 import {User} from "@/types/organizationTypes";
 import {Link} from "@heroui/link";
 import {ScrollShadow} from "@heroui/scroll-shadow";
-import {OrganizationBox} from "@/components/OrganizationBox";
-import {NavigationBar} from "@/components/NavigationBar";
+import {OrganizationBox} from "@/src/components/OrganizationBox";
+import {NavigationBar} from "@/src/components/NavigationBar";
 import {useTranslations} from "next-intl";
-import RichText from "@/components/RichText";
-import {Footer} from "@/components/Footer";
+import RichText from "@/src/components/RichText";
+import {Footer} from "@/src/components/Footer";
 
 const organizations = organizationData as User[];
 

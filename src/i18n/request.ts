@@ -7,12 +7,12 @@ export default getRequestConfig(async () => {
     try {
         return {
             locale,
-            messages: (await import(`../messages/${locale}.json`)).default
+            messages: (await import(`../../messages/${locale}.json`)).default
         };
     } catch (e) {
         return {
             locale: 'en',
-            messages: (await import(`../messages/en.json`)).default
+            messages: (await import(`../../messages/en.json`)).default
         }
     }
 });
