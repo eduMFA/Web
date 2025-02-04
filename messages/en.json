@@ -28,6 +28,18 @@
     "phaseTest": "Test",
     "phaseProd": "Production"
   },
+  "AppFeedback": {
+    "bug": "Bug Report",
+    "feature": "Feature Request",
+    "general": "General Feedback",
+    "feedbackTypeLabel": "Select Feedback Type",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Please describe your feedback here.",
+    "systemInfoLabel": "System Information",
+    "systemInfoHelp": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc.",
+    "systemInfoPlaceholder": "Please provide any relevant system information here.",
+    "submitLabel": "Submit"
+  },
   "Footer": {
     "copyright": "© 2024 eduMFA. All rights reserved.",
     "imprint": "Imprint"
