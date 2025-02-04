@@ -36,7 +36,7 @@ export const NavigationBar: React.FC = () => {
 
             <NavbarContent className="sm:hidden pr-3" justify="center">
                 <NavbarBrand>
-                    <Link href="/public">
+                    <Link href="/">
                         <Image
                             src="/logo.webp"
                             alt="eduMFA Logo"
@@ -50,7 +50,7 @@ export const NavigationBar: React.FC = () => {
 
             <NavbarContent className="hidden mx-auto sm:flex gap-4" justify="start">
                 <NavbarBrand>
-                    <Link href="/public">
+                    <Link href="/">
                         <Image
                             src="/logo.webp"
                             alt="eduMFA Logo"
