@@ -36,8 +36,7 @@
     "descriptionLabel": "Description",
     "descriptionPlaceholder": "Please describe your feedback here.",
     "systemInfoLabel": "System Information",
-    "systemInfoHelp": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc.",
-    "systemInfoPlaceholder": "Please provide any relevant system information here.",
+    "systemInfoPlaceholder": "Please provide your phones system information including the model, OS version, and app version.",
     "submitLabel": "Submit"
   },
   "Footer": {
