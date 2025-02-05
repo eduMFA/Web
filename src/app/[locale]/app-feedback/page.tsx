@@ -80,7 +80,7 @@ export default function AppFeedback() {
                           className="w-full"
                           maxLength={1024}
                           value={systemInfo || undefined}
-                          isDisabled={systemInfo && systemInfo.length > 0}
+                          disabled={systemInfo.length > 0}
                           label={t('systemInfoLabel')}
                           isRequired
                           placeholder={t('systemInfoPlaceholder')}
