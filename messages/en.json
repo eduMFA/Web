@@ -28,6 +28,17 @@
     "phaseTest": "Test",
     "phaseProd": "Production"
   },
+  "AppFeedback": {
+    "bug": "Bug Report",
+    "feature": "Feature Request",
+    "general": "General Feedback",
+    "feedbackTypeLabel": "Select Feedback Type",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Please describe your feedback here.",
+    "systemInfoLabel": "System Information",
+    "systemInfoPlaceholder": "Please provide your phones system information including the model, OS version, and app version.",
+    "submitLabel": "Submit"
+  },
   "Footer": {
     "copyright": "© 2024 eduMFA. All rights reserved.",
     "imprint": "Imprint"
