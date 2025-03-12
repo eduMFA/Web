@@ -6,7 +6,7 @@
     "link": "https://fu-berlin.de",
     "phase": "Production",
     "userCount": 40000,
-    "enrolledUserCount": 10000,
+    "enrolledUserCount": 15000,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
