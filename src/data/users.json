@@ -202,5 +202,19 @@
       "WEBAUTHN",
       "TAN"
     ]
+  },
+  {
+    "updatedAt": "2025-03-31T09:55:58.986Z",
+    "name": "Technische Universität Darmstadt",
+    "logoSrc": "/organizations/technische-universitat-darmstadt.svg",
+    "url": "https://www.tu-darmstadt.de",
+    "phase": "Production",
+    "userCount": "33000",
+    "tokenTypes": [
+      "TOTP",
+      "HOTP",
+      "WebAuthn",
+      "TAN"
+    ]
   }
 ]
