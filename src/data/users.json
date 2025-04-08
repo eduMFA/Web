@@ -6,7 +6,7 @@
     "link": "https://fu-berlin.de",
     "phase": "Production",
     "userCount": 40000,
-    "enrolledUserCount": 10000,
+    "enrolledUserCount": 15000,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
@@ -186,6 +186,35 @@
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
+    ]
+  },
+  {
+    "updatedAt": "2025-02-10T11:09:07.860Z",
+    "name": "Politecnico di Torino",
+    "logoSrc": "/organizations/politecnico-di-torino.png",
+    "url": "https://www.polito.it",
+    "phase": "Production",
+    "userCount": "41000",
+    "enrolledUserCount": "2200",
+    "tokenTypes": [
+      "SMS",
+      "TOTP",
+      "WEBAUTHN",
+      "TAN"
+    ]
+  },
+  {
+    "updatedAt": "2025-03-31T09:55:58.986Z",
+    "name": "Technische Universität Darmstadt",
+    "logoSrc": "/organizations/technische-universitat-darmstadt.svg",
+    "url": "https://www.tu-darmstadt.de",
+    "phase": "Production",
+    "userCount": "33000",
+    "tokenTypes": [
+      "TOTP",
+      "HOTP",
+      "WebAuthn",
+      "TAN"
     ]
   }
 ]
