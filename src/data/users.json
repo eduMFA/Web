@@ -216,5 +216,17 @@
       "WebAuthn",
       "TAN"
     ]
+  },
+  {
+    "updatedAt": "2025-04-10T08:21:39.656Z",
+    "name": "Universität Duisburg-Essen",
+    "logoSrc": "/organizations/universitat-duisburg-essen.svg",
+    "url": "https://www.uni-due.de/",
+    "phase": "Production",
+    "userCount": "42000",
+    "enrolledUserCount": "10000",
+    "tokenTypes": [
+      "TOTP WebAuthn"
+    ]
   }
 ]
