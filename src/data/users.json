@@ -21,7 +21,7 @@
     "link": "https://hm.edu",
     "phase": "Production",
     "userCount": 20000,
-    "enrolledUserCount": 3000,
+    "enrolledUserCount": 6500,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
