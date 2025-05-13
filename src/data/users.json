@@ -229,5 +229,18 @@
       "TOTP",
       "WebAuthn"
     ]
+  },
+  {
+    "updatedAt": "2025-05-13T12:06:08.909Z",
+    "name": "FernUniversität in Hagen",
+    "logoSrc": "/organizations/fernuniversitat-in-hagen.svg",
+    "url": "https://www.fernuni-hagen.de",
+    "phase": "Production",
+    "enrolledUserCount": "16.000",
+    "tokenTypes": [
+      "TOTP",
+      "YubiKey",
+      "HOTP"
+    ]
   }
 ]
