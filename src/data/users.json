@@ -236,7 +236,7 @@
     "logoSrc": "/organizations/fernuniversitat-in-hagen.svg",
     "url": "https://www.fernuni-hagen.de",
     "phase": "Production",
-    "enrolledUserCount": "16.000",
+    "enrolledUserCount": "16000",
     "tokenTypes": [
       "TOTP",
       "YubiKey",
