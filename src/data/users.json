@@ -15,13 +15,13 @@
     ]
   },
   {
-    "updatedAt": "2025-04-21T11:30:00.000Z",
+    "updatedAt": "2025-06-06T16:30:00.000Z",
     "name": "Hochschule München",
     "logoSrc": "/organizations/hochschule-munchen.png",
     "link": "https://hm.edu",
     "phase": "Production",
     "userCount": 20000,
-    "enrolledUserCount": 13000,
+    "enrolledUserCount": 17000,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
