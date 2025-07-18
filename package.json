@@ -19,7 +19,7 @@
     "@heroui/theme": "2.4.19",
     "@heroui/tooltip": "2.2.20",
     "framer-motion": "^12.0.0",
-    "next": "15.4.1",
+    "next": "15.4.2",
     "next-intl": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -31,7 +31,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
-    "eslint-config-next": "15.4.1",
+    "eslint-config-next": "15.4.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
