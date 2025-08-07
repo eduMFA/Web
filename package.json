@@ -11,7 +11,7 @@
   "dependencies": {
     "@heroui/card": "2.2.23",
     "@heroui/chip": "2.2.20",
-    "@heroui/link": "2.2.20",
+    "@heroui/link": "2.2.21",
     "@heroui/modal": "2.2.20",
     "@heroui/navbar": "2.2.21",
     "@heroui/scroll-shadow": "2.3.16",
