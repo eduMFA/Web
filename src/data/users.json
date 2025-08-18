@@ -242,5 +242,12 @@
       "YubiKey",
       "HOTP"
     ]
+  },
+  {
+    "updatedAt": "2025-08-18T07:47:44.621Z",
+    "name": "Sächsische Landesbibliothek - Staats- und Universitätsbibliothek Dresden (SLUB Dresden)",
+    "logoSrc": "/organizations/sachsische-landesbibliothek-staats-und-universitatsbibliothek-dresden-(slub-dresden).svg",
+    "url": "https://www.slub-dresden.de",
+    "phase": "Production"
   }
 ]
