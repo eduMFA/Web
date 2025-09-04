@@ -55,7 +55,7 @@ jobs:
 
       - name: Update data
         id: update_data
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
