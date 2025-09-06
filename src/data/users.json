@@ -82,11 +82,12 @@
     "name": "University of Oslo",
     "logoSrc": "/organizations/university-of-oslo.jpeg",
     "url": "https://uio.no",
-    "phase": "Evaluation",
+    "phase": "Test",
     "userCount": 30000,
     "tokenTypes": [
       "TOTP",
-      "PUSH"
+      "PUSH",
+      "YubiKey"
     ]
   },
   {
