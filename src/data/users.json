@@ -115,7 +115,7 @@
     "logoSrc": "/organizations/charite-universitatsmedizin-berlin.svg",
     "url": "https://charite.de",
     "phase": "Production",
-    "userCount": "30000",
+    "userCount": 30000,
     "tokenTypes": [
       "TOTP",
       "YubiKey"
@@ -127,7 +127,7 @@
     "logoSrc": "/organizations/rptu-kaiserslautern-landau.svg",
     "url": "https://rptu.de",
     "phase": "Testing",
-    "userCount": "23000",
+    "userCount": 23000,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
@@ -140,8 +140,8 @@
     "logoSrc": "/organizations/bauhaus-universitat-weimar.png",
     "url": "https://www.uni-weimar.de",
     "phase": "Evaluation",
-    "userCount": "5000",
-    "enrolledUserCount": "40",
+    "userCount": 5000,
+    "enrolledUserCount": 40,
     "tokenTypes": [
       "TOTP",
       "WebAuthn",
@@ -154,8 +154,8 @@
     "logoSrc": "/organizations/esmt-european-school-of-management-and-technology-gmbh.svg",
     "url": "https://esmt.berlin",
     "phase": "Production",
-    "userCount": "400",
-    "enrolledUserCount": "400",
+    "userCount": 400,
+    "enrolledUserCount": 400,
     "tokenTypes": [
       "TOTP",
       "WebAuthn",
@@ -168,8 +168,8 @@
     "logoSrc": "/organizations/technische-hochschule-rosenheim.svg",
     "url": "https://www.th-rosenheim.de",
     "phase": "Production",
-    "userCount": "10000",
-    "enrolledUserCount": "4500",
+    "userCount": 10000,
+    "enrolledUserCount": 4500,
     "tokenTypes": [
       "TOTP",
       "YubiKey",
@@ -182,8 +182,8 @@
     "logoSrc": "/organizations/hochschule-trier.svg",
     "url": "https://www.hochschule-trier.de",
     "phase": "Production",
-    "userCount": "9000",
-    "enrolledUserCount": "4000",
+    "userCount": 9000,
+    "enrolledUserCount": 4000,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
@@ -195,8 +195,8 @@
     "logoSrc": "/organizations/politecnico-di-torino.png",
     "url": "https://www.polito.it",
     "phase": "Production",
-    "userCount": "41000",
-    "enrolledUserCount": "2200",
+    "userCount": 41000,
+    "enrolledUserCount": 2200,
     "tokenTypes": [
       "SMS",
       "TOTP",
@@ -210,7 +210,7 @@
     "logoSrc": "/organizations/technische-universitat-darmstadt.svg",
     "url": "https://www.tu-darmstadt.de",
     "phase": "Production",
-    "userCount": "33000",
+    "userCount": 33000,
     "tokenTypes": [
       "TOTP",
       "HOTP",
@@ -224,8 +224,8 @@
     "logoSrc": "/organizations/universitat-duisburg-essen.svg",
     "url": "https://www.uni-due.de/",
     "phase": "Production",
-    "userCount": "42000",
-    "enrolledUserCount": "10000",
+    "userCount": 42000,
+    "enrolledUserCount": 10000,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
@@ -237,7 +237,7 @@
     "logoSrc": "/organizations/fernuniversitat-in-hagen.svg",
     "url": "https://www.fernuni-hagen.de",
     "phase": "Production",
-    "enrolledUserCount": "16000",
+    "enrolledUserCount": 16000,
     "tokenTypes": [
       "TOTP",
       "YubiKey",
@@ -257,8 +257,8 @@
     "logoSrc": "/organizations/heinrich-heine-university-dusseldorf.svg",
     "url": "https://hhu.de",
     "phase": "Production",
-    "userCount": "30.000",
-    "enrolledUserCount": "10.000",
+    "userCount": 30000,
+    "enrolledUserCount": 10000,
     "tokenTypes": [
       "TOTP",
       "WebAuthn"
