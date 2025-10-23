@@ -257,7 +257,7 @@
     "logoSrc": "/organizations/heinrich-heine-university-dusseldorf.svg",
     "url": "https://hhu.de",
     "phase": "Production",
-    "userCount": 30000,
+    "userCount": 40000,
     "enrolledUserCount": 10000,
     "tokenTypes": [
       "TOTP",
