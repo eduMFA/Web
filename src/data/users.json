@@ -250,5 +250,18 @@
     "logoSrc": "/organizations/sachsische-landesbibliothek-staats-und-universitatsbibliothek-dresden-(slub-dresden).svg",
     "url": "https://www.slub-dresden.de",
     "phase": "Production"
+  },
+  {
+    "updatedAt": "2025-10-23T14:03:22.647Z",
+    "name": "Heinrich-Heine University Düsseldorf",
+    "logoSrc": "/organizations/heinrich-heine-university-dusseldorf.svg",
+    "url": "https://hhu.de",
+    "phase": "Production",
+    "userCount": "30.000",
+    "enrolledUserCount": "10.000",
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn"
+    ]
   }
 ]
