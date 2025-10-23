@@ -46,7 +46,36 @@ body:
     attributes:
       label: Approximate eduMFA enrolled users
       description: The approximate number of enrolled users to eduMFA. Leave blank if when in evaluation phase.
-  - type: input
+  - type: dropdown
     attributes:
       label: Token Types
-      description: The types of tokens your organization uses. (e.g. TOTP, SMS, Email) Optional.
+      description: The types of tokens your organization uses. Optional.
+      multiple: true
+      options:
+        - 4Eyes
+        - ApplicationSpecificPassword
+        - Certificate
+        - DayPassword
+        - Email
+        - HOTP
+        - IndexedSecret
+        - mOTP
+        - OCRA
+        - PPR
+        - Push
+        - Password
+        - Questionaire
+        - Radius
+        - Registration
+        - Remote
+        - SMS
+        - Spass
+        - SSH
+        - TAN
+        - TiQR
+        - TOTP
+        - U2F
+        - VASCO
+        - WebAuthn
+        - Yubico
+        - Yubikey
