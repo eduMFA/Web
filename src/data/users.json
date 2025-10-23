@@ -261,7 +261,7 @@
     "enrolledUserCount": "10.000",
     "tokenTypes": [
       "TOTP",
-      "webauthn (hardware + passkeys)"
+      "WebAuthn"
     ]
   }
 ]
