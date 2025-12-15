@@ -75,7 +75,7 @@ jobs:
 
       - name: Create Pull Request
         if: steps.update_data.outputs.valid == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "Added ${{ env.ORG_NAME }} organization"
           branch: 'organization/${{ env.ORG_NAME_SLUG }}'
