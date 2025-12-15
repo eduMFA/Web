@@ -6,7 +6,7 @@
       "name": "my-project",
       "dependencies": {
         "@heroui/card": "2.2.26",
-        "@heroui/chip": "2.2.22",
+        "@heroui/chip": "2.2.23",
         "@heroui/link": "2.2.23",
         "@heroui/modal": "2.2.24",
         "@heroui/navbar": "2.2.25",
@@ -75,7 +75,7 @@
 
     "@heroui/card": ["@heroui/card@2.2.26", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/ripple": "2.2.21", "@heroui/shared-utils": "2.1.12", "@heroui/use-aria-button": "2.2.20", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6", "@react-types/shared": "3.32.1" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.23", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-L+q1VLhEqA/s8o3DchojwtA66IE4MZzAhhPqivBD+mYCVtrCaueDMlU1q0o73SO2iloemRz33T5s4Uyf+1b8Bg=="],
 
-    "@heroui/chip": ["@heroui/chip@2.2.22", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/shared-icons": "2.1.10", "@heroui/shared-utils": "2.1.12", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.17", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-6O4Sv1chP+xxftp7E5gHUJIzo04ML9BW9N9jjxWCqT0Qtl+a/ZxnDalCyup6oraMiVLLHp+zEVX93C+3LONgkg=="],
+    "@heroui/chip": ["@heroui/chip@2.2.23", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/shared-icons": "2.1.10", "@heroui/shared-utils": "2.1.12", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.23", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-25HTWX5j9o0suoCYBiEo87ZoTt9VQfca+DSqphNMXHpbCQ0u26fL+8/jjehoYPtySJiLigwQeZn8BEjWWO3pGg=="],
 
     "@heroui/dom-animation": ["@heroui/dom-animation@2.1.10", "", { "peerDependencies": { "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1" } }, "sha512-dt+0xdVPbORwNvFT5pnqV2ULLlSgOJeqlg/DMo97s9RWeD6rD4VedNY90c8C9meqWqGegQYBQ9ztsfX32mGEPA=="],
 
