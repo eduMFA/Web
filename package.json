@@ -16,7 +16,7 @@
     "@heroui/navbar": "2.2.26",
     "@heroui/scroll-shadow": "2.3.19",
     "@heroui/system": "2.4.24",
-    "@heroui/theme": "2.4.23",
+    "@heroui/theme": "2.4.24",
     "@heroui/tooltip": "2.2.24",
     "framer-motion": "^12.0.0",
     "next": "15.5.9",
