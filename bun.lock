@@ -5,7 +5,7 @@
     "": {
       "name": "my-project",
       "dependencies": {
-        "@heroui/card": "2.2.25",
+        "@heroui/card": "2.2.26",
         "@heroui/chip": "2.2.22",
         "@heroui/link": "2.2.23",
         "@heroui/modal": "2.2.24",
@@ -73,7 +73,7 @@
 
     "@heroui/aria-utils": ["@heroui/aria-utils@2.2.24", "", { "dependencies": { "@heroui/system": "2.4.23", "@react-aria/utils": "3.31.0", "@react-stately/collections": "3.12.8", "@react-types/overlays": "3.9.2", "@react-types/shared": "3.32.1" }, "peerDependencies": { "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-Y7FfQl2jvJr8JjpH+iuJElDwbn3eSWohuxHg6e5+xk5GcPYrEecgr0F/9qD6VU8IvVrRzJ00JzmT87lgA5iE3Q=="],
 
-    "@heroui/card": ["@heroui/card@2.2.25", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/ripple": "2.2.20", "@heroui/shared-utils": "2.1.12", "@heroui/use-aria-button": "2.2.20", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6", "@react-types/shared": "3.32.1" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.17", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-dtd/G24zePIHPutRIxWC69IO3IGJs8X+zh9rBYM9cY5Q972D8Eet5WdWTfDBhw//fFIoagDAs5YcI9emGczGaQ=="],
+    "@heroui/card": ["@heroui/card@2.2.26", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/ripple": "2.2.21", "@heroui/shared-utils": "2.1.12", "@heroui/use-aria-button": "2.2.20", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6", "@react-types/shared": "3.32.1" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.23", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-L+q1VLhEqA/s8o3DchojwtA66IE4MZzAhhPqivBD+mYCVtrCaueDMlU1q0o73SO2iloemRz33T5s4Uyf+1b8Bg=="],
 
     "@heroui/chip": ["@heroui/chip@2.2.22", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/shared-icons": "2.1.10", "@heroui/shared-utils": "2.1.12", "@react-aria/focus": "3.21.2", "@react-aria/interactions": "3.25.6" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.17", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-6O4Sv1chP+xxftp7E5gHUJIzo04ML9BW9N9jjxWCqT0Qtl+a/ZxnDalCyup6oraMiVLLHp+zEVX93C+3LONgkg=="],
 
@@ -91,7 +91,7 @@
 
     "@heroui/react-utils": ["@heroui/react-utils@2.1.14", "", { "dependencies": { "@heroui/react-rsc-utils": "2.1.9", "@heroui/shared-utils": "2.1.12" }, "peerDependencies": { "react": ">=18 || >=19.0.0-rc.0" } }, "sha512-hhKklYKy9sRH52C9A8P0jWQ79W4MkIvOnKBIuxEMHhigjfracy0o0lMnAUdEsJni4oZKVJYqNGdQl+UVgcmeDA=="],
 
-    "@heroui/ripple": ["@heroui/ripple@2.2.20", "", { "dependencies": { "@heroui/dom-animation": "2.1.10", "@heroui/shared-utils": "2.1.12" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.17", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-3+fBx5jO7l8SE84ZG0vB5BOxKKr23Ay180AeIWcf8m8lhXXd4iShVz2S+keW9PewqVHv52YBaxLoSVQ93Ddcxw=="],
+    "@heroui/ripple": ["@heroui/ripple@2.2.21", "", { "dependencies": { "@heroui/dom-animation": "2.1.10", "@heroui/shared-utils": "2.1.12" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.23", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-wairSq9LnhbIqTCJmUlJAQURQ1wcRK/L8pjg2s3R/XnvZlPXHy4ZzfphiwIlTI21z/f6tH3arxv/g1uXd1RY0g=="],
 
     "@heroui/scroll-shadow": ["@heroui/scroll-shadow@2.3.18", "", { "dependencies": { "@heroui/react-utils": "2.1.14", "@heroui/shared-utils": "2.1.12", "@heroui/use-data-scroll-overflow": "2.2.13" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.17", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-P/nLQbFPOlbTLRjO2tKoZCljJtU7iq81wsp7C8wZ1rZI1RmkTx3UgLLeoFWgmAp3ZlUIYgaewTnejt6eRx+28w=="],
 

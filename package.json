@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroui/card": "2.2.25",
+    "@heroui/card": "2.2.26",
     "@heroui/chip": "2.2.22",
     "@heroui/link": "2.2.23",
     "@heroui/modal": "2.2.24",
