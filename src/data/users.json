@@ -263,5 +263,20 @@
       "TOTP",
       "WebAuthn"
     ]
+  },
+  {
+    "updatedAt": "2025-12-17T09:18:21.740Z",
+    "name": "Karlsruher Institut für Technologie (KIT)",
+    "logoSrc": "/organizations/karlsruher-institut-fur-technologie-(kit).svg",
+    "url": "https://www.scc.kit.edu",
+    "phase": "Production",
+    "userCount": 40000,
+    "enrolledUserCount": 15000,
+    "tokenTypes": [
+      "WebAuthn",
+      "Yubico",
+      "TOTP",
+      "TAN"
+    ]
   }
 ]
