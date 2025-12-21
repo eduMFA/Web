@@ -12,7 +12,7 @@
         "@heroui/navbar": "2.2.27",
         "@heroui/scroll-shadow": "2.3.19",
         "@heroui/system": "2.4.25",
-        "@heroui/theme": "2.4.24",
+        "@heroui/theme": "2.4.25",
         "@heroui/tooltip": "2.2.25",
         "framer-motion": "^12.0.0",
         "next": "15.5.9",
@@ -103,7 +103,7 @@
 
     "@heroui/system-rsc": ["@heroui/system-rsc@2.3.21", "", { "dependencies": { "@react-types/shared": "3.32.1" }, "peerDependencies": { "@heroui/theme": ">=2.4.23", "react": ">=18 || >=19.0.0-rc.0" } }, "sha512-icB7njbNgkI3dcfZhY5LP7VFspaVgWL1lcg9Q7uJMAaj6gGFqqSSnHkSMwpR9AGLxVRKTHey0TUx8CeZDe8XDw=="],
 
-    "@heroui/theme": ["@heroui/theme@2.4.24", "", { "dependencies": { "@heroui/shared-utils": "2.1.12", "color": "^4.2.3", "color2k": "^2.0.3", "deepmerge": "4.3.1", "flat": "^5.0.2", "tailwind-merge": "3.4.0", "tailwind-variants": "3.2.2" }, "peerDependencies": { "tailwindcss": ">=4.0.0" } }, "sha512-lL+anmY4GGWwKyTbJ2PEBZE4talIZ3hu4yGpku9TktCVG2nC2YTwiWQFJ+Jcbf8Cf9vuLzI1sla5bz2jUqiBRA=="],
+    "@heroui/theme": ["@heroui/theme@2.4.25", "", { "dependencies": { "@heroui/shared-utils": "2.1.12", "color": "^4.2.3", "color2k": "^2.0.3", "deepmerge": "4.3.1", "flat": "^5.0.2", "tailwind-merge": "3.4.0", "tailwind-variants": "3.2.2" }, "peerDependencies": { "tailwindcss": ">=4.0.0" } }, "sha512-nTptYhO1V9rMoh9SJDnMfaSmFuoXvbem1UuwgHcraRtqy/TIVBPqv26JEGzSoUCL194TDGOJpqrpMuab/PdXcw=="],
 
     "@heroui/tooltip": ["@heroui/tooltip@2.2.25", "", { "dependencies": { "@heroui/aria-utils": "2.2.25", "@heroui/dom-animation": "2.1.10", "@heroui/framer-utils": "2.1.24", "@heroui/react-utils": "2.1.14", "@heroui/shared-utils": "2.1.12", "@heroui/use-aria-overlay": "2.0.4", "@heroui/use-safe-layout-effect": "2.1.8", "@react-aria/overlays": "3.30.0", "@react-aria/tooltip": "3.8.8", "@react-stately/tooltip": "3.5.8", "@react-types/overlays": "3.9.2", "@react-types/tooltip": "3.4.21" }, "peerDependencies": { "@heroui/system": ">=2.4.18", "@heroui/theme": ">=2.4.23", "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-f+WxkQy0YBzzE6VhzVgA/CeD7nvo0hhOapx0UScU8zsQ1J+n5Kr5YY/7CgMHmFLyC/Amrqlf7WSgljRl4iWivQ=="],
 
