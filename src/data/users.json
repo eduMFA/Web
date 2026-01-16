@@ -5,8 +5,8 @@
     "logoSrc": "/organizations/freie-universitat-berlin.png",
     "link": "https://fu-berlin.de",
     "phase": "Production",
-    "userCount": 50000,
-    "enrolledUserCount": 42500,
+    "userCount": 59000,
+    "enrolledUserCount": 50000,
     "tokenTypes": [
       "IndexedSecret",
       "TOTP",
