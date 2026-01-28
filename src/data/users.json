@@ -263,5 +263,18 @@
       "TOTP",
       "WebAuthn"
     ]
+  },
+  {
+    "updatedAt": "2026-01-28T09:25:21.353Z",
+    "name": "Friedrich-Alexander-Universität Erlangen-Nürnberg",
+    "logoSrc": "/organizations/friedrich-alexander-universitat-erlangen-nurnberg.svg",
+    "url": "https://www.fau.de",
+    "phase": "Production",
+    "userCount": 50000,
+    "enrolledUserCount": 3000,
+    "tokenTypes": [
+      "Yubikey",
+      "TOTP"
+    ]
   }
 ]
