@@ -3,8 +3,7 @@
 import React, {ReactNode} from "react";
 import organizationData from "@/data/users.json";
 import {User} from "@/types/organizationTypes";
-import {Link} from "@heroui/link";
-import {ScrollShadow} from "@heroui/scroll-shadow";
+import {Link, ScrollShadow} from "@heroui/react";
 import {OrganizationBox} from "@/components/OrganizationBox";
 import {NavigationBar} from "@/components/NavigationBar";
 import {useTranslations} from "next-intl";

@@ -1,13 +1,18 @@
-import {HeroUIProvider} from "@heroui/system"
+"use client";
+
+import {HeroUIProvider} from "@heroui/react"
 import React from "react";
-import {NextIntlClientProvider} from "next-intl";
-import {getMessages} from "next-intl/server";
+import {NextIntlClientProvider, AbstractIntlMessages} from "next-intl";
 
-export async function Providers({children}: { children: React.ReactNode }) {
-    const messages = await getMessages();
+interface ProvidersProps {
+    children: React.ReactNode;
+    messages: AbstractIntlMessages;
+    locale: string;
+}
 
+export function Providers({children, messages, locale}: ProvidersProps) {
     return (
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
             <HeroUIProvider>
                 {children}
             </HeroUIProvider>

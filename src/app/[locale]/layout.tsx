@@ -5,7 +5,7 @@ import {Providers} from "@/app/[locale]/providers";
 import React from "react";
 import {routing} from "@/i18n/routing";
 import {notFound} from "next/navigation";
-import {setRequestLocale} from "next-intl/server";
+import {setRequestLocale, getMessages} from "next-intl/server";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -27,11 +27,13 @@ export default async function LocaleLayout({
     }
 
     setRequestLocale(locale);
+    
+    const messages = await getMessages();
 
     return (
         <html lang={locale}>
             <body className={inter.className}>
-                <Providers>
+                <Providers messages={messages} locale={locale}>
                     {children}
                 </Providers>
             </body>

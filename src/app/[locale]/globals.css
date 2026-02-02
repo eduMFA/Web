@@ -1,4 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "../../../hero.ts";
 
+@source "../pages/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../node_modules/@heroui/theme/dist/**/*.js";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+}

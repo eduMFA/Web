@@ -1,4 +1,4 @@
-import {Link} from "@heroui/link";
+import {Link} from "@heroui/react";
 import React from "react";
 import {useTranslations} from "next-intl";
 

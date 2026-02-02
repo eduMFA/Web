@@ -5,11 +5,11 @@ import {
     NavbarItem,
     NavbarMenu,
     NavbarMenuItem,
-    NavbarMenuToggle
-} from "@heroui/navbar";
+    NavbarMenuToggle,
+    Link
+} from "@heroui/react";
 import React from "react";
 import Image from "next/image";
-import {Link} from "@heroui/link";
 import {useTranslations} from "next-intl";
 
 export const NavigationBar: React.FC = () => {

@@ -1,11 +1,7 @@
 import {OrganizationImplementationPhase, User} from "@/types/organizationTypes";
 import React from "react";
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@heroui/modal";
-import {Card} from "@heroui/card";
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, Card, Link, Tooltip, Chip} from "@heroui/react";
 import Image from "next/image";
-import {Link} from "@heroui/link";
-import {Tooltip} from "@heroui/tooltip";
-import {Chip} from "@heroui/chip";
 import {useLocale, useTranslations} from "next-intl";
 
 interface OrganizationBoxProps {

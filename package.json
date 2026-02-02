@@ -2,6 +2,7 @@
   "name": "my-project",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,15 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@heroui/card": "2.2.27",
-    "@heroui/chip": "2.2.22",
-    "@heroui/link": "2.2.25",
-    "@heroui/modal": "2.2.27",
-    "@heroui/navbar": "2.2.28",
-    "@heroui/scroll-shadow": "2.3.19",
-    "@heroui/system": "2.4.26",
-    "@heroui/theme": "2.4.26",
-    "@heroui/tooltip": "2.2.27",
+    "@heroui/react": "^2.8.8",
     "framer-motion": "^12.0.0",
     "next": "16.1.6",
     "next-intl": "4.8.2",
@@ -27,13 +20,14 @@
     "slugify": "^1.6.6"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^24.0.0",
     "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.1.6",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5"
   },
   "overrides": {
