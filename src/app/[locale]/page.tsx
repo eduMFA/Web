@@ -20,7 +20,7 @@ export default function Home() {
 
             <NavigationBar/>
 
-            <div className="container mx-auto px-4 py-8 flex-grow">
+            <div className="container mx-auto px-4 py-8 grow">
                 <section className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">{t('aboutTitle')}</h2>
                     <p className="text-gray-700">
