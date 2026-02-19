@@ -36,8 +36,18 @@ jobs:
 
           for key in "${!fields[@]}"; do
             value=$(echo "$ISSUE_BODY" | awk "/### ${fields[$key]}/{flag=1; next} /^###/{flag=0} flag" | awk 'NF')
-            if [[ "$key" == "ORG_IMAGE" && "$value" =~ \!\[.*\]\((.*)\) ]]; then
-              value="${BASH_REMATCH[1]}"
+            if [[ "$key" == "ORG_IMAGE" ]]; then
+              if [[ "$value" =~ \!\[[^]]*\]\(([^\)]+)\) ]]; then
+                value="${BASH_REMATCH[1]}"
+              elif [[ "$value" == *"src="* ]]; then
+                value="${value#*src=}"
+                value="${value#\"}"
+                value="${value#\'}"
+                value="${value%%\"*}"
+                value="${value%%\'*}"
+                value="${value%% *}"
+                value="${value%%>*}"
+              fi
             fi
             if [[ "$value" == "_No response_" ]]; then
               value="null"
