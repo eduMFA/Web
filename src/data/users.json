@@ -276,5 +276,18 @@
       "Yubikey",
       "TOTP"
     ]
+  },
+  {
+    "updatedAt": "2026-02-19T13:40:00.000Z",
+    "name": "Universität Innsbruck",
+    "logoSrc": "/organizations/universitat-innsbruck.svg",
+    "url": "https://www.uibk.ac.at",
+    "phase": "Production",
+    "userCount": 35000,
+    "enrolledUserCount": 35000,
+    "tokenTypes": [
+      "WebAuthn",
+      "TOTP"
+    ]
   }
 ]
