@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@heroui/react": "^2.8.8",
-    "@types/node": "^25.2.0",
-    "framer-motion": "^12.30.0",
+    "@types/node": "^25.2.1",
+    "framer-motion": "^12.33.0",
     "next": "16.1.6",
     "next-intl": "4.8.2",
     "react": "19.2.4",
