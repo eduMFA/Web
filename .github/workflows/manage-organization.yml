@@ -58,7 +58,7 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
+            const { default: script } = await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
             try {
               core.setOutput('valid', String(await script({github, context, core})));
             } catch (error) {
