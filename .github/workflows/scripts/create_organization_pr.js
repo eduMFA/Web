@@ -6,6 +6,30 @@ import slugify from "slugify";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const toGitSafeBranchSegment = (value, fallback) => {
+  let segment = slugify(value || "", {
+    lower: true,
+    strict: true,
+    trim: true,
+  });
+
+  segment = segment
+    .replace(/\.{2,}/g, "-")
+    .replace(/@\{/g, "-")
+    .replace(/[-.]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  if (!segment) {
+    return fallback;
+  }
+
+  if (segment === ".lock" || segment.endsWith(".lock")) {
+    segment = segment.replace(/\.lock$/i, "-lock");
+  }
+
+  return segment || fallback;
+};
+
 const createOrganizationPr = async ({ github, context, core }) => {
   const getEnvVar = (key) =>
     process.env[key] !== "null" ? process.env[key] : null;
@@ -64,6 +88,12 @@ const createOrganizationPr = async ({ github, context, core }) => {
   // Slugify the org name
   const orgNameSlug = slugify(orgName, { lower: true });
   core.exportVariable("ORG_NAME_SLUG", orgNameSlug);
+
+  const branchSlug = toGitSafeBranchSegment(
+    orgName,
+    `org-${context.issue.number}`,
+  );
+  core.exportVariable("ORG_BRANCH_NAME", `organization/${branchSlug}`);
 
   // Download the orgImage
   const supportedFormats = {
