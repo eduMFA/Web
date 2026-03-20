@@ -289,5 +289,17 @@
       "WebAuthn",
       "TOTP"
     ]
+  },
+  {
+    "updatedAt": "2026-03-20T12:39:15.109Z",
+    "name": "Verein zur Förderung eines Deutschen Forschungsnetzes e.V.",
+    "logoSrc": "/organizations/verein-zur-forderung-eines-deutschen-forschungsnetzes-e.v..png",
+    "url": "https://www.dfn.de",
+    "phase": "Production",
+    "userCount": 80,
+    "enrolledUserCount": 80,
+    "tokenTypes": [
+      "WebAuthn"
+    ]
   }
 ]
