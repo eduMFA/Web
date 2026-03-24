@@ -299,7 +299,8 @@
     "userCount": 80,
     "enrolledUserCount": 80,
     "tokenTypes": [
-      "WebAuthn"
+      "WebAuthn",
+      "TOTP"
     ]
   }
 ]
