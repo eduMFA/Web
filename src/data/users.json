@@ -28,17 +28,16 @@
     ]
   },
   {
-    "updatedAt": "2024-09-30T14:00:00.000Z",
+    "updatedAt": "2026-04-17T05:10:26.234Z",
     "name": "Otto-Friedrich-Universität Bamberg",
     "logoSrc": "/organizations/otto-friedrich-universitat-bamberg.png",
-    "link": "https://uni-bamberg.de",
+    "url": "https://www.uni-bamberg.de",
     "phase": "Production",
-    "enrolledUserCount": 1000,
+    "userCount": 15000,
+    "enrolledUserCount": 12000,
     "tokenTypes": [
       "WebAuthn",
-      "TOTP",
-      "HOTP",
-      "Remote"
+      "IndexedSecret"
     ]
   },
   {
