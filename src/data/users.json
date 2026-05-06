@@ -301,5 +301,12 @@
       "WebAuthn",
       "TOTP"
     ]
+  },
+  {
+    "updatedAt": "2026-05-06T09:02:33.153Z",
+    "name": "Universität Siegen",
+    "logoSrc": "/organizations/universitat-siegen.svg",
+    "url": "https://www.uni-siegen.de",
+    "phase": "Production"
   }
 ]
