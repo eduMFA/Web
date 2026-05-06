@@ -81,7 +81,7 @@
     "name": "University of Oslo",
     "logoSrc": "/organizations/university-of-oslo.jpeg",
     "url": "https://uio.no",
-    "phase": "Test",
+    "phase": "Production",
     "userCount": 30000,
     "tokenTypes": [
       "TOTP",
