@@ -13,7 +13,7 @@
     "@heroui/react": "^2.8.8",
     "@types/node": "^25.2.1",
     "framer-motion": "^12.33.0",
-    "next": "16.2.4",
+    "next": "16.2.6",
     "next-intl": "4.9.2",
     "react": "19.2.5",
     "react-dom": "19.2.5",
