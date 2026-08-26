@@ -33,11 +33,12 @@ jobs:
             ["ORG_ENROLLED_USER_COUNT"]="Approximate eduMFA enrolled users"
             ["ORG_TOKENS"]="Token Types"
           )
+          markdown_image_regex='!\[[^]]*\]\(([^)]+)\)'
 
           for key in "${!fields[@]}"; do
             value=$(echo "$ISSUE_BODY" | awk "/### ${fields[$key]}/{flag=1; next} /^###/{flag=0} flag" | awk 'NF')
             if [[ "$key" == "ORG_IMAGE" ]]; then
-              if [[ "$value" =~ \!\[[^]]*\]\(([^\)]+)\) ]]; then
+              if [[ "$value" =~ $markdown_image_regex ]]; then
                 value="${BASH_REMATCH[1]}"
               elif [[ "$value" == *"src="* ]]; then
                 value="${value#*src=}"
