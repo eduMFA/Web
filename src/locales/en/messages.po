@@ -1,0 +1,139 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-09-08 10:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. js-lingui-explicit-id
+#: src/components/Footer.tsx
+msgid "Footer.copyright"
+msgstr "© 2024 eduMFA. All rights reserved."
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.featuresContent"
+msgstr "<0><1>Multi-factor authentication support for enhanced security</1><2>Deep integration with Shibboleth for academic and research environments</2><3>Support for modern authentication methods, including Passkeys</3><4>Easy migration path from privacyIDEA and other authentication systems</4><5>Continuous development based on the scientific community's requirements</5><6>Focus on using and maintaining up-to-date, current software components</6><7>Support for the latest Python versions (currently Python {minPyVersion} to {maxPyVersion})</7><8>Official support for container deployment, enabling seamless scaling in Kubernetes clusters</8><9>eduMFA Authenticator App for push notifications</9></0>"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.aboutTitle"
+msgstr "About eduMFA"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.enrolledCount"
+msgstr "Approx. Enrolled Users:"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.userCount"
+msgstr "Approx. Users:"
+
+#. js-lingui-explicit-id
+#: src/components/NavigationBar.tsx
+msgid "NavigationBar.documentation"
+msgstr "Documentation"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.supportContent"
+msgstr "eduMFA benefits from a strong support network and an active development community:<0><1>Commercial support, consulting, implementation, 2nd-level support, and managed services are available from trusted companies like DAASI International, GWDG, and Ssystems.</1><2>The development team includes contributors from leading institutions such as Freie Universität Berlin, GWDG, Hochschule München, and University of Bamberg.</2><3>This collaborative approach ensures that eduMFA remains at the forefront of authentication technology, addressing real-world needs in academic and research environments.</3><4>A <5>user mailing list<6/></5> is available for community support and discussions.</4><7>Issues and feature requests can be submitted on the GitHub repository.</7></0>"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.aboutContent"
+msgstr "eduMFA is a comprehensive authentication system that enhances existing applications with multi-factor authentication, significantly improving security. Originally forked from privacyIDEA version 3.9.2, eduMFA has evolved into a robust solution deeply integrated with Shibboleth, making it particularly suited for academic and research environments. It supports various authentication methods, including OTP devices, challenge-response mechanisms, SSH keys, and the cutting-edge Passkeys technology.<0/><1/>Running on Linux and entirely open-source under the AGPLv3 license, eduMFA offers a flexible and powerful plugin system. This allows for seamless integration with various identity management systems and applications, extending its functionality to meet diverse authentication needs. All features of eduMFA can be used free of charge."
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.reasonContent"
+msgstr "eduMFA provides robust protection against hacking attacks for IT services in academic networks and beyond. By enabling multi-factor authentication, it renders traditional username-password combinations obsolete. The 'Passkeys' method, a key focus of eduMFA, securely stores authentication keys, accessible only through additional methods like biometric scans or PINs. This approach offers strong resistance to phishing attacks, allows synchronization between compatible devices, and delivers a seamless user experience without compromising on security.<0/><1/>Already in use at several universities across Europe, including institutions in Germany, Czech Republic, and Norway, eduMFA is continuously evolving to meet the dynamic needs of the scientific and broader IT community. Its commitment to using current, up-to-date software ensures that users always have access to the latest security features and improvements."
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.phaseEval"
+msgstr "Evaluation"
+
+#. js-lingui-explicit-id
+#: src/components/NavigationBar.tsx
+msgid "NavigationBar.github"
+msgstr "GitHub"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.implementationPhase"
+msgstr "Implementation Phase:"
+
+#. js-lingui-explicit-id
+#: src/components/Footer.tsx
+msgid "Footer.imprint"
+msgstr "Imprint"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.installTitle"
+msgstr "Installation"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.orgFooter"
+msgstr "Is your organization using eduMFA? <0>Submit your organization<1/></0>."
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.featuresTitle"
+msgstr "Key Features and Goals"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.lastUpdated"
+msgstr "Last updated"
+
+#. js-lingui-explicit-id
+#: src/components/NavigationBar.tsx
+msgid "NavigationBar.mailingList"
+msgstr "Mailing List"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.orgTitle"
+msgstr "Organizations Using eduMFA"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.phaseProd"
+msgstr "Production"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.supportTitle"
+msgstr "Support and Development"
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.phaseTest"
+msgstr "Test"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.installContent"
+msgstr "The system is written in Python, uses Flask as the web framework, and an SQL database as the datastore. Installation is straightforward, providing a lean installation process.<0/><1/>You can learn more about the installation process in the <2>documentation<3/></2>."
+
+#. js-lingui-explicit-id
+#: src/components/OrganizationBox.tsx
+msgid "OrganizationBox.tokenTypes"
+msgstr "Token Types:"
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
+msgid "HomePage.reasonTitle"
+msgstr "Why Choose eduMFA?"

@@ -1,12 +1,12 @@
 import "./globals.css";
 import {Providers} from "@/app/[locale]/providers";
 import React from "react";
-import {routing} from "@/i18n/routing";
+import {isLocale, locales} from "@/i18n/routing";
 import {notFound} from "next/navigation";
-import {setRequestLocale, getMessages} from "next-intl/server";
+import {loadMessages} from "@/i18n/messages";
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({locale}));
+    return locales.map((locale) => ({locale}));
 }
 
 export default async function LocaleLayout({
@@ -18,13 +18,11 @@ export default async function LocaleLayout({
 }) {
     const { locale } = await params;
 
-    if (!routing.locales.includes(locale as any)) {
+    if (!isLocale(locale)) {
         notFound();
     }
 
-    setRequestLocale(locale);
-    
-    const messages = await getMessages();
+    const messages = await loadMessages(locale);
 
     return (
         <Providers messages={messages} locale={locale}>

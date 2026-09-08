@@ -1,18 +1,19 @@
 import {Link} from "@heroui/react";
 import React from "react";
 import Image from "next/image";
-import {useTranslations} from "next-intl";
+import {useLingui} from "@lingui/react/macro";
+import {msg} from "@lingui/core/macro";
 
 export const NavigationBar: React.FC = () => {
-    const t = useTranslations('NavigationBar');
+    const {t} = useLingui();
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-    const menuLinks = {
-        github: "https://github.com/eduMFA/eduMFA/",
-        documentation: "https://edumfa.readthedocs.io/",
-        mailingList: "https://www.listserv.dfn.de/sympa/info/edumfa-users"
-    }
+    const menuLinks = [
+        {label: msg({id: "NavigationBar.github", message: "GitHub"}), href: "https://github.com/eduMFA/eduMFA/"},
+        {label: msg({id: "NavigationBar.documentation", message: "Documentation"}), href: "https://edumfa.readthedocs.io/"},
+        {label: msg({id: "NavigationBar.mailingList", message: "Mailing List"}), href: "https://www.listserv.dfn.de/sympa/info/edumfa-users"},
+    ];
 
     return (
         <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -46,10 +47,10 @@ export const NavigationBar: React.FC = () => {
                     </Link>
                 </div>
                 <ul className="ml-4 hidden items-center gap-4 sm:flex">
-                    {Object.entries(menuLinks).map(([labelKey, link]) => (
-                    <li key={labelKey}>
-                        <Link href={link} target="_blank" rel="noopener noreferrer">
-                            {t(labelKey)}
+                    {menuLinks.map(({label, href}) => (
+                    <li key={label.id}>
+                        <Link href={href} target="_blank" rel="noopener noreferrer">
+                            {t(label)}
                         </Link>
                     </li>
                     ))}
@@ -58,16 +59,16 @@ export const NavigationBar: React.FC = () => {
             {isMenuOpen && (
                 <div className="border-t border-separator sm:hidden">
                     <ul className="flex flex-col gap-2 p-4">
-                    {Object.entries(menuLinks).map(([labelKey, link]) => (
-                    <li key={labelKey}>
+                    {menuLinks.map(({label, href}) => (
+                    <li key={label.id}>
                         <Link
-                            href={link}
+                            href={href}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block w-full py-2"
                             onPress={() => setIsMenuOpen(false)}
                         >
-                            {t(labelKey)}
+                            {t(label)}
                         </Link>
                     </li>
                     ))}
