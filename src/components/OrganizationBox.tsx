@@ -1,6 +1,6 @@
 import {OrganizationImplementationPhase, User} from "@/types/organizationTypes";
 import React from "react";
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, Card, Link, Tooltip, Chip} from "@heroui/react";
+import {Chip, Link, Modal, Tooltip} from "@heroui/react";
 import Image from "next/image";
 import {useLocale, useTranslations} from "next-intl";
 
@@ -12,32 +12,37 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
     const t = useTranslations('OrganizationBox');
     const locale = useLocale();
 
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
-
     const nf = new Intl.NumberFormat(locale, {notation: 'compact', maximumFractionDigits: 2});
     const rtf = new Intl.RelativeTimeFormat(locale, {numeric: 'auto'});
 
 
-    const updatedDaysDiff = Math.round((new Date(user.updatedAt).getTime() - new Date().getTime()) / 1000 / 60 / 60 / 24);
+    const updatedAt = new Date(user.updatedAt).getTime();
+    const updatedDaysDiff = Number.isFinite(updatedAt)
+        ? Math.round((updatedAt - Date.now()) / 1000 / 60 / 60 / 24)
+        : null;
 
     return (
-        <>
-            <Card isPressable className="h-32 content-center border-none" onPress={() => onOpen()}>
-                <Image
-                    src={user.logoSrc}
-                    alt={user.name}
-                    fill={true}
-                    className={'p-2 object-contain'}
-                />
-            </Card>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
-                    {() => (
-                        <>
-                            <ModalHeader className="flex flex-col gap-1">
-                                <Link isExternal showAnchorIcon href={user.link} color="foreground">{user.name}</Link>
-                            </ModalHeader>
-                            <ModalBody>
+        <Modal>
+                <Modal.Trigger className="relative h-32 w-full cursor-pointer rounded-xl border-none bg-surface shadow-sm">
+                    <Image
+                        src={user.logoSrc}
+                        alt={user.name}
+                        fill
+                        className="p-2 object-contain"
+                    />
+                </Modal.Trigger>
+                <Modal.Backdrop>
+                    <Modal.Container>
+                        <Modal.Dialog>
+                            <Modal.CloseTrigger />
+                            <Modal.Header>
+                                <Modal.Heading>
+                                    <Link href={user.link} target="_blank" rel="noopener noreferrer">
+                                        {user.name}<Link.Icon />
+                                    </Link>
+                                </Modal.Heading>
+                            </Modal.Header>
+                            <Modal.Body>
                                 {(user.userCount != undefined || user.enrolledUserCount != undefined) && (
                                     <div className="flex items-center mb-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -72,23 +77,32 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                               d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/>
                                     </svg>
                                     <p className=" text-gray-700 pr-2">{t('implementationPhase')} </p>
-                                    <Tooltip showArrow content={t('phaseEval')}>
-                                        <div
+                                    <Tooltip>
+                                        <Tooltip.Trigger className="mr-2">
+                                        <span
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.EVALUATION ? 'bg-blue-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
                                             {t('phaseEval').charAt(0).toUpperCase()}
-                                        </div>
+                                        </span>
+                                        </Tooltip.Trigger>
+                                        <Tooltip.Content showArrow><Tooltip.Arrow />{t('phaseEval')}</Tooltip.Content>
                                     </Tooltip>
-                                    <Tooltip showArrow content={t('phaseTest')}>
-                                        <div
+                                    <Tooltip>
+                                        <Tooltip.Trigger className="mr-2">
+                                        <span
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.TESTING ? 'bg-yellow-500 text-black' : 'bg-gray-300'} mr-2 group relative`}>
                                             {t('phaseTest').charAt(0).toUpperCase()}
-                                        </div>
+                                        </span>
+                                        </Tooltip.Trigger>
+                                        <Tooltip.Content showArrow><Tooltip.Arrow />{t('phaseTest')}</Tooltip.Content>
                                     </Tooltip>
-                                    <Tooltip showArrow content={t('phaseProd')}>
-                                        <div
+                                    <Tooltip>
+                                        <Tooltip.Trigger className="mr-2">
+                                        <span
                                             className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${user.phase === OrganizationImplementationPhase.PRODUCTION ? 'bg-green-500 text-white' : 'bg-gray-300'} mr-2 group relative`}>
                                             {t('phaseProd').charAt(0).toUpperCase()}
-                                        </div>
+                                        </span>
+                                        </Tooltip.Trigger>
+                                        <Tooltip.Content showArrow><Tooltip.Arrow />{t('phaseProd')}</Tooltip.Content>
                                     </Tooltip>
                                 </div>
                                 {user.tokenTypes && user.tokenTypes.length > 0 && (
@@ -108,16 +122,17 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                                         </div>
                                     </>
                                 )}
-                            </ModalBody>
-                            <ModalFooter>
-                                <div className="text-xs text-gray-500">
-                                    {t('lastUpdated')} {rtf.format(updatedDaysDiff, 'day')}
-                                </div>
-                            </ModalFooter>
-                        </>
-                    )}
-                </ModalContent>
-            </Modal>
-        </>
+                            </Modal.Body>
+                            {updatedDaysDiff !== null && (
+                                <Modal.Footer>
+                                    <div className="text-xs text-gray-500">
+                                        {t('lastUpdated')} {rtf.format(updatedDaysDiff, 'day')}
+                                    </div>
+                                </Modal.Footer>
+                            )}
+                        </Modal.Dialog>
+                    </Modal.Container>
+                </Modal.Backdrop>
+        </Modal>
     );
 }

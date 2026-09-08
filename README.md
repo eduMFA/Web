@@ -1,7 +1,7 @@
 ## eduMFA Web
 
 This is the source code of the [edumfa.io](https://edumfa.io) website. It is built with [Next.js](https://nextjs.org/),
-a React framework and [NextUI](https://nextui.org/).
+a React framework and [HeroUI](https://heroui.com/).
 
 ## Add your Organization
 

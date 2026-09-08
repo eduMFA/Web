@@ -10,9 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@heroui/react": "^2.8.8",
+    "@heroui/react": "^3.2.4",
+    "@heroui/styles": "^3.2.4",
     "@types/node": "^26.0.0",
-    "framer-motion": "^12.33.0",
     "next": "16.3.4",
     "next-intl": "4.13.7",
     "react": "19.2.8",

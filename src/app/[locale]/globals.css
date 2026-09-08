@@ -1,11 +1,9 @@
 @import "tailwindcss";
-@plugin "../../../hero.ts";
+@import "@heroui/styles";
 
 @source "../pages/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../components/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../app/**/*.{js,ts,jsx,tsx,mdx}";
-@source "../../../node_modules/@heroui/theme/dist/**/*.js";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {

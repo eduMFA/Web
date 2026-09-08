@@ -65,10 +65,10 @@ export default function Home() {
                                     userMailingListLink: (content: ReactNode) =>
                                         <Link
                                             href="https://www.listserv.dfn.de/sympa/info/edumfa-users"
-                                            isExternal
-                                            showAnchorIcon
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
-                                            {content}
+                                            {content}<Link.Icon />
                                         </Link>
                                 }
                             )}
@@ -91,10 +91,10 @@ export default function Home() {
                             addOrgLink: (content: ReactNode) =>
                                 <Link
                                     href="https://github.com/eduMFA/Web/issues/new?labels=organization&title=%5BOrg%5D+&template=manage_organization.yml"
-                                    isExternal
-                                    showAnchorIcon
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
-                                    {content}
+                                    {content}<Link.Icon />
                                 </Link>
                         })}
                     </p>
@@ -110,10 +110,10 @@ export default function Home() {
                                     documentationLink: (content: ReactNode) =>
                                         <Link
                                             href="https://edumfa.readthedocs.io/en/latest/installation/index.html"
-                                            isExternal
-                                            showAnchorIcon
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
-                                            {content}
+                                            {content}<Link.Icon />
                                         </Link>
                                 }
                             )}
