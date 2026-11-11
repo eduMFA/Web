@@ -325,5 +325,19 @@
       "Yubico",
       "Yubikey"
     ]
+  },
+  {
+    "updatedAt": "2026-11-11T09:04:01.790Z",
+    "name": "Hochschule für Technik und Wirtschaft Berlin",
+    "logoSrc": "/organizations/hochschule-fur-technik-und-wirtschaft-berlin.svg",
+    "url": "https://www.htw-berlin.de/",
+    "phase": "Production",
+    "userCount": 20000,
+    "enrolledUserCount": 11000,
+    "tokenTypes": [
+      "TAN",
+      "TOTP",
+      "Yubikey"
+    ]
   }
 ]
