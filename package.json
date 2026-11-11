@@ -18,8 +18,8 @@
     "@lingui/react": "^6.6.0",
     "@types/node": "^26.0.0",
     "next": "16.4.6",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "sharp": "^0.35.0",
     "slugify": "^1.6.9"
   },
@@ -28,8 +28,8 @@
     "@lingui/cli": "^6.6.0",
     "@lingui/format-po": "^6.6.0",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "eslint": "^10.0.0",
     "eslint-config-next": "16.4.6",
     "postcss": "^8.5.6",
@@ -37,7 +37,7 @@
     "typescript": "^7.0.0"
   },
   "overrides": {
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5"
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
   }
 }
