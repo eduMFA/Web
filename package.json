@@ -8,6 +8,8 @@
     "build": "lingui compile && next build",
     "start": "next start",
     "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "typecheck": "next typegen && tsc --noEmit",
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile"
   },
@@ -30,11 +32,13 @@
     "@tailwindcss/postcss": "^4.3.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.14.0",
     "eslint-config-next": "16.4.6",
     "postcss": "^8.5.32",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4.3.5",
-    "typescript": "^7.0.2"
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
   },
   "overrides": {
     "@types/react": "19.3.0",

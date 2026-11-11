@@ -11,14 +11,12 @@ interface ProvidersProps {
 }
 
 export function Providers({children, messages, locale}: ProvidersProps) {
-    const [i18n] = React.useState(() => setupI18n({
-        locale,
-        messages: {[locale]: messages},
-    }));
+    const [i18n] = React.useState(() =>
+        setupI18n({
+            locale,
+            messages: {[locale]: messages},
+        }),
+    );
 
-    return (
-        <I18nProvider i18n={i18n}>
-            {children}
-        </I18nProvider>
-    )
+    return <I18nProvider i18n={i18n}>{children}</I18nProvider>;
 }

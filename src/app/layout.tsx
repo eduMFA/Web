@@ -15,20 +15,20 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "https://edumfa.io",
-        languages: locales.reduce((acc: Record<string, string>, locale) => {
-            acc[locale] = `https://edumfa.io/${locale}`;
-            return acc;
-        }, { "x-default": "https://edumfa.io/en" })
-    }
+        languages: locales.reduce(
+            (acc: Record<string, string>, locale) => {
+                acc[locale] = `https://edumfa.io/${locale}`;
+                return acc;
+            },
+            {"x-default": "https://edumfa.io/en"},
+        ),
+    },
 };
 
-export default function RootLayout({ children } : { children: React.ReactNode }) {
-
+export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                {children}
-            </body>
+            <body className={inter.className}>{children}</body>
         </html>
-    )
+    );
 }

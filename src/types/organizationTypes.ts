@@ -1,9 +1,9 @@
-import type { organizationTokenTypes } from "./organizationTokenTypes";
+import type {organizationTokenTypes} from "./organizationTokenTypes";
 
 export enum OrganizationImplementationPhase {
-    EVALUATION = 'Evaluation',
-    TESTING = 'Testing',
-    PRODUCTION = 'Production',
+    EVALUATION = "Evaluation",
+    TESTING = "Testing",
+    PRODUCTION = "Production",
 }
 
 export type OrganizationTokenType = (typeof organizationTokenTypes)[number];

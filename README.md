@@ -12,7 +12,7 @@ Use the GitHub issue forms to [add](https://github.com/eduMFA/Web/issues/new?tem
 `?` - Optional field
 
 | Field              | Type     | Description                                                                                  |
-|--------------------|----------|----------------------------------------------------------------------------------------------|
+| ------------------ | -------- | -------------------------------------------------------------------------------------------- |
 | name               | string   | The name of the organization.                                                                |
 | logoSrc            | string   | The Path to the organization logo, starting with `organizations/`                            |
 | url                | string   | The URL to the organization.                                                                 |
@@ -31,10 +31,6 @@ Use the GitHub issue forms to [add](https://github.com/eduMFA/Web/issues/new?tem
   "userCount": 1000,
   "enrolledUserCount": 20000,
   "phase": "Testing",
-  "tokenTypes": [
-    "IndexedSecret",
-    "TOTP",
-    "WebAuthn"
-  ]
+  "tokenTypes": ["IndexedSecret", "TOTP", "WebAuthn"]
 }
 ```

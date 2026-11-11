@@ -11,8 +11,14 @@ export const NavigationBar: React.FC = () => {
 
     const menuLinks = [
         {label: msg({id: "NavigationBar.github", message: "GitHub"}), href: "https://github.com/eduMFA/eduMFA/"},
-        {label: msg({id: "NavigationBar.documentation", message: "Documentation"}), href: "https://edumfa.readthedocs.io/"},
-        {label: msg({id: "NavigationBar.mailingList", message: "Mailing List"}), href: "https://www.listserv.dfn.de/sympa/info/edumfa-users"},
+        {
+            label: msg({id: "NavigationBar.documentation", message: "Documentation"}),
+            href: "https://edumfa.readthedocs.io/",
+        },
+        {
+            label: msg({id: "NavigationBar.mailingList", message: "Mailing List"}),
+            href: "https://www.listserv.dfn.de/sympa/info/edumfa-users",
+        },
     ];
 
     return (
@@ -48,33 +54,33 @@ export const NavigationBar: React.FC = () => {
                 </div>
                 <ul className="ml-4 hidden items-center gap-4 sm:flex">
                     {menuLinks.map(({label, href}) => (
-                    <li key={label.id}>
-                        <Link href={href} target="_blank" rel="noopener noreferrer">
-                            {t(label)}
-                        </Link>
-                    </li>
+                        <li key={label.id}>
+                            <Link href={href} target="_blank" rel="noopener noreferrer">
+                                {t(label)}
+                            </Link>
+                        </li>
                     ))}
                 </ul>
             </div>
             {isMenuOpen && (
                 <div className="border-t border-separator sm:hidden">
                     <ul className="flex flex-col gap-2 p-4">
-                    {menuLinks.map(({label, href}) => (
-                    <li key={label.id}>
-                        <Link
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block w-full py-2"
-                            onPress={() => setIsMenuOpen(false)}
-                        >
-                            {t(label)}
-                        </Link>
-                    </li>
-                    ))}
+                        {menuLinks.map(({label, href}) => (
+                            <li key={label.id}>
+                                <Link
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block w-full py-2"
+                                    onPress={() => setIsMenuOpen(false)}
+                                >
+                                    {t(label)}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             )}
         </nav>
-    )
-}
+    );
+};

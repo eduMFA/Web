@@ -58,7 +58,11 @@ const createOrganizationPr = async ({ github, context, core }) => {
     return invalidSubmission("Use a single organization form per issue.");
   }
 
-  const nameHeading = isRemoval ? removeNameHeading : isUpdate ? updateNameHeading : "Organization Name";
+  const nameHeading = isRemoval
+    ? removeNameHeading
+    : isUpdate
+      ? updateNameHeading
+      : "Organization Name";
   const listedName = getField(nameHeading);
   if (!listedName || /[\r\n]/.test(listedName)) {
     return invalidSubmission(`Enter ${nameHeading} on a single line.`);
@@ -68,7 +72,9 @@ const createOrganizationPr = async ({ github, context, core }) => {
   const existingIndex = users.findIndex((user) => user.name === listedName);
   const existing = users[existingIndex];
   if ((isUpdate || isRemoval) && !existing) {
-    return invalidSubmission("Copy the exact organization name from the published listing.");
+    return invalidSubmission(
+      "Copy the exact organization name from the published listing.",
+    );
   }
 
   let name = listedName;
@@ -79,20 +85,32 @@ const createOrganizationPr = async ({ github, context, core }) => {
     name = (isUpdate && getField("New Organization Name")) || listedName;
     const orgNameSlug = slugify(name, { lower: true });
     if (!orgNameSlug || /[\r\n]/.test(name)) {
-      return invalidSubmission("Enter a valid organization name on a single line.");
+      return invalidSubmission(
+        "Enter a valid organization name on a single line.",
+      );
     }
     if (name !== listedName && users.some((user) => user.name === name)) {
       return invalidSubmission("The new organization name is already listed.");
     }
 
     const orgUrl = getField("Organization URL");
-    if ((orgUrl || !isUpdate) && (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:")) {
-      return invalidSubmission("Enter a valid Organization URL starting with https://.");
+    if (
+      (orgUrl || !isUpdate) &&
+      (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:")
+    ) {
+      return invalidSubmission(
+        "Enter a valid Organization URL starting with https://.",
+      );
     }
 
     const orgPhase = getField("Implementation Phase");
-    if ((orgPhase || !isUpdate) && !["Evaluation", "Testing", "Production"].includes(orgPhase)) {
-      return invalidSubmission("Set Implementation Phase to Evaluation, Testing, or Production.");
+    if (
+      (orgPhase || !isUpdate) &&
+      !["Evaluation", "Testing", "Production"].includes(orgPhase)
+    ) {
+      return invalidSubmission(
+        "Set Implementation Phase to Evaluation, Testing, or Production.",
+      );
     }
 
     const user = isUpdate ? { ...existing, name } : { name };
@@ -113,7 +131,9 @@ const createOrganizationPr = async ({ github, context, core }) => {
       } else {
         const value = Number(count);
         if (!Number.isSafeInteger(value) || value < 0) {
-          return invalidSubmission(`Enter a non-negative whole number for ${heading}.`);
+          return invalidSubmission(
+            `Enter a non-negative whole number for ${heading}.`,
+          );
         }
         user[key] = value;
       }
@@ -125,7 +145,9 @@ const createOrganizationPr = async ({ github, context, core }) => {
         delete user.tokenTypes;
       } else {
         const tokenTypes = orgTokens.split(",").map((token) => token.trim());
-        if (tokenTypes.some((token) => !organizationTokenTypes.includes(token))) {
+        if (
+          tokenTypes.some((token) => !organizationTokenTypes.includes(token))
+        ) {
           return invalidSubmission(
             isUpdate
               ? "Enter supported values in Token Types. Select Clear token types on its own to remove the list."
@@ -144,7 +166,9 @@ const createOrganizationPr = async ({ github, context, core }) => {
         imageField;
       try {
         const response = await fetch(imageUrl);
-        const imageExtension = supportedFormats.get(response.headers.get("content-type"));
+        const imageExtension = supportedFormats.get(
+          response.headers.get("content-type"),
+        );
         if (!response.ok || !imageExtension) {
           throw new Error("Image unavailable or unsupported format");
         }
@@ -153,17 +177,32 @@ const createOrganizationPr = async ({ github, context, core }) => {
           data: Buffer.from(await response.arrayBuffer()),
         };
       } catch {
-        return invalidSubmission("Provide a working Organization Image link in JPG, PNG, SVG, or WebP format.");
+        return invalidSubmission(
+          "Provide a working Organization Image link in JPG, PNG, SVG, or WebP format.",
+        );
       }
 
       user.logoSrc = newLogo.src;
-      if (users.some((entry, index) => index !== existingIndex && entry.logoSrc === user.logoSrc)) {
-        return invalidSubmission("The new image filename is already used by another organization.");
+      if (
+        users.some(
+          (entry, index) =>
+            index !== existingIndex && entry.logoSrc === user.logoSrc,
+        )
+      ) {
+        return invalidSubmission(
+          "The new image filename is already used by another organization.",
+        );
       }
     }
 
-    if (isUpdate && !newLogo && JSON.stringify(user) === JSON.stringify(existing)) {
-      return invalidSubmission("Enter at least one change to the published listing.");
+    if (
+      isUpdate &&
+      !newLogo &&
+      JSON.stringify(user) === JSON.stringify(existing)
+    ) {
+      return invalidSubmission(
+        "Enter at least one change to the published listing.",
+      );
     }
     user.updatedAt = new Date().toISOString();
     if (existing) {
@@ -183,11 +222,12 @@ const createOrganizationPr = async ({ github, context, core }) => {
       per_page: 100,
     });
     for await (const { data } of pullRequests) {
-      const existing = data.find((pr) =>
-        pr.user?.login === "github-actions[bot]" &&
-        pr.head.repo?.id === context.payload.repository.id &&
-        pr.head.ref.startsWith("organization/") &&
-        pr.body?.trimEnd().endsWith(`\nCloses #${issue.number}`),
+      const existing = data.find(
+        (pr) =>
+          pr.user?.login === "github-actions[bot]" &&
+          pr.head.repo?.id === context.payload.repository.id &&
+          pr.head.ref.startsWith("organization/") &&
+          pr.body?.trimEnd().endsWith(`\nCloses #${issue.number}`),
       );
       if (existing) {
         branch = existing.head.ref;
@@ -208,7 +248,10 @@ const createOrganizationPr = async ({ github, context, core }) => {
 
   core.setOutput("branch", branch);
   core.setOutput("name", name);
-  core.setOutput("operation", isRemoval ? "Remove" : existing ? "Update" : "Add");
+  core.setOutput(
+    "operation",
+    isRemoval ? "Remove" : existing ? "Update" : "Add",
+  );
   return true;
 };
 
