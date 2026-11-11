@@ -339,5 +339,19 @@
       "TOTP",
       "Yubikey"
     ]
+  },
+  {
+    "updatedAt": "2026-08-26T08:23:35.000Z",
+    "name": "Jan Evangelista Purkyne University in Usti nad Labem",
+    "logoSrc": "/organizations/jan-evangelista-purkyne-university-in-usti-nad-labem.svg",
+    "link": "https://www.ujep.cz",
+    "phase": "Production",
+    "userCount": 10000,
+    "enrolledUserCount": 1000,
+    "tokenTypes": [
+      "TOTP",
+      "WebAuthn",
+      "PPR"
+    ]
   }
 ]
