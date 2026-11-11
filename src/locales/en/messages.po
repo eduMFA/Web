@@ -86,7 +86,7 @@ msgstr "Installation"
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
 msgid "HomePage.orgFooter"
-msgstr "Is your organization using eduMFA? <0>Submit your organization<1/></0>."
+msgstr "<0>Add, update, or remove your organization listing<1/></0>."
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx

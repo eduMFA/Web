@@ -81,7 +81,7 @@ export default function Home() {
                     </ScrollShadow>
                     <p className="text-gray-500 mt-2 text-sm italic">
                         <Trans id="HomePage.orgFooter">
-                            Is your organization using eduMFA? <Link href="https://github.com/eduMFA/Web/issues/new?labels=organization&title=%5BOrg%5D+&template=manage_organization.yml" target="_blank" rel="noopener noreferrer">Submit your organization<Link.Icon /></Link>.
+                            <Link href="https://github.com/eduMFA/Web/issues/new/choose" target="_blank" rel="noopener noreferrer">Add, update, or remove your organization listing<Link.Icon /></Link>.
                         </Trans>
                     </p>
                 </section>

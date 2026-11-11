@@ -10,6 +10,19 @@ const supportedFormats = new Map([
   ["image/webp", "webp"],
 ]);
 
+const updateNameHeading = "Organization Name to Update";
+const removeNameHeading = "Organization Name to Remove";
+const clearTokenTypes = "Clear token types";
+
+const removeUnusedLogo = (logoSrc, users) => {
+  if (
+    /^\/organizations\/[^/]+\.[^/]+$/.test(logoSrc ?? "") &&
+    !users.some((user) => user.logoSrc === logoSrc)
+  ) {
+    fs.rmSync(`public${logoSrc}`, { force: true });
+  }
+};
+
 const createOrganizationPr = async ({ github, context, core }) => {
   const issueParams = { ...context.repo, issue_number: context.issue.number };
   const { data: issue } = await github.rest.issues.get(issueParams);
@@ -33,57 +46,131 @@ const createOrganizationPr = async ({ github, context, core }) => {
   };
 
   const sections = (issue.body ?? "").split(/^### ([^\r\n]+?)[ \t]*\r?$/m);
-  const getField = (heading) => {
-    const index = sections.indexOf(heading);
-    const value = index > 0 ? sections[index + 1].trim() : "";
-    return value === "_No response_" ? "" : value;
-  };
-
-  const orgName = getField("Organization Name");
-  const orgNameSlug = slugify(orgName, { lower: true });
-  const orgUrl = getField("Organization URL");
-  const orgImageField = getField("Organization Image");
-  const orgImage =
-    orgImageField.match(/!\[[^\]]*\]\(([^)]+)\)/)?.[1] ??
-    orgImageField.match(/\bsrc=["']?([^"'\s>]+)/)?.[1] ??
-    orgImageField;
-  const orgPhase = getField("Implementation Phase");
-  const orgUserCount = getField("Approximate user count");
-  const orgEnrolledUserCount = getField("Approximate eduMFA enrolled users");
-  const orgTokens = getField("Token Types");
-  const tokenTypes = orgTokens ? orgTokens.split(",").map((token) => token.trim()) : [];
-
-  if (!orgNameSlug || /[\r\n]/.test(orgName)) {
-    return invalidSubmission("Enter an Organization Name on a single line.");
+  const fields = new Map();
+  for (let index = 1; index < sections.length; index += 2) {
+    const value = sections[index + 1].trim();
+    fields.set(sections[index], value === "_No response_" ? "" : value);
+  }
+  const getField = (heading) => fields.get(heading) ?? "";
+  const isUpdate = fields.has(updateNameHeading);
+  const isRemoval = fields.has(removeNameHeading);
+  if (isUpdate && isRemoval) {
+    return invalidSubmission("Use a single organization form per issue.");
   }
 
-  if (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:") {
-    return invalidSubmission("Enter a valid Organization URL starting with https://.");
+  const nameHeading = isRemoval ? removeNameHeading : isUpdate ? updateNameHeading : "Organization Name";
+  const listedName = getField(nameHeading);
+  if (!listedName || /[\r\n]/.test(listedName)) {
+    return invalidSubmission(`Enter ${nameHeading} on a single line.`);
   }
 
-  if (!["Evaluation", "Testing", "Production"].includes(orgPhase)) {
-    return invalidSubmission("Set Implementation Phase to Evaluation, Testing, or Production.");
+  const users = JSON.parse(fs.readFileSync(usersPath, "utf8"));
+  const existingIndex = users.findIndex((user) => user.name === listedName);
+  const existing = users[existingIndex];
+  if ((isUpdate || isRemoval) && !existing) {
+    return invalidSubmission("Copy the exact organization name from the published listing.");
   }
 
-  if (isNaN(orgUserCount) || isNaN(orgEnrolledUserCount)) {
-    return invalidSubmission("Enter a valid number for each user count or leave it blank.");
-  }
-
-  if (tokenTypes.some((token) => !organizationTokenTypes.includes(token))) {
-    return invalidSubmission("Enter supported values in Token Types or leave it blank.");
-  }
-
-  let imageExtension;
-  let imageBuffer;
-  try {
-    const response = await fetch(orgImage);
-    imageExtension = supportedFormats.get(response.headers.get("content-type"));
-    if (!response.ok || !imageExtension) {
-      throw new Error("Image unavailable or unsupported format");
+  let name = listedName;
+  let newLogo;
+  if (isRemoval) {
+    users.splice(existingIndex, 1);
+  } else {
+    name = (isUpdate && getField("New Organization Name")) || listedName;
+    const orgNameSlug = slugify(name, { lower: true });
+    if (!orgNameSlug || /[\r\n]/.test(name)) {
+      return invalidSubmission("Enter a valid organization name on a single line.");
     }
-    imageBuffer = Buffer.from(await response.arrayBuffer());
-  } catch {
-    return invalidSubmission("Provide a working Organization Image link in JPG, PNG, SVG, or WebP format.");
+    if (name !== listedName && users.some((user) => user.name === name)) {
+      return invalidSubmission("The new organization name is already listed.");
+    }
+
+    const orgUrl = getField("Organization URL");
+    if ((orgUrl || !isUpdate) && (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:")) {
+      return invalidSubmission("Enter a valid Organization URL starting with https://.");
+    }
+
+    const orgPhase = getField("Implementation Phase");
+    if ((orgPhase || !isUpdate) && !["Evaluation", "Testing", "Production"].includes(orgPhase)) {
+      return invalidSubmission("Set Implementation Phase to Evaluation, Testing, or Production.");
+    }
+
+    const user = isUpdate ? { ...existing, name } : { name };
+    if (orgUrl) {
+      user.url = orgUrl;
+      delete user.link;
+    }
+    if (orgPhase) user.phase = orgPhase;
+
+    for (const [heading, key] of [
+      ["Approximate user count", "userCount"],
+      ["Approximate eduMFA enrolled users", "enrolledUserCount"],
+    ]) {
+      const count = getField(heading);
+      if (!count) continue;
+      if (isUpdate && count.toLowerCase() === "clear") {
+        delete user[key];
+      } else {
+        const value = Number(count);
+        if (!Number.isSafeInteger(value) || value < 0) {
+          return invalidSubmission(`Enter a non-negative whole number for ${heading}.`);
+        }
+        user[key] = value;
+      }
+    }
+
+    const orgTokens = getField("Token Types");
+    if (orgTokens) {
+      if (isUpdate && orgTokens === clearTokenTypes) {
+        delete user.tokenTypes;
+      } else {
+        const tokenTypes = orgTokens.split(",").map((token) => token.trim());
+        if (tokenTypes.some((token) => !organizationTokenTypes.includes(token))) {
+          return invalidSubmission(
+            isUpdate
+              ? "Enter supported values in Token Types. Select Clear token types on its own to remove the list."
+              : "Enter supported values in Token Types or leave it blank.",
+          );
+        }
+        user.tokenTypes = tokenTypes;
+      }
+    }
+
+    const imageField = getField("Organization Image");
+    if (imageField || !isUpdate) {
+      const imageUrl =
+        imageField.match(/!\[[^\]]*\]\(([^)]+)\)/)?.[1] ??
+        imageField.match(/\bsrc=["']?([^"'\s>]+)/)?.[1] ??
+        imageField;
+      try {
+        const response = await fetch(imageUrl);
+        const imageExtension = supportedFormats.get(response.headers.get("content-type"));
+        if (!response.ok || !imageExtension) {
+          throw new Error("Image unavailable or unsupported format");
+        }
+        newLogo = {
+          src: `/organizations/${orgNameSlug}.${imageExtension}`,
+          data: Buffer.from(await response.arrayBuffer()),
+        };
+      } catch {
+        return invalidSubmission("Provide a working Organization Image link in JPG, PNG, SVG, or WebP format.");
+      }
+
+      user.logoSrc = newLogo.src;
+      if (users.some((entry, index) => index !== existingIndex && entry.logoSrc === user.logoSrc)) {
+        return invalidSubmission("The new image filename is already used by another organization.");
+      }
+    }
+
+    if (isUpdate && !newLogo && JSON.stringify(user) === JSON.stringify(existing)) {
+      return invalidSubmission("Enter at least one change to the published listing.");
+    }
+    user.updatedAt = new Date().toISOString();
+    if (existing) {
+      users[existingIndex] = user;
+    } else {
+      users.push(user);
+    }
   }
 
   // Reuse the branch of an open PR created before branches were named by issue number.
@@ -109,34 +196,10 @@ const createOrganizationPr = async ({ github, context, core }) => {
     }
   }
 
-  for (const file of fs.readdirSync("public/organizations")) {
-    if (file.startsWith(`${orgNameSlug}.`)) {
-      fs.unlinkSync(`public/organizations/${file}`);
-    }
+  if (newLogo) {
+    fs.writeFileSync(`public${newLogo.src}`, newLogo.data);
   }
-
-  const logoSrc = `/organizations/${orgNameSlug}.${imageExtension}`;
-  fs.writeFileSync(`public${logoSrc}`, imageBuffer);
-
-  const users = JSON.parse(fs.readFileSync(usersPath, "utf8"));
-  const user = {
-    updatedAt: new Date().toISOString(),
-    name: orgName,
-    logoSrc,
-    url: orgUrl,
-    phase: orgPhase,
-  };
-  if (orgUserCount) user.userCount = parseInt(orgUserCount);
-  if (orgEnrolledUserCount) user.enrolledUserCount = parseInt(orgEnrolledUserCount);
-  if (tokenTypes.length) user.tokenTypes = tokenTypes;
-
-  const existingOrgIndex = users.findIndex((user) => user.name === orgName);
-  if (existingOrgIndex !== -1) {
-    users[existingOrgIndex] = user;
-  } else {
-    users.push(user);
-  }
-
+  removeUnusedLogo(existing?.logoSrc, users);
   fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
 
   if (hasLabel("invalid")) {
@@ -144,7 +207,8 @@ const createOrganizationPr = async ({ github, context, core }) => {
   }
 
   core.setOutput("branch", branch);
-  core.setOutput("name", orgName);
+  core.setOutput("name", name);
+  core.setOutput("operation", isRemoval ? "Remove" : existing ? "Update" : "Add");
   return true;
 };
 

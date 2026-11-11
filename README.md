@@ -3,9 +3,10 @@
 This is the source code of the [edumfa.io](https://edumfa.io) website. It is built with [Next.js](https://nextjs.org/),
 a React framework and [HeroUI](https://heroui.com/).
 
-## Add your Organization
+## Manage your Organization Listing
 
-We like to feature organizations that implemented eduMFA. If you like to add your organization, please [create an issue](https://github.com/eduMFA/Web/issues/new?labels=organization&title=%5BOrg%5D+&template=manage_organization.yml).
+Use the GitHub issue forms to [add](https://github.com/eduMFA/Web/issues/new?template=add_organization.yml), [update](https://github.com/eduMFA/Web/issues/new?template=update_organization.yml), or [remove](https://github.com/eduMFA/Web/issues/new?template=remove_organization.yml) your organization listing. Changes are published after a maintainer merges the generated pull request.
+
 ### Organization Documentation
 
 `?` - Optional field

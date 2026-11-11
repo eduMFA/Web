@@ -1,4 +1,4 @@
-name: Add Organization to eduMFA
+name: Manage eduMFA organization listings
 
 on:
   issues:
@@ -49,9 +49,9 @@ jobs:
           commit-message: "Update organization listing"
           branch: ${{ steps.update_data.outputs.branch }}
           delete-branch: true
-          title: "[Org] Add ${{ steps.update_data.outputs.name }}"
+          title: "[Org] ${{ steps.update_data.outputs.operation }} ${{ steps.update_data.outputs.name }}"
           body: |
-            This PR adds or updates the organization described in the linked issue.
+            This PR applies the requested change to the organization listing in the linked issue.
             > [!NOTE]
             > This is an automated action.
 

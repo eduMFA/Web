@@ -1,0 +1,75 @@
+name: Update an organization
+description: Request changes to a published organization listing on edumfa.io
+title: "[Org] Update "
+labels: organization
+body:
+  - type: markdown
+    attributes:
+      value: Fill in the fields you want to change. Blank fields keep their current values.
+  - type: input
+    attributes:
+      label: Organization Name to Update
+      description: Copy the exact name from the published listing.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: New Organization Name
+      description: The new name to display if your organization has changed its name.
+  - type: input
+    attributes:
+      label: Organization URL
+      description: The new website URL, starting with `https://`.
+  - type: textarea
+    attributes:
+      label: Organization Image
+      description: Paste a new PNG, JPEG, WebP, or SVG image or its link.
+  - type: dropdown
+    attributes:
+      label: Implementation Phase
+      options:
+        - Evaluation
+        - Testing
+        - Production
+  - type: input
+    attributes:
+      label: Approximate user count
+      description: Enter the new count or type `clear` to remove the count from the listing.
+  - type: input
+    attributes:
+      label: Approximate eduMFA enrolled users
+      description: Enter the new count or type `clear` to remove the count from the listing.
+  - type: dropdown
+    attributes:
+      label: Token Types
+      description: Select the full updated list, or select "Clear token types" on its own.
+      multiple: true
+      options:
+        - Clear token types
+        - 4Eyes
+        - ApplicationSpecificPassword
+        - Certificate
+        - DayPassword
+        - Email
+        - HOTP
+        - IndexedSecret
+        - mOTP
+        - OCRA
+        - PPR
+        - Push
+        - Password
+        - Questionaire
+        - Radius
+        - Registration
+        - Remote
+        - SMS
+        - Spass
+        - SSH
+        - TAN
+        - TiQR
+        - TOTP
+        - U2F
+        - VASCO
+        - WebAuthn
+        - Yubico
+        - Yubikey

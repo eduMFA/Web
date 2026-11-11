@@ -37,7 +37,7 @@ export const OrganizationBox: React.FC<OrganizationBoxProps> = ({user}) => {
                             <Modal.CloseTrigger />
                             <Modal.Header>
                                 <Modal.Heading>
-                                    <Link href={user.link} target="_blank" rel="noopener noreferrer">
+                                    <Link href={user.url ?? user.link} target="_blank" rel="noopener noreferrer">
                                         {user.name}<Link.Icon />
                                     </Link>
                                 </Modal.Heading>

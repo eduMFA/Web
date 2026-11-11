@@ -1,14 +1,14 @@
-name: Add or update an organization
-description: Request an organization to be added or updated on edumfa.io
+name: Add an organization
+description: Request a new organization listing on edumfa.io
 title: "[Org] "
 labels: organization
 body:
   - type: markdown
     attributes:
       value: >
-        Thanks for taking the time to add or update an organization to edumfa.io! 
-        
-        If you want to update an existing organization, please make sure to provide the exact same **Organization Name** as the one already listed on the site.
+        Thanks for taking the time to add an organization to edumfa.io!
+
+        For a published listing, use the **Update an organization** or **Remove an organization** form.
   - type: input
     attributes:
       label: Organization Name

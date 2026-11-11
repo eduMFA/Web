@@ -1,0 +1,15 @@
+name: Remove an organization
+description: Request removal of a published organization listing from edumfa.io
+title: "[Org] Remove "
+labels: organization
+body:
+  - type: input
+    attributes:
+      label: Organization Name to Remove
+      description: Copy the exact name from the published listing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reason for removal
+      description: Share any context that would help the maintainers review this request.

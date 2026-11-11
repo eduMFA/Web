@@ -16,7 +16,9 @@ interface Organization {
 
 export interface Creator extends Organization {}
 
-export interface User extends Organization {
+export interface User extends Omit<Organization, "link"> {
+    url?: string;
+    link?: string;
     updatedAt: string;
     phase: OrganizationImplementationPhase;
     userCount?: number;
