@@ -1,188 +1,135 @@
 import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import slugify from "slugify";
 import { organizationTokenTypes } from "../../../src/types/organizationTokenTypes.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const toGitSafeBranchSegment = (value, fallback) => {
-  let segment = slugify(value || "", {
-    lower: true,
-    strict: true,
-    trim: true,
-  });
-
-  segment = segment
-    .replace(/\.{2,}/g, "-")
-    .replace(/@\{/g, "-")
-    .replace(/[-.]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-  if (!segment) {
-    return fallback;
-  }
-
-  if (segment === ".lock" || segment.endsWith(".lock")) {
-    segment = segment.replace(/\.lock$/i, "-lock");
-  }
-
-  return segment || fallback;
-};
+const usersPath = new URL("../../../src/data/users.json", import.meta.url);
+const supportedFormats = new Map([
+  ["image/jpeg", "jpg"],
+  ["image/png", "png"],
+  ["image/svg+xml", "svg"],
+  ["image/webp", "webp"],
+]);
 
 const createOrganizationPr = async ({ github, context, core }) => {
-  const getEnvVar = (key) =>
-    process.env[key] !== "null" ? process.env[key] : null;
+  const issueParams = { ...context.repo, issue_number: context.issue.number };
+  const { data: issue } = await github.rest.issues.get(issueParams);
+  const hasLabel = (name) => issue.labels.some((label) => label.name === name);
 
-  const orgName = process.env.ORG_NAME;
-  const orgUrl = process.env.ORG_URL;
-  const orgImage = process.env.ORG_IMAGE;
-  const orgPhase = process.env.ORG_PHASE;
-  const orgUserCount = getEnvVar("ORG_USER_COUNT");
-  const orgEnrolledUserCount = getEnvVar("ORG_ENROLLED_USER_COUNT");
-  const orgTokens = context.payload.issue.body
-    ?.split(/^### Token Types[ \t]*\r?\n/m)[1]
-    ?.split(/^### /m)[0]
-    .trim();
-  const tokenTypes = orgTokens && orgTokens !== "_No response_"
-    ? orgTokens.split(",").map((token) => token.trim())
-    : [];
-
-  // Verify orgUrl is a valid URL including the protocol
-  if (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:") {
-    github.rest.issues.createComment({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      body: `The provided Organization URL is invalid. Please provide a valid URL starting with https://. Please open a new PR with the correct URL.`,
-    });
-    github.rest.issues.update({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      labels: context.payload.issue.labels
-        .map((label) => label.name)
-        .concat(["invalid"]),
-      state: "closed",
-    });
+  if (
+    issue.state !== "open" ||
+    !hasLabel("organization") ||
+    issue.body !== context.payload.issue.body
+  ) {
     return false;
   }
 
-  // Validate org user count being a valid number
-  if (
-    (orgUserCount && isNaN(orgUserCount)) ||
-    (orgEnrolledUserCount && isNaN(orgEnrolledUserCount))
-  ) {
-    github.rest.issues.createComment({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      body: `The provided Organization User Count or Enrolled User Count is invalid. Please provide a valid number or leave it empty. Please open a new PR with the correct number.`,
-    });
-    github.rest.issues.update({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      labels: context.payload.issue.labels
-        .map((label) => label.name)
-        .concat(["invalid"]),
-      state: "closed",
+  const invalidSubmission = async (message) => {
+    await github.rest.issues.addLabels({ ...issueParams, labels: ["invalid"] });
+    await github.rest.issues.createComment({
+      ...issueParams,
+      body: `${message} Edit the fields in the body of this issue and save it to try again.`,
     });
     return false;
+  };
+
+  const sections = (issue.body ?? "").split(/^### ([^\r\n]+?)[ \t]*\r?$/m);
+  const getField = (heading) => {
+    const index = sections.indexOf(heading);
+    const value = index > 0 ? sections[index + 1].trim() : "";
+    return value === "_No response_" ? "" : value;
+  };
+
+  const orgName = getField("Organization Name");
+  const orgNameSlug = slugify(orgName, { lower: true });
+  const orgUrl = getField("Organization URL");
+  const orgImageField = getField("Organization Image");
+  const orgImage =
+    orgImageField.match(/!\[[^\]]*\]\(([^)]+)\)/)?.[1] ??
+    orgImageField.match(/\bsrc=["']?([^"'\s>]+)/)?.[1] ??
+    orgImageField;
+  const orgPhase = getField("Implementation Phase");
+  const orgUserCount = getField("Approximate user count");
+  const orgEnrolledUserCount = getField("Approximate eduMFA enrolled users");
+  const orgTokens = getField("Token Types");
+  const tokenTypes = orgTokens ? orgTokens.split(",").map((token) => token.trim()) : [];
+
+  if (!orgNameSlug || /[\r\n]/.test(orgName)) {
+    return invalidSubmission("Enter an Organization Name on a single line.");
+  }
+
+  if (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:") {
+    return invalidSubmission("Enter a valid Organization URL starting with https://.");
+  }
+
+  if (!["Evaluation", "Testing", "Production"].includes(orgPhase)) {
+    return invalidSubmission("Set Implementation Phase to Evaluation, Testing, or Production.");
+  }
+
+  if (isNaN(orgUserCount) || isNaN(orgEnrolledUserCount)) {
+    return invalidSubmission("Enter a valid number for each user count or leave it blank.");
   }
 
   if (tokenTypes.some((token) => !organizationTokenTypes.includes(token))) {
-    await github.rest.issues.createComment({
-      ...context.repo,
-      issue_number: context.issue.number,
-      body: "The Token Types field contains an invalid selection. Please open a new issue and select token types from the dropdown or leave the field blank.",
-    });
-    await github.rest.issues.update({
-      ...context.repo,
-      issue_number: context.issue.number,
-      labels: context.payload.issue.labels.map((label) => label.name).concat(["invalid"]),
-      state: "closed",
-    });
-    return false;
+    return invalidSubmission("Enter supported values in Token Types or leave it blank.");
   }
 
-  // Slugify the org name
-  const orgNameSlug = slugify(orgName, { lower: true });
-  core.exportVariable("ORG_NAME_SLUG", orgNameSlug);
-
-  const branchSlug = toGitSafeBranchSegment(
-    orgName,
-    `org-${context.issue.number}`,
-  );
-  core.exportVariable("ORG_BRANCH_NAME", `organization/${branchSlug}`);
-
-  // Download the orgImage
-  const supportedFormats = {
-    "image/jpeg": "jpg",
-    "image/png": "png",
-    "image/svg+xml": "svg",
-    "image/webp": "webp",
-  };
   let imageExtension;
+  let imageBuffer;
   try {
-    const res = await fetch(orgImage);
-
-    const contentType = res.headers.get("content-type");
-    imageExtension = supportedFormats[contentType];
-    if (!imageExtension)
-      throw new Error(
-        `Unsupported image format. Found content-type: ${contentType}`,
-      );
-    core.exportVariable("IMAGE_EXT", imageExtension);
-    const buffer = await res.arrayBuffer();
-
-    // Remove all image files from that org
-    fs.readdirSync("public/organizations")
-      .filter((file) => file.startsWith(`${orgNameSlug}.`))
-      .forEach((file) => fs.unlinkSync(`public/organizations/${file}`));
-
-    fs.writeFileSync(
-      `public/organizations/${orgNameSlug}.${imageExtension}`,
-      Buffer.from(buffer),
-    );
-  } catch (error) {
-    console.log(error);
-    await github.rest.issues.createComment({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      body: `Failed to resolve the image. You need to provide a valid image URL with a supported format (jpg, png, svg, webp). Please open a new PR with the correct image.`,
-    });
-    await github.rest.issues.update({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      labels: context.payload.issue.labels
-        .map((label) => label.name)
-        .concat(["invalid"]),
-      state: "closed",
-    });
-    return false;
+    const response = await fetch(orgImage);
+    imageExtension = supportedFormats.get(response.headers.get("content-type"));
+    if (!response.ok || !imageExtension) {
+      throw new Error("Image unavailable or unsupported format");
+    }
+    imageBuffer = Buffer.from(await response.arrayBuffer());
+  } catch {
+    return invalidSubmission("Provide a working Organization Image link in JPG, PNG, SVG, or WebP format.");
   }
 
-  // Update the users.json file
-  const usersPath = path.join(__dirname, "../../../src/data/users.json");
-  const users = JSON.parse(fs.readFileSync(usersPath)); // Load the users
+  // Reuse the branch of an open PR created before branches were named by issue number.
+  let branch = `organization-issue/${issue.number}`;
+  if (context.payload.action === "edited") {
+    const pullRequests = github.paginate.iterator(github.rest.pulls.list, {
+      ...context.repo,
+      state: "open",
+      base: context.payload.repository.default_branch,
+      per_page: 100,
+    });
+    for await (const { data } of pullRequests) {
+      const existing = data.find((pr) =>
+        pr.user?.login === "github-actions[bot]" &&
+        pr.head.repo?.id === context.payload.repository.id &&
+        pr.head.ref.startsWith("organization/") &&
+        pr.body?.trimEnd().endsWith(`\nCloses #${issue.number}`),
+      );
+      if (existing) {
+        branch = existing.head.ref;
+        break;
+      }
+    }
+  }
 
-  let user = {
+  for (const file of fs.readdirSync("public/organizations")) {
+    if (file.startsWith(`${orgNameSlug}.`)) {
+      fs.unlinkSync(`public/organizations/${file}`);
+    }
+  }
+
+  const logoSrc = `/organizations/${orgNameSlug}.${imageExtension}`;
+  fs.writeFileSync(`public${logoSrc}`, imageBuffer);
+
+  const users = JSON.parse(fs.readFileSync(usersPath, "utf8"));
+  const user = {
     updatedAt: new Date().toISOString(),
     name: orgName,
-    logoSrc: `/organizations/${orgNameSlug}.${imageExtension}`,
+    logoSrc,
     url: orgUrl,
     phase: orgPhase,
   };
   if (orgUserCount) user.userCount = parseInt(orgUserCount);
-  if (orgEnrolledUserCount)
-    user.enrolledUserCount = parseInt(orgEnrolledUserCount);
+  if (orgEnrolledUserCount) user.enrolledUserCount = parseInt(orgEnrolledUserCount);
   if (tokenTypes.length) user.tokenTypes = tokenTypes;
 
-  // Check if org with name already exists. If it does, update the existing org, else add the new org
   const existingOrgIndex = users.findIndex((user) => user.name === orgName);
   if (existingOrgIndex !== -1) {
     users[existingOrgIndex] = user;
@@ -190,8 +137,14 @@ const createOrganizationPr = async ({ github, context, core }) => {
     users.push(user);
   }
 
-  // Write the updated users.json file
   fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+
+  if (hasLabel("invalid")) {
+    await github.rest.issues.removeLabel({ ...issueParams, name: "invalid" });
+  }
+
+  core.setOutput("branch", branch);
+  core.setOutput("name", orgName);
   return true;
 };
 

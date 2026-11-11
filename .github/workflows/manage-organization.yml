@@ -2,58 +2,25 @@ name: Add Organization to eduMFA
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 permissions:
   pull-requests: write
   contents: write
   issues: write
 
-env:
-  GH_TOKEN: ${{ github.token }}
-
 jobs:
   open-pull-request:
+    if: >-
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'organization') &&
+      (github.event.action == 'opened' || github.event.changes.body != null)
+    concurrency:
+      group: manage-organization-${{ github.event.issue.number }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-
-      - name: Parse Issue Body
-        id: extract_info
-        env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-        run: |
-          declare -A fields=(
-            ["ORG_NAME"]="Organization Name"
-            ["ORG_URL"]="Organization URL"
-            ["ORG_IMAGE"]="Organization Image"
-            ["ORG_PHASE"]="Implementation Phase"
-            ["ORG_USER_COUNT"]="Approximate user count"
-            ["ORG_ENROLLED_USER_COUNT"]="Approximate eduMFA enrolled users"
-          )
-          markdown_image_regex='!\[[^]]*\]\(([^)]+)\)'
-
-          for key in "${!fields[@]}"; do
-            value=$(echo "$ISSUE_BODY" | awk "/### ${fields[$key]}/{flag=1; next} /^###/{flag=0} flag" | awk 'NF')
-            if [[ "$key" == "ORG_IMAGE" ]]; then
-              if [[ "$value" =~ $markdown_image_regex ]]; then
-                value="${BASH_REMATCH[1]}"
-              elif [[ "$value" == *"src="* ]]; then
-                value="${value#*src=}"
-                value="${value#\"}"
-                value="${value#\'}"
-                value="${value%%\"*}"
-                value="${value%%\'*}"
-                value="${value%% *}"
-                value="${value%%>*}"
-              fi
-            fi
-            if [[ "$value" == "_No response_" ]]; then
-              value="null"
-            fi
-            echo "$key=$value" >> $GITHUB_ENV
-          done
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -61,47 +28,41 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies
-        run: bun add slugify
+        run: bun install --frozen-lockfile
 
-      - name: Update data
+      - name: Validate submission and update data
         id: update_data
         uses: actions/github-script@v9
         with:
           script: |
             const { default: script } = await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/create_organization_pr.js`);
-            try {
-              core.setOutput('valid', String(await script({github, context, core})));
-            } catch (error) {
-              core.setFailed(`Script execution failed: ${error.message}`);
-            }
+            core.setOutput('valid', String(await script({github, context, core})));
 
-      - name: Commit changes
+      - name: Create or update pull request
         if: steps.update_data.outputs.valid == 'true'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/organizations/$ORG_NAME_SLUG.$IMAGE_EXT src/data/users.json
-          git commit -m "Add organization $ORG_NAME"
-
-      - name: Create Pull Request
-        if: steps.update_data.outputs.valid == 'true'
+        id: pull_request
         uses: peter-evans/create-pull-request@v8
         with:
-          commit-message: "Added ${{ env.ORG_NAME }} organization"
-          branch: '${{ env.ORG_BRANCH_NAME }}'
+          add-paths: |
+            public/organizations
+            src/data/users.json
+          commit-message: "Update organization listing"
+          branch: ${{ steps.update_data.outputs.branch }}
           delete-branch: true
-          title: "[Org] Add ${{ env.ORG_NAME }}"
+          title: "[Org] Add ${{ steps.update_data.outputs.name }}"
           body: |
-            This PR adds the organization ${{ env.ORG_NAME }} to the site.
+            This PR adds or updates the organization described in the linked issue.
             > [!NOTE]
             > This is an automated action.
-            
+
             Closes #${{ github.event.issue.number }}
           labels: organization
           reviewers: luc1412
 
       - name: Comment on issue
-        if: steps.update_data.outputs.valid == 'true'
+        if: steps.pull_request.outputs.pull-request-operation == 'created'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          gh issue comment ${{ github.event.issue.number }} --body "Thank you for your submission!
-          A pull request has been automatically created to add your organization to the site. If your pull request contains any errors, close this issue and create a new one with the correct information."
+          gh issue comment "$ISSUE_NUMBER" --body "Thank you for your submission! A pull request has been created for review. To correct your submission, edit the fields in the body of this issue and save it. The pull request will update once the changes pass validation."
