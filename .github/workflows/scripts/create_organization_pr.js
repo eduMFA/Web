@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import slugify from "slugify";
+import { organizationTokenTypes } from "../../../src/types/organizationTokenTypes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,7 +41,13 @@ const createOrganizationPr = async ({ github, context, core }) => {
   const orgPhase = process.env.ORG_PHASE;
   const orgUserCount = getEnvVar("ORG_USER_COUNT");
   const orgEnrolledUserCount = getEnvVar("ORG_ENROLLED_USER_COUNT");
-  const orgTokens = getEnvVar("ORG_TOKENS");
+  const orgTokens = context.payload.issue.body
+    ?.split(/^### Token Types[ \t]*\r?\n/m)[1]
+    ?.split(/^### /m)[0]
+    .trim();
+  const tokenTypes = orgTokens && orgTokens !== "_No response_"
+    ? orgTokens.split(",").map((token) => token.trim())
+    : [];
 
   // Verify orgUrl is a valid URL including the protocol
   if (!URL.canParse(orgUrl) || new URL(orgUrl).protocol !== "https:") {
@@ -80,6 +87,21 @@ const createOrganizationPr = async ({ github, context, core }) => {
       labels: context.payload.issue.labels
         .map((label) => label.name)
         .concat(["invalid"]),
+      state: "closed",
+    });
+    return false;
+  }
+
+  if (tokenTypes.some((token) => !organizationTokenTypes.includes(token))) {
+    await github.rest.issues.createComment({
+      ...context.repo,
+      issue_number: context.issue.number,
+      body: "The Token Types field contains an invalid selection. Please open a new issue and select token types from the dropdown or leave the field blank.",
+    });
+    await github.rest.issues.update({
+      ...context.repo,
+      issue_number: context.issue.number,
+      labels: context.payload.issue.labels.map((label) => label.name).concat(["invalid"]),
       state: "closed",
     });
     return false;
@@ -158,8 +180,7 @@ const createOrganizationPr = async ({ github, context, core }) => {
   if (orgUserCount) user.userCount = parseInt(orgUserCount);
   if (orgEnrolledUserCount)
     user.enrolledUserCount = parseInt(orgEnrolledUserCount);
-  if (orgTokens)
-    user.tokenTypes = orgTokens.split(",").map((token) => token.trim());
+  if (tokenTypes.length) user.tokenTypes = tokenTypes;
 
   // Check if org with name already exists. If it does, update the existing org, else add the new org
   const existingOrgIndex = users.findIndex((user) => user.name === orgName);
