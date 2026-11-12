@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import {useParams} from "next/navigation";
 import organizationData from "@/data/users.json";
 import {User} from "@/types/organizationTypes";
 import {Link, ScrollShadow} from "@heroui/react";
@@ -12,6 +13,7 @@ import {Footer} from "@/components/Footer";
 const organizations = organizationData as User[];
 
 export default function Home() {
+    const {locale} = useParams<{locale: string}>();
     const minPyVersion = "3.9";
     const maxPyVersion = "3.13";
 
@@ -181,7 +183,7 @@ export default function Home() {
                     </p>
                 </section>
             </div>
-            <Footer />
+            <Footer pushTesterHref={`/${locale}/push-tester`} />
         </main>
     );
 }
