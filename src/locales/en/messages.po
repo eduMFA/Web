@@ -25,6 +25,11 @@ msgstr "<0><1>Multi-factor authentication support for enhanced security</1><2>De
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
+msgid "HomePage.orgFooter"
+msgstr "<0>Add, update, or remove your organization listing<1/></0>."
+
+#. js-lingui-explicit-id
+#: src/app/[locale]/page.tsx
 msgid "HomePage.aboutTitle"
 msgstr "About eduMFA"
 
@@ -37,6 +42,26 @@ msgstr "Approx. Enrolled Users:"
 #: src/components/OrganizationBox.tsx
 msgid "OrganizationBox.userCount"
 msgstr "Approx. Users:"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Awaiting enrollment"
+msgstr "Awaiting enrollment"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge accepted"
+msgstr "Challenge accepted"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge declined"
+msgstr "Challenge declined"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge expired"
+msgstr "Challenge expired"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Close QR code"
+msgstr "Close QR code"
 
 #. js-lingui-explicit-id
 #: src/components/NavigationBar.tsx
@@ -58,6 +83,18 @@ msgstr "eduMFA is a comprehensive authentication system that enhances existing a
 msgid "HomePage.reasonContent"
 msgstr "eduMFA provides robust protection against hacking attacks for IT services in academic networks and beyond. By enabling multi-factor authentication, it renders traditional username-password combinations obsolete. The 'Passkeys' method, a key focus of eduMFA, securely stores authentication keys, accessible only through additional methods like biometric scans or PINs. This approach offers strong resistance to phishing attacks, allows synchronization between compatible devices, and delivers a seamless user experience without compromising on security.<0/><1/>Already in use at several universities across Europe, including institutions in Germany, Czech Republic, and Norway, eduMFA is continuously evolving to meet the dynamic needs of the scientific and broader IT community. Its commitment to using current, up-to-date software ensures that users always have access to the latest security features and improvements."
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enroll an eduPUSH token and check how your device responds to a push challenge."
+msgstr "Enroll an eduPUSH token and check how your device responds to a push challenge."
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enroll token"
+msgstr "Enroll token"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enrolled"
+msgstr "Enrolled"
+
 #. js-lingui-explicit-id
 #: src/components/OrganizationBox.tsx
 msgid "OrganizationBox.phaseEval"
@@ -78,15 +115,14 @@ msgstr "Implementation Phase:"
 msgid "Footer.imprint"
 msgstr "Imprint"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Inactive"
+msgstr "Inactive"
+
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
 msgid "HomePage.installTitle"
 msgstr "Installation"
-
-#. js-lingui-explicit-id
-#: src/app/[locale]/page.tsx
-msgid "HomePage.orgFooter"
-msgstr "<0>Add, update, or remove your organization listing<1/></0>."
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
@@ -98,10 +134,18 @@ msgstr "Key Features and Goals"
 msgid "OrganizationBox.lastUpdated"
 msgstr "Last updated"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Loading test tokens…"
+msgstr "Loading test tokens…"
+
 #. js-lingui-explicit-id
 #: src/components/NavigationBar.tsx
 msgid "NavigationBar.mailingList"
 msgstr "Mailing List"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "No test tokens yet."
+msgstr "No test tokens yet."
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
@@ -113,6 +157,39 @@ msgstr "Organizations Using eduMFA"
 msgid "OrganizationBox.phaseProd"
 msgstr "Production"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Push token enrollment QR code"
+msgstr "Push token enrollment QR code"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+#: src/components/Footer.tsx
+msgid "Push token tester"
+msgstr "Push token tester"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Refresh"
+msgstr "Refresh"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Remove"
+msgstr "Remove"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Retry status check"
+msgstr "Retry status check"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Scan with eduMFA Authenticator"
+msgstr "Scan with eduMFA Authenticator"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Send challenge"
+msgstr "Send challenge"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Status check paused"
+msgstr "Status check paused"
+
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
 msgid "HomePage.supportTitle"
@@ -123,6 +200,14 @@ msgstr "Support and Development"
 msgid "OrganizationBox.phaseTest"
 msgstr "Test"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Test tokens"
+msgstr "Test tokens"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "The Push token tester is currently unavailable."
+msgstr "The Push token tester is currently unavailable."
+
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
 msgid "HomePage.installContent"
@@ -132,6 +217,10 @@ msgstr "The system is written in Python, uses Flask as the web framework, and an
 #: src/components/OrganizationBox.tsx
 msgid "OrganizationBox.tokenTypes"
 msgstr "Token Types:"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Waiting for a response…"
+msgstr "Waiting for a response…"
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
