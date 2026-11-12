@@ -19,17 +19,17 @@ msgid "Footer.copyright"
 msgstr "© 2024 eduMFA. All rights reserved."
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.featuresContent"
 msgstr "<0><1>Multi-factor authentication support for enhanced security</1><2>Deep integration with Shibboleth for academic and research environments</2><3>Support for modern authentication methods, including Passkeys</3><4>Easy migration path from privacyIDEA and other authentication systems</4><5>Continuous development based on the scientific community's requirements</5><6>Focus on using and maintaining up-to-date, current software components</6><7>Support for the latest Python versions (currently Python {minPyVersion} to {maxPyVersion})</7><8>Official support for container deployment, enabling seamless scaling in Kubernetes clusters</8><9>eduMFA Authenticator App for push notifications</9></0>"
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.orgFooter"
 msgstr "<0>Add, update, or remove your organization listing<1/></0>."
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.aboutTitle"
 msgstr "About eduMFA"
 
@@ -43,25 +43,57 @@ msgstr "Approx. Enrolled Users:"
 msgid "OrganizationBox.userCount"
 msgstr "Approx. Users:"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Awaiting enrollment"
+msgstr "Awaiting enrollment"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge accepted"
+msgstr "Challenge accepted"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge declined"
+msgstr "Challenge declined"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Challenge expired"
+msgstr "Challenge expired"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Close QR code"
+msgstr "Close QR code"
+
 #. js-lingui-explicit-id
 #: src/components/NavigationBar.tsx
 msgid "NavigationBar.documentation"
 msgstr "Documentation"
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.supportContent"
 msgstr "eduMFA benefits from a strong support network and an active development community:<0><1>Commercial support, consulting, implementation, 2nd-level support, and managed services are available from trusted companies like DAASI International, GWDG, and Ssystems.</1><2>The development team includes contributors from leading institutions such as Freie Universität Berlin, GWDG, Hochschule München, and University of Bamberg.</2><3>This collaborative approach ensures that eduMFA remains at the forefront of authentication technology, addressing real-world needs in academic and research environments.</3><4>A <5>user mailing list<6/></5> is available for community support and discussions.</4><7>Issues and feature requests can be submitted on the GitHub repository.</7></0>"
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.aboutContent"
 msgstr "eduMFA is a comprehensive authentication system that enhances existing applications with multi-factor authentication, significantly improving security. Originally forked from privacyIDEA version 3.9.2, eduMFA has evolved into a robust solution deeply integrated with Shibboleth, making it particularly suited for academic and research environments. It supports various authentication methods, including OTP devices, challenge-response mechanisms, SSH keys, and the cutting-edge Passkeys technology.<0/><1/>Running on Linux and entirely open-source under the AGPLv3 license, eduMFA offers a flexible and powerful plugin system. This allows for seamless integration with various identity management systems and applications, extending its functionality to meet diverse authentication needs. All features of eduMFA can be used free of charge."
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.reasonContent"
 msgstr "eduMFA provides robust protection against hacking attacks for IT services in academic networks and beyond. By enabling multi-factor authentication, it renders traditional username-password combinations obsolete. The 'Passkeys' method, a key focus of eduMFA, securely stores authentication keys, accessible only through additional methods like biometric scans or PINs. This approach offers strong resistance to phishing attacks, allows synchronization between compatible devices, and delivers a seamless user experience without compromising on security.<0/><1/>Already in use at several universities across Europe, including institutions in Germany, Czech Republic, and Norway, eduMFA is continuously evolving to meet the dynamic needs of the scientific and broader IT community. Its commitment to using current, up-to-date software ensures that users always have access to the latest security features and improvements."
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enroll an eduPUSH token and check how your device responds to a push challenge."
+msgstr "Enroll an eduPUSH token and check how your device responds to a push challenge."
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enroll token"
+msgstr "Enroll token"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Enrolled"
+msgstr "Enrolled"
 
 #. js-lingui-explicit-id
 #: src/components/OrganizationBox.tsx
@@ -83,13 +115,17 @@ msgstr "Implementation Phase:"
 msgid "Footer.imprint"
 msgstr "Imprint"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Inactive"
+msgstr "Inactive"
+
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.installTitle"
 msgstr "Installation"
 
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.featuresTitle"
 msgstr "Key Features and Goals"
 
@@ -98,13 +134,21 @@ msgstr "Key Features and Goals"
 msgid "OrganizationBox.lastUpdated"
 msgstr "Last updated"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Loading test tokens…"
+msgstr "Loading test tokens…"
+
 #. js-lingui-explicit-id
 #: src/components/NavigationBar.tsx
 msgid "NavigationBar.mailingList"
 msgstr "Mailing List"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "No test tokens yet."
+msgstr "No test tokens yet."
+
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.orgTitle"
 msgstr "Organizations Using eduMFA"
 
@@ -113,8 +157,41 @@ msgstr "Organizations Using eduMFA"
 msgid "OrganizationBox.phaseProd"
 msgstr "Production"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Push token enrollment QR code"
+msgstr "Push token enrollment QR code"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+#: src/components/Footer.tsx
+msgid "Push token tester"
+msgstr "Push token tester"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Refresh"
+msgstr "Refresh"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Remove"
+msgstr "Remove"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Retry status check"
+msgstr "Retry status check"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Scan with eduMFA Authenticator"
+msgstr "Scan with eduMFA Authenticator"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Send challenge"
+msgstr "Send challenge"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Status check paused"
+msgstr "Status check paused"
+
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.supportTitle"
 msgstr "Support and Development"
 
@@ -123,8 +200,16 @@ msgstr "Support and Development"
 msgid "OrganizationBox.phaseTest"
 msgstr "Test"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Test tokens"
+msgstr "Test tokens"
+
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "The Push token tester is currently unavailable."
+msgstr "The Push token tester is currently unavailable."
+
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.installContent"
 msgstr "The system is written in Python, uses Flask as the web framework, and an SQL database as the datastore. Installation is straightforward, providing a lean installation process.<0/><1/>You can learn more about the installation process in the <2>documentation<3/></2>."
 
@@ -133,7 +218,11 @@ msgstr "The system is written in Python, uses Flask as the web framework, and an
 msgid "OrganizationBox.tokenTypes"
 msgstr "Token Types:"
 
+#: src/app/[locale]/push-tester/push-tester.tsx
+msgid "Waiting for a response…"
+msgstr "Waiting for a response…"
+
 #. js-lingui-explicit-id
-#: src/app/page.tsx
+#: src/app/[locale]/page.tsx
 msgid "HomePage.reasonTitle"
 msgstr "Why Choose eduMFA?"

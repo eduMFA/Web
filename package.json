@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "lingui compile && next build",
     "start": "next start",
+    "push-tester": "node --env-file-if-exists=.env.local server/push-tester/index.ts",
     "lint": "eslint .",
     "format:check": "prettier --check .",
     "typecheck": "next typegen && tsc --noEmit",
