@@ -24,7 +24,7 @@ import {
     type ChallengeStatus,
     type IndexedChallenge,
     type IndexedEnrollment,
-    type PushToken,
+    type TestToken,
 } from "./edumfa";
 import {createMatrixPdf, matrixColumns, matrixCoordinate, matrixRows} from "./indexed-secret";
 
@@ -194,7 +194,7 @@ function TokenRow({
     connection,
     onRemove,
 }: {
-    token: PushToken;
+    token: TestToken;
     connection: Connection;
     onRemove: (serial: string) => void;
 }) {
@@ -424,7 +424,7 @@ function TokenRow({
 function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysEnabled: boolean}) {
     const {t} = useLingui();
     const [connection, setConnection] = useState<Connection>();
-    const [tokens, setTokens] = useState<PushToken[]>([]);
+    const [tokens, setTokens] = useState<TestToken[]>([]);
     const revision = useRef(0);
     const [qr, setQr] = useState<Awaited<ReturnType<typeof enrollToken>> & {type: "push" | "totp"}>();
     const [matrix, setMatrix] = useState<IndexedEnrollment>();
@@ -728,7 +728,7 @@ function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysE
     );
 }
 
-export function PushTester({serviceUrl, passkeysEnabled}: {serviceUrl?: string; passkeysEnabled: boolean}) {
+export function TokenTester({serviceUrl, passkeysEnabled}: {serviceUrl?: string; passkeysEnabled: boolean}) {
     return (
         <div className="flex min-h-screen flex-col bg-gray-100">
             <NavigationBar />

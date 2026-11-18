@@ -82,7 +82,7 @@ export function createTesterService(config: Config) {
                     indexedChallenges.delete(serial);
                 } catch {
                     inventory.retry(token, Date.now() + 300_000);
-                    console.error("Could not clean up an expired Push tester token. Cleanup will retry.");
+                    console.error("Could not clean up an expired Token tester token. Cleanup will retry.");
                 } finally {
                     writing.delete(description);
                 }
@@ -347,7 +347,7 @@ export function createTesterService(config: Config) {
         } catch (cause) {
             // The upstream response can contain sensitive instance details.
             console.error(
-                "Push tester upstream request failed:",
+                "Token tester upstream request failed:",
                 cause instanceof Error ? cause.name : "Unknown error",
             );
             return error(

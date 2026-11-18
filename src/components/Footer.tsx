@@ -2,7 +2,7 @@ import {Link} from "@heroui/react";
 import React from "react";
 import {Trans} from "@lingui/react/macro";
 
-export const Footer: React.FC<{pushTesterHref?: string}> = ({pushTesterHref}) => {
+export const Footer: React.FC<{tokenTesterHref?: string}> = ({tokenTesterHref}) => {
     return (
         <footer className="bg-gray-800 text-white py-4">
             <div className="container mx-auto px-4 text-center">
@@ -16,8 +16,8 @@ export const Footer: React.FC<{pushTesterHref?: string}> = ({pushTesterHref}) =>
                     >
                         <Trans id="Footer.imprint">Imprint</Trans>
                     </Link>
-                    {pushTesterHref && (
-                        <Link href={pushTesterHref} className="text-white hover:text-gray-300">
+                    {tokenTesterHref && (
+                        <Link href={tokenTesterHref} className="text-white hover:text-gray-300">
                             <Trans>Token tester</Trans>
                         </Link>
                     )}

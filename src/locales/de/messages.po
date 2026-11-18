@@ -28,7 +28,7 @@ msgstr "<0><1>Unterstützung von Multi-Faktor-Authentifizierung für mehr Sicher
 msgid "HomePage.orgFooter"
 msgstr "<0>Eintrag Ihrer Organisation hinzufügen, aktualisieren oder entfernen<1/></0>."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "A passkey uses a cryptographic key protected by your device or passkey manager. It is bound to the website to resist phishing."
 msgstr "Ein Passkey verwendet einen kryptografischen Schlüssel, der durch dein Gerät oder deinen Passkey-Manager geschützt ist. Die Bindung an die Website schützt vor Phishing."
 
@@ -47,43 +47,43 @@ msgstr "Ungefähr registrierte Nutzer:"
 msgid "OrganizationBox.userCount"
 msgstr "Ungefähre Nutzer:"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Awaiting enrollment"
 msgstr "Wartet auf Registrierung"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Cancel passkey creation"
 msgstr "Passkey-Erstellung abbrechen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Challenge accepted"
 msgstr "Push-Anfrage bestätigt"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Challenge declined"
 msgstr "Push-Anfrage abgelehnt"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Challenge expired"
 msgstr "Push-Anfrage abgelaufen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Close matrix"
 msgstr "Matrix schließen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Close QR code"
 msgstr "QR-Code schließen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Code accepted"
 msgstr "Code bestätigt"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Code rejected"
 msgstr "Code abgelehnt"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Could not download the matrix. Try again."
 msgstr "Die Matrix konnte nicht heruntergeladen werden. Versuche es erneut."
 
@@ -92,11 +92,11 @@ msgstr "Die Matrix konnte nicht heruntergeladen werden. Versuche es erneut."
 msgid "NavigationBar.documentation"
 msgstr "Dokumentation"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Download a copy before closing this matrix. It’s only shown during enrollment."
 msgstr "Lade eine Kopie herunter, bevor du die Matrix schließt. Sie wird nur bei der Registrierung angezeigt."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Download PDF"
 msgstr "PDF herunterladen"
 
@@ -115,35 +115,35 @@ msgstr "eduMFA ist ein umfassendes Authentifizierungssystem, das bestehende Anwe
 msgid "HomePage.reasonContent"
 msgstr "eduMFA bietet robusten Schutz gegen Hackerangriffe für IT-Dienste in akademischen Netzwerken und darüber hinaus. Durch die Ermöglichung von Multi-Faktor-Authentifizierung macht es traditionelle Benutzername-Passwort-Kombinationen überflüssig. Die „Passkeys“-Methode, ein Hauptaugenmerk von eduMFA, speichert sicher Authentifizierungsschlüssel, die nur durch zusätzliche Methoden wie biometrische Scans oder PINs zugänglich sind. Dieser Ansatz bietet starken Widerstand gegen Phishing-Angriffe, ermöglicht die Synchronisierung zwischen kompatiblen Geräten und bietet eine nahtlose Benutzererfahrung ohne Kompromisse bei der Sicherheit.<0/><1/>eduMFA ist bereits an mehreren Universitäten in Europa im Einsatz, darunter Institutionen in Deutschland, der Tschechischen Republik und Norwegen. eduMFA wird kontinuierlich weiterentwickelt, um den dynamischen Anforderungen der wissenschaftlichen und breiteren IT-Gemeinschaft gerecht zu werden. Die Verpflichtung, aktuelle Software zu verwenden, stellt sicher, dass die Benutzer immer Zugang zu den neuesten Sicherheitsfunktionen und Verbesserungen haben."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll a test token, then verify it with eduMFA."
 msgstr "Registriere ein Test-Token und prüfe es mit eduMFA."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll a token"
 msgstr "Token registrieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll Indexed Secret"
 msgstr "Indexed Secret registrieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll passkey"
 msgstr "Passkey registrieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll push token"
 msgstr "Push-Token registrieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enroll TOTP token"
 msgstr "TOTP-Token registrieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enrolled"
 msgstr "Registriert"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Enter the six characters at these cells in order. Match uppercase and lowercase."
 msgstr "Gib die sechs Zeichen dieser Felder der Reihe nach ein. Beachte die Groß- und Kleinschreibung."
 
@@ -167,19 +167,19 @@ msgstr "Implementierungsphase:"
 msgid "Footer.imprint"
 msgstr "Impressum"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Indexed Secret"
 msgstr "Indexed Secret"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Indexed Secret matrix"
 msgstr "Indexed-Secret-Matrix"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Indexed Secret uses a shared character grid. Each challenge requests six characters from randomly selected cells."
 msgstr "Indexed Secret verwendet eine gemeinsame Zeichenmatrix. Jede Challenge fragt sechs Zeichen aus zufällig ausgewählten Feldern ab."
 
@@ -198,7 +198,7 @@ msgstr "Wesentliche Merkmale und Ziele"
 msgid "OrganizationBox.lastUpdated"
 msgstr "Zuletzt aktualisiert"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Loading test tokens…"
 msgstr "Test-Token werden geladen …"
 
@@ -207,11 +207,11 @@ msgstr "Test-Token werden geladen …"
 msgid "NavigationBar.mailingList"
 msgstr "Mailing Liste"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Matrix characters"
 msgstr "Zeichen aus der Matrix"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "No test tokens yet."
 msgstr "Noch keine Test-Token vorhanden."
 
@@ -220,23 +220,23 @@ msgstr "Noch keine Test-Token vorhanden."
 msgid "HomePage.orgTitle"
 msgstr "Organisationen, die eduMFA verwenden"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Passkey"
 msgstr "Passkey"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Passkey creation was canceled or timed out. Try enrolling again."
 msgstr "Die Passkey-Erstellung wurde abgebrochen oder ist abgelaufen. Versuchen Sie die Registrierung erneut."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Passkey verification was canceled or timed out."
 msgstr "Die Passkey-Überprüfung wurde abgebrochen oder ist abgelaufen."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Passkey verified"
 msgstr "Passkey bestätigt"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Passkeys require a supported browser and a secure connection."
 msgstr "Passkeys erfordern einen unterstützten Browser und eine sichere Verbindung."
 
@@ -245,51 +245,51 @@ msgstr "Passkeys erfordern einen unterstützten Browser und eine sichere Verbind
 msgid "OrganizationBox.phaseProd"
 msgstr "Produktion"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Push authentication sends a request to your phone for approval or rejection in eduMFA Authenticator."
 msgstr "Bei der Push-Authentifizierung erhältst du eine Anfrage auf deinem Smartphone, die du in eduMFA Authenticator bestätigen oder ablehnen kannst."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Push token"
 msgstr "Push-Token"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Push token enrollment QR code"
 msgstr "QR-Code zur Registrierung des Push-Tokens"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Remove"
 msgstr "Entfernen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Request challenge"
 msgstr "Challenge anfordern"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Retry status check"
 msgstr "Status erneut prüfen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Scan with eduMFA Authenticator"
 msgstr "Mit eduMFA Authenticator scannen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Scan with your authenticator app"
 msgstr "Mit Ihrer Authenticator-App scannen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Send challenge"
 msgstr "Push-Anfrage senden"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Six-digit authenticator code"
 msgstr "Sechsstelliger Authenticator-Code"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Status check paused"
 msgstr "Statusabfrage pausiert"
 
@@ -308,11 +308,11 @@ msgstr "Test"
 msgid "HomePage.installContent"
 msgstr "Das System ist in Python geschrieben, verwendet Flask als Web-Framework und eine SQL-Datenbank als Datenspeicher. Die Installation ist unkompliziert und bietet einen schlanken Installationsprozess.<0/><1/>Weitere Informationen über den Installationsprozess finden Sie in der <2>Dokumentation<3/></2>."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "The token tester is currently unavailable."
 msgstr "Der Token-Tester ist derzeit nicht verfügbar."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 #: src/components/Footer.tsx
 msgid "Token tester"
 msgstr "Token-Tester"
@@ -322,39 +322,39 @@ msgstr "Token-Tester"
 msgid "OrganizationBox.tokenTypes"
 msgstr "Token-Typen:"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "TOTP enrollment QR code"
 msgstr "QR-Code zur TOTP-Registrierung"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "TOTP generates short-lived, six-digit codes in an authenticator app, even when the device is offline."
 msgstr "TOTP erzeugt kurzzeitig gültige, sechsstellige Codes in einer Authenticator-App, auch wenn das Gerät offline ist."
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "TOTP token"
 msgstr "TOTP-Token"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Verify code"
 msgstr "Code überprüfen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Verify passkey"
 msgstr "Passkey überprüfen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Verify response"
 msgstr "Antwort prüfen"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Verifying the passkey with eduMFA…"
 msgstr "Passkey wird mit eduMFA überprüft …"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Waiting for a response…"
 msgstr "Wartet auf eine Antwort …"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Waiting for your browser or passkey manager. If no prompt appears, try opening this page in a regular browser tab."
 msgstr "Warten auf Ihren Browser oder Passkey-Manager. Wenn kein Dialog erscheint, öffnen Sie diese Seite in einem normalen Browser-Tab."
 
@@ -363,6 +363,6 @@ msgstr "Warten auf Ihren Browser oder Passkey-Manager. Wenn kein Dialog erschein
 msgid "HomePage.reasonTitle"
 msgstr "Warum eduMFA?"
 
-#: src/app/push-tester/push-tester.tsx
+#: src/app/token-tester/token-tester.tsx
 msgid "Your test tokens"
 msgstr "Deine Test-Token"

@@ -1,5 +1,6 @@
 import {isIP} from "node:net";
-import {getTesterService} from "../../../../../server/push-tester/runtime";
+import {getTesterService} from "../../../../../server/token-tester/runtime";
+import {testerSetting} from "../../../../../server/token-tester/config";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,7 +34,7 @@ async function readBody(request: Request) {
 
 async function handle(request: Request) {
     try {
-        const origin = process.env.PUSH_TESTER_ORIGIN;
+        const origin = testerSetting("ORIGIN");
         if (!origin)
             return Response.json(
                 {error: "The token tester is currently unavailable."},
@@ -49,13 +50,12 @@ async function handle(request: Request) {
         }
         const service = await getTesterService();
         const url = new URL(request.url);
-        url.pathname = url.pathname.slice("/api/push-tester".length);
+        url.pathname = url.pathname.replace(/^\/api\/(?:token|push)-tester/, "");
         const headers = new Headers(request.headers);
         headers.set("origin", new URL(origin).origin);
         const forwarded = request.headers.get("x-real-ip");
         // Direct Next.js requests share a bucket because Route Handlers expose no peer socket.
-        const address =
-            process.env.PUSH_TESTER_TRUST_PROXY === "1" && forwarded && isIP(forwarded) ? forwarded : "direct";
+        const address = testerSetting("TRUST_PROXY") === "1" && forwarded && isIP(forwarded) ? forwarded : "direct";
         const action = new Request(url, {method: request.method, headers});
         return await service.handle(action, address, () => readBody(request));
     } catch {

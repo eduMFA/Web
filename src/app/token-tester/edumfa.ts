@@ -1,4 +1,4 @@
-export type PushToken = {
+export type TestToken = {
     serial: string;
     enrolled: boolean;
     active: boolean;
@@ -33,14 +33,14 @@ export type PasskeyRegistration = {
 };
 
 export function connect(url: string): Connection {
-    const storageKey = "edumfa-push-tester-browser-key";
-    let key = localStorage.getItem(storageKey);
+    const storageKey = "edumfa-token-tester-browser-key";
+    let key = localStorage.getItem(storageKey) ?? localStorage.getItem("edumfa-push-tester-browser-key");
     if (!key || !/^[a-f0-9]{64}$/.test(key)) {
         key = Array.from(crypto.getRandomValues(new Uint8Array(32)), (byte) => byte.toString(16).padStart(2, "0")).join(
             "",
         );
-        localStorage.setItem(storageKey, key);
     }
+    localStorage.setItem(storageKey, key);
     return {url: url.replace(/\/+$/, ""), key};
 }
 
@@ -64,19 +64,19 @@ async function request<T>(
             redirect: "error",
         });
     } catch {
-        throw new Error("Could not reach the Push token tester service.");
+        throw new Error("Could not reach the Token tester service.");
     }
     const result: unknown = await response.json().catch(() => undefined);
     if (!response.ok) {
         const error = result && typeof result === "object" && "error" in result && result.error;
-        throw new Error(typeof error === "string" ? error : "The Push token tester request failed.");
+        throw new Error(typeof error === "string" ? error : "The Token tester request failed.");
     }
-    if (result === undefined) throw new Error("The Push token tester returned an invalid response.");
+    if (result === undefined) throw new Error("The Token tester returned an invalid response.");
     return result as T;
 }
 
 export function listTokens(connection: Connection, signal?: AbortSignal) {
-    return request<PushToken[]>(connection, "/tokens", "GET", signal);
+    return request<TestToken[]>(connection, "/tokens", "GET", signal);
 }
 
 export function enrollToken(connection: Connection, type: "push" | "totp") {
@@ -216,7 +216,7 @@ export async function registerPasskey(
         registrationclientextensions: encodeBase64Url(new TextEncoder().encode(JSON.stringify(extensionResults))),
     });
     onCredentialCreated();
-    return request<PushToken>(
+    return request<TestToken>(
         connection,
         `/passkeys/${encodeURIComponent(registration.serialNumber)}`,
         "POST",

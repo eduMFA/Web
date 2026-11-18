@@ -5,13 +5,14 @@ import type {
     IndexedEnrollment,
     PasskeyChallenge,
     PasskeyRegistration,
-    PushToken,
-} from "../../src/app/push-tester/edumfa.ts";
+    TestToken,
+} from "../../src/app/token-tester/edumfa.ts";
 
 const tokenType = "edupush";
 const testerTokenTypes = {edupush: "push", webauthn: "passkey", totp: "totp", indexedsecret: "indexedsecret"} as const;
 const matrixSize = 81;
 const matrixAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+// Retain the persisted ownership label for tokens already enrolled in eduMFA.
 export const testerDescriptionPrefix = "eduMFA Web Push Tester ";
 const testerDescription = /^eduMFA Web Push Tester [a-f0-9]{32}$/;
 
@@ -50,10 +51,10 @@ async function queryTokens(
     connection: Connection,
     description: string,
     serial?: string,
-): Promise<(PushToken & {description: string})[]> {
+): Promise<(TestToken & {description: string})[]> {
     const query = new URLSearchParams({description, page: "1", pagesize: "50"});
     if (serial) query.set("serial", serial);
-    const tokens: (PushToken & {description: string})[] = [];
+    const tokens: (TestToken & {description: string})[] = [];
 
     for (;;) {
         const {value} = await request(connection, `/token/?${query}`);
@@ -96,7 +97,7 @@ async function queryTokens(
     }
 }
 
-export async function listTokens(connection: Connection, description: string, serial?: string): Promise<PushToken[]> {
+export async function listTokens(connection: Connection, description: string, serial?: string): Promise<TestToken[]> {
     const tokens = await queryTokens(connection, description, serial);
     return tokens
         .filter((token) => token.description === description)
@@ -176,7 +177,7 @@ export async function enrollToken(
             genkey: "1",
             description,
             serial,
-            tokenissuer: "eduMFA Push Tester",
+            tokenissuer: "eduMFA Token Tester",
             ...(type === "totp" ? {otplen: "6", tokenlabel: "<s>"} : {}),
             validity_period_end: new Date(expiresAt).toISOString().slice(0, 16) + "+0000",
         }),

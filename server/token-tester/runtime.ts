@@ -1,9 +1,11 @@
 import {createTesterService} from "./service";
+import {existsSync} from "node:fs";
+import {testerSetting} from "./config";
 
 function positiveInteger(name: string, fallback: number, maximum: number) {
-    const value = Number(process.env[name] ?? fallback);
+    const value = Number(testerSetting(name) ?? fallback);
     if (!Number.isSafeInteger(value) || value < 1 || value > maximum) {
-        throw new Error(`${name} must be an integer between 1 and ${maximum}.`);
+        throw new Error(`TOKEN_TESTER_${name} must be an integer between 1 and ${maximum}.`);
     }
     return value;
 }
@@ -13,14 +15,14 @@ export function testerConfigured() {
         process.env.EDUMFA_TEST_URL &&
         process.env.EDUMFA_TEST_USERNAME &&
         process.env.EDUMFA_TEST_PASSWORD &&
-        process.env.PUSH_TESTER_ORIGIN
+        testerSetting("ORIGIN")
     );
 }
 
 function createRuntime() {
-    if (!testerConfigured()) throw new Error("Configure the eduMFA test instance and PUSH_TESTER_ORIGIN.");
+    if (!testerConfigured()) throw new Error("Configure the eduMFA test instance and TOKEN_TESTER_ORIGIN.");
     const instance = new URL(process.env.EDUMFA_TEST_URL!);
-    const origin = new URL(process.env.PUSH_TESTER_ORIGIN!);
+    const origin = new URL(testerSetting("ORIGIN")!);
     if (
         !["http:", "https:"].includes(instance.protocol) ||
         instance.username ||
@@ -40,9 +42,11 @@ function createRuntime() {
         username: process.env.EDUMFA_TEST_USERNAME!,
         password: process.env.EDUMFA_TEST_PASSWORD!,
         realm: process.env.EDUMFA_TEST_REALM,
-        databasePath: process.env.PUSH_TESTER_DB_PATH ?? ".push-tester.sqlite",
-        maxTokens: positiveInteger("PUSH_TESTER_MAX_TOKENS", 100, 10_000),
-        tokenLifetimeMs: positiveInteger("PUSH_TESTER_TOKEN_TTL_HOURS", 24, 720) * 3_600_000,
+        databasePath:
+            testerSetting("DB_PATH") ??
+            (existsSync(".push-tester.sqlite") ? ".push-tester.sqlite" : ".token-tester.sqlite"),
+        maxTokens: positiveInteger("MAX_TOKENS", 100, 10_000),
+        tokenLifetimeMs: positiveInteger("TOKEN_TTL_HOURS", 24, 720) * 3_600_000,
         passkeyAccount: user && realm ? {user, realm} : undefined,
     });
     let initialization: Promise<void> | undefined;
