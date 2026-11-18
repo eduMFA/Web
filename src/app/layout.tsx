@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "eduMFA",
         type: "website",
-        url: "https://edumfa.com",
+        url: "https://edumfa.io",
     },
     alternates: {
         canonical: "https://edumfa.io",
