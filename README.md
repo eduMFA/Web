@@ -34,6 +34,55 @@ accordingly. Forward this header through the reverse proxy and respect Next.js's
 cache-control headers so language-specific responses are not cached across visitors.
 The former `/en` and `/de` URLs permanently redirect to `/`.
 
+## Token tester
+
+Open **Token tester** in the home page footer. The tester uses a shared eduMFA instance. Each browser gets its own token list. For a push token, scan the QR code with eduMFA Authenticator and send a challenge. For TOTP, scan the QR code with a TOTP authenticator app and enter its current six-digit code in the dashboard. For Indexed Secret, keep a copy of the 9×9 enrollment matrix, request a challenge, and enter the characters at the requested coordinates in order. Removing a token deletes it from the test instance.
+
+For Apple App Review, share `/token-tester?review=apple`. This view offers Push enrollment and displays Push tokens with guidance for scanning the enrollment QR code, receiving notifications, approving or declining challenges, and testing expiration. Use a computer for this page and the review device for eduMFA Authenticator. The query parameter selects the dashboard presentation and uses the existing browser session and tester limits.
+
+The Next.js server serves both the dashboard at `/token-tester` and the API at `/api/token-tester`. Use Node.js 24. For local development, set these variables in `.env.local` and run `bun run dev`.
+
+```dotenv
+TOKEN_TESTER_ORIGIN=http://localhost:3000
+EDUMFA_TEST_URL=http://localhost:8000
+EDUMFA_TEST_USERNAME=token-tester
+EDUMFA_TEST_PASSWORD=replace-with-the-service-account-password
+```
+
+Open the site using the exact origin configured in `TOKEN_TESTER_ORIGIN`. For production, set it to the public website origin. Set the eduMFA credentials in the web server’s environment. Restart the web server after changing the configuration.
+
+Existing `PUSH_TESTER_*` settings are accepted as fallbacks for `TOKEN_TESTER_*`. Existing browser sessions and the previous `.push-tester.sqlite` inventory are reused automatically. New installations use `.token-tester.sqlite` by default. The `eduMFA Web Push Tester` description identifies tester token ownership and scopes the matrix policy.
+
+Use a dedicated eduMFA test instance with [eduPUSH enrollment policies and Firebase configured](https://edumfa.readthedocs.io/en/latest/tokens/tokentypes/edupush.html). Give the service account permission to authenticate through `/auth`, enroll, list and delete test tokens, trigger challenges, and read token challenges. Set `EDUMFA_TEST_REALM` if the service account is in a named realm. The phone connects to the registration URL in the QR code, so use an address it can reach.
+
+Run one Next.js server process per dedicated eduMFA test instance so challenge state and rate limits are shared across requests. Set `TOKEN_TESTER_DB_PATH` to a SQLite file on a persistent, writable volume in production. The service inventories existing tester tokens at startup and retains their stored expiration across restarts. Existing tester tokens without a stored expiration receive the configured lifetime from the first inventory. The defaults are 100 outstanding tokens across all browsers and 24 hours per token. Set `TOKEN_TESTER_MAX_TOKENS` and `TOKEN_TESTER_TOKEN_TTL_HOURS` to adjust them. The service checks for expired tokens every minute and retries failed deletions. Expired tokens continue to occupy capacity until cleanup confirms they are gone.
+
+The service limits each IP to 120 requests and 5 enrollment attempts per minute. It also limits total traffic, enrollments, and challenges across IPs. Behind a reverse proxy, set `TOKEN_TESTER_TRUST_PROXY=1` and have the proxy **overwrite** `X-Real-IP` with the actual client IP. Keep the Next.js listener on loopback and restrict access to the proxy. Direct connections share one rate-limit bucket because Next.js Route Handlers do not expose the peer socket. Configure rate and connection limits at the public proxy as well, so excess traffic is dropped before it reaches the service. For example, with Nginx directly facing clients, put the two zone directives in the `http` block and the location in the website’s HTTPS server block. Apply the tester limits to its API path.
+
+```nginx
+limit_req_zone $binary_remote_addr zone=token_tester_requests:10m rate=2r/s;
+limit_conn_zone $binary_remote_addr zone=token_tester_connections:10m;
+
+location /api/token-tester/ {
+    limit_req zone=token_tester_requests burst=20 nodelay;
+    limit_req_status 429;
+    limit_conn token_tester_connections 10;
+    limit_conn_status 429;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass http://127.0.0.1:3000;
+}
+```
+
+If another proxy sits in front of Nginx, configure Nginx to resolve client IPs from that trusted proxy before using IP limits. Clearing browser storage starts a new browser session. Its old tokens still expire on schedule.
+
+To enable passkey enrollment, set `EDUMFA_PASSKEY_TEST_USER` and `EDUMFA_PASSKEY_TEST_REALM` in the web server’s environment. Use a dedicated, unprivileged account on the isolated eduMFA test instance with no access to other services. All passkeys enrolled through the public tester are assigned to that account, while the tester keeps each browser’s token list separate.
+
+Allow WebAuthn enrollment for the service account and configure `webauthn_relying_party_id` to match the hostname in `TOKEN_TESTER_ORIGIN`, `webauthn_relying_party_name` to a test name, and `webauthn_resident_key=required` in the applicable [eduMFA enrollment policy](https://edumfa.readthedocs.io/en/latest/policies/enrollment.html). Open the tester in a secure browser context and select **Enroll passkey** to open the browser’s registration prompt. Select **Verify passkey** on an enrolled token to sign a fresh challenge and see the result from eduMFA. Passkeys share the tester’s quota and expiry rules. Removing one deletes its registration from eduMFA. To remove the local credential too, use the device’s passkey manager.
+
+If the test-user policy sets `webauthn_authenticator_attestation_form=none`, also set `webauthn_authenticator_attestation_level=none` in that policy. eduMFA otherwise rejects the registration when the browser omits attestation.
+
+For matrix challenges, configure an eduMFA policy with scope `authentication` and action `indexedsecret_count=6`. Limit it to tester tokens with an active token condition on `description`, comparator `matches`, and value `^eduMFA Web Push Tester [a-f0-9]{32}$`. The tester requires six positions and verifies the six characters in the order eduMFA requests them.
+
 ## Manage your Organization Listing
 
 Use the GitHub issue forms to [add](https://github.com/eduMFA/Web/issues/new?template=add_organization.yml), [update](https://github.com/eduMFA/Web/issues/new?template=update_organization.yml), or [remove](https://github.com/eduMFA/Web/issues/new?template=remove_organization.yml) your organization listing. Changes are published after a maintainer merges the generated pull request.

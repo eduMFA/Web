@@ -27,6 +27,8 @@ yarn-error.log*
 
 # local env files
 .env*.local
+/.push-tester.sqlite*
+/.token-tester.sqlite*
 
 # vercel
 .vercel

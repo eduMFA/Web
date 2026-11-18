@@ -181,7 +181,7 @@ export default function Home() {
                     </p>
                 </section>
             </div>
-            <Footer />
+            <Footer tokenTesterHref="/token-tester" />
         </main>
     );
 }
