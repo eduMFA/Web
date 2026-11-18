@@ -7,6 +7,11 @@ const nextConfig = {
                 destination: "/",
                 permanent: true,
             },
+            {
+                source: "/:locale(en|de)/push-tester",
+                destination: "/push-tester",
+                permanent: true,
+            },
         ];
     },
 };

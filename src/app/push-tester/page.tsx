@@ -6,8 +6,8 @@ export const metadata: Metadata = {title: "Token Tester | eduMFA"};
 export default function PushTesterPage() {
     return (
         <PushTester
-            serviceUrl={process.env.NEXT_PUBLIC_PUSH_TESTER_URL?.trim()}
-            passkeysEnabled={process.env.NEXT_PUBLIC_PUSH_TESTER_PASSKEYS === "1"}
+            serviceUrl={process.env.PUSH_TESTER_ORIGIN ? "/api/push-tester" : undefined}
+            passkeysEnabled={!!(process.env.EDUMFA_PASSKEY_TEST_USER && process.env.EDUMFA_PASSKEY_TEST_REALM)}
         />
     );
 }

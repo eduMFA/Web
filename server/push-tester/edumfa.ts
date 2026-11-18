@@ -6,7 +6,7 @@ import type {
     PasskeyChallenge,
     PasskeyRegistration,
     PushToken,
-} from "../../src/app/[locale]/push-tester/edumfa.ts";
+} from "../../src/app/push-tester/edumfa.ts";
 
 const tokenType = "edupush";
 const testerTokenTypes = {edupush: "push", webauthn: "passkey", totp: "totp", indexedsecret: "indexedsecret"} as const;

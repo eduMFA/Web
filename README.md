@@ -38,41 +38,40 @@ The former `/en` and `/de` URLs permanently redirect to `/`.
 
 Open **Token tester** in the home page footer. The tester uses a shared eduMFA instance. Each browser gets its own token list. For a push token, scan the QR code with eduMFA Authenticator and send a challenge. For TOTP, scan the QR code with a TOTP authenticator app and enter its current six-digit code in the dashboard. For Indexed Secret, keep a copy of the 9×9 enrollment matrix, request a challenge, and enter the characters at the requested coordinates in order. Removing a token deletes it from the test instance.
 
-GitHub Pages serves the UI. Run the tester service separately with Node.js 24 and `bun run push-tester`. For local development, set these variables in `.env.local`, start the tester service, and run `bun run dev` in a second terminal.
+The Next.js server serves both the dashboard at `/push-tester` and the API at `/api/push-tester`. Use Node.js 24. For local development, set these variables in `.env.local` and run `bun run dev`.
 
 ```dotenv
-NEXT_PUBLIC_PUSH_TESTER_URL=http://127.0.0.1:8787
 PUSH_TESTER_ORIGIN=http://localhost:3000
-EDUMFA_TEST_URL=http://127.0.0.1:8080
+EDUMFA_TEST_URL=http://localhost:8000
 EDUMFA_TEST_USERNAME=push-tester
 EDUMFA_TEST_PASSWORD=replace-with-the-service-account-password
 ```
 
-Open the local site using the exact origin configured in `PUSH_TESTER_ORIGIN`. For production, set it to the public website origin and set the GitHub Actions repository variable `NEXT_PUBLIC_PUSH_TESTER_URL` to the HTTPS URL of the tester service. Configure the eduMFA credentials only on the service host. The service defaults to `127.0.0.1:8787` for use behind an HTTPS reverse proxy. Set `PUSH_TESTER_HOST` and `PUSH_TESTER_PORT` if the host requires other values.
+Open the site using the exact origin configured in `PUSH_TESTER_ORIGIN`. For production, set it to the public website origin. Set the eduMFA credentials in the web server’s environment. Restart the web server after changing the configuration.
 
 Use a dedicated eduMFA test instance with [eduPUSH enrollment policies and Firebase configured](https://edumfa.readthedocs.io/en/latest/tokens/tokentypes/edupush.html). Give the service account permission to authenticate through `/auth`, enroll, list and delete test tokens, trigger challenges, and read token challenges. Set `EDUMFA_TEST_REALM` if the service account is in a named realm. The phone connects to the registration URL in the QR code, so use an address it can reach.
 
-Run one tester service process per dedicated eduMFA instance. Set `PUSH_TESTER_DB_PATH` to a SQLite file on a persistent, writable volume in production. The service inventories existing tester tokens at startup and retains their stored expiration across restarts. Existing tester tokens without a stored expiration receive the configured lifetime from the first inventory. The defaults are 100 outstanding tokens across all browsers and 24 hours per token. Set `PUSH_TESTER_MAX_TOKENS` and `PUSH_TESTER_TOKEN_TTL_HOURS` to adjust them. The service checks for expired tokens every minute and retries failed deletions. Expired tokens continue to occupy capacity until cleanup confirms they are gone.
+Run one Next.js server process per dedicated eduMFA test instance so challenge state and rate limits are shared across requests. Set `PUSH_TESTER_DB_PATH` to a SQLite file on a persistent, writable volume in production. The service inventories existing tester tokens at startup and retains their stored expiration across restarts. Existing tester tokens without a stored expiration receive the configured lifetime from the first inventory. The defaults are 100 outstanding tokens across all browsers and 24 hours per token. Set `PUSH_TESTER_MAX_TOKENS` and `PUSH_TESTER_TOKEN_TTL_HOURS` to adjust them. The service checks for expired tokens every minute and retries failed deletions. Expired tokens continue to occupy capacity until cleanup confirms they are gone.
 
-The service limits each IP to 120 requests and 5 enrollment attempts per minute. It also limits total traffic, enrollments, and challenges across IPs. Behind a reverse proxy on the same host, set `PUSH_TESTER_TRUST_PROXY=1` and have the proxy **overwrite** `X-Real-IP` with the actual client IP. Keep the tester listener on loopback. Configure rate and connection limits at the public proxy as well, so excess traffic is dropped before it reaches the service. For example, with Nginx directly facing clients, put the two zone directives in the `http` block and the location in the tester’s HTTPS server block.
+The service limits each IP to 120 requests and 5 enrollment attempts per minute. It also limits total traffic, enrollments, and challenges across IPs. Behind a reverse proxy, set `PUSH_TESTER_TRUST_PROXY=1` and have the proxy **overwrite** `X-Real-IP` with the actual client IP. Keep the Next.js listener on loopback and restrict access to the proxy. Direct connections share one rate-limit bucket because Next.js Route Handlers do not expose the peer socket. Configure rate and connection limits at the public proxy as well, so excess traffic is dropped before it reaches the service. For example, with Nginx directly facing clients, put the two zone directives in the `http` block and the location in the website’s HTTPS server block. Apply the tester limits to its API path.
 
 ```nginx
 limit_req_zone $binary_remote_addr zone=push_tester_requests:10m rate=2r/s;
 limit_conn_zone $binary_remote_addr zone=push_tester_connections:10m;
 
-location / {
+location /api/push-tester/ {
     limit_req zone=push_tester_requests burst=20 nodelay;
     limit_req_status 429;
     limit_conn push_tester_connections 10;
     limit_conn_status 429;
     proxy_set_header X-Real-IP $remote_addr;
-    proxy_pass http://127.0.0.1:8787;
+    proxy_pass http://127.0.0.1:3000;
 }
 ```
 
 If another proxy sits in front of Nginx, configure Nginx to resolve client IPs from that trusted proxy before using IP limits. Clearing browser storage starts a new browser session. Its old tokens still expire on schedule.
 
-To enable passkey enrollment, set `EDUMFA_PASSKEY_TEST_USER` and `EDUMFA_PASSKEY_TEST_REALM` on the tester service and set `NEXT_PUBLIC_PUSH_TESTER_PASSKEYS=1` for the website build or local dev server. On GitHub Pages, set the public flag as a repository variable. Use a dedicated, unprivileged account on the isolated eduMFA test instance with no access to other services. All passkeys enrolled through the public tester are assigned to that account, while the tester keeps each browser’s token list separate.
+To enable passkey enrollment, set `EDUMFA_PASSKEY_TEST_USER` and `EDUMFA_PASSKEY_TEST_REALM` in the web server’s environment. Use a dedicated, unprivileged account on the isolated eduMFA test instance with no access to other services. All passkeys enrolled through the public tester are assigned to that account, while the tester keeps each browser’s token list separate.
 
 Allow WebAuthn enrollment for the service account and configure `webauthn_relying_party_id` to match the hostname in `PUSH_TESTER_ORIGIN`, `webauthn_relying_party_name` to a test name, and `webauthn_resident_key=required` in the applicable [eduMFA enrollment policy](https://edumfa.readthedocs.io/en/latest/policies/enrollment.html). Open the tester in a secure browser context and select **Enroll passkey** to open the browser’s registration prompt. Select **Verify passkey** on an enrolled token to sign a fresh challenge and see the result from eduMFA. Passkeys share the tester’s quota and expiry rules. Removing one deletes its registration from eduMFA. To remove the local credential too, use the device’s passkey manager.
 
