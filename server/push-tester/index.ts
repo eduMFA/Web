@@ -26,6 +26,12 @@ function positiveInteger(name: string, fallback: number, maximum: number) {
     return value;
 }
 
+const passkeyUser = process.env.EDUMFA_PASSKEY_TEST_USER?.trim();
+const passkeyRealm = process.env.EDUMFA_PASSKEY_TEST_REALM?.trim();
+if (!!passkeyUser !== !!passkeyRealm) {
+    throw new Error("Set both EDUMFA_PASSKEY_TEST_USER and EDUMFA_PASSKEY_TEST_REALM to enable passkeys.");
+}
+
 const {initialize, cleanup, handle} = createTesterService({
     origin: new URL(PUSH_TESTER_ORIGIN).origin,
     instanceUrl: instance.href.replace(/\/+$/, ""),
@@ -35,6 +41,7 @@ const {initialize, cleanup, handle} = createTesterService({
     databasePath: process.env.PUSH_TESTER_DB_PATH ?? ".push-tester.sqlite",
     maxTokens: positiveInteger("PUSH_TESTER_MAX_TOKENS", 100, 10_000),
     tokenLifetimeMs: positiveInteger("PUSH_TESTER_TOKEN_TTL_HOURS", 24, 720) * 3_600_000,
+    passkeyAccount: passkeyUser && passkeyRealm ? {user: passkeyUser, realm: passkeyRealm} : undefined,
 });
 const port = positiveInteger("PUSH_TESTER_PORT", 8787, 65535);
 const host = process.env.PUSH_TESTER_HOST ?? "127.0.0.1";
@@ -54,7 +61,6 @@ function runCleanup() {
 }
 
 createServer(async (incoming, outgoing) => {
-    incoming.resume();
     try {
         const request = new Request(new URL(incoming.url ?? "/", "http://localhost"), {
             method: incoming.method,
@@ -68,12 +74,29 @@ createServer(async (incoming, outgoing) => {
             trustProxy && typeof forwarded === "string" && isIP(forwarded)
                 ? forwarded
                 : (incoming.socket.remoteAddress ?? "unknown");
-        const response = await handle(request, address.replace(/^::ffff:/i, ""));
+        const response = await handle(request, address.replace(/^::ffff:/i, ""), async () => {
+            const timeout = setTimeout(() => incoming.destroy(), 5000);
+            const chunks: Buffer[] = [];
+            let size = 0;
+            try {
+                for await (const chunk of incoming.iterator({destroyOnReturn: false})) {
+                    const bytes = Buffer.from(chunk);
+                    size += bytes.length;
+                    if (size > 65_536) throw new Error("Registration response too large.");
+                    chunks.push(bytes);
+                }
+                return Buffer.concat(chunks).toString("utf8");
+            } finally {
+                clearTimeout(timeout);
+            }
+        });
         outgoing.writeHead(response.status, Object.fromEntries(response.headers));
         outgoing.end(await response.text());
     } catch {
         outgoing.writeHead(400, {"Cache-Control": "no-store"});
         outgoing.end();
+    } finally {
+        incoming.resume();
     }
 }).listen(port, host, () => {
     console.log(`Push token tester service listening on port ${port}`);

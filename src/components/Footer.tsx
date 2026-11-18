@@ -18,7 +18,7 @@ export const Footer: React.FC<{pushTesterHref?: string}> = ({pushTesterHref}) =>
                     </Link>
                     {pushTesterHref && (
                         <Link href={pushTesterHref} className="text-white hover:text-gray-300">
-                            <Trans>Push token tester</Trans>
+                            <Trans>Token tester</Trans>
                         </Link>
                     )}
                 </div>

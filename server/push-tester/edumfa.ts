@@ -1,6 +1,17 @@
-import type {ChallengeStatus, PushToken} from "../../src/app/[locale]/push-tester/edumfa.ts";
+import {randomInt} from "node:crypto";
+import type {
+    ChallengeStatus,
+    IndexedChallenge,
+    IndexedEnrollment,
+    PasskeyChallenge,
+    PasskeyRegistration,
+    PushToken,
+} from "../../src/app/[locale]/push-tester/edumfa.ts";
 
 const tokenType = "edupush";
+const testerTokenTypes = {edupush: "push", webauthn: "passkey", totp: "totp", indexedsecret: "indexedsecret"} as const;
+const matrixSize = 81;
+const matrixAlphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
 export const testerDescriptionPrefix = "eduMFA Web Push Tester ";
 const testerDescription = /^eduMFA Web Push Tester [a-f0-9]{32}$/;
 
@@ -16,7 +27,7 @@ function object(value: unknown): JsonObject | undefined {
 async function request(connection: Connection, path: string, options: RequestInit = {}) {
     const response = await fetch(connection.url + path, {
         ...options,
-        headers: connection.token ? {Authorization: connection.token} : undefined,
+        headers: {...options.headers, ...(connection.token ? {Authorization: connection.token} : {})},
         cache: "no-store",
         redirect: "error",
         signal: AbortSignal.timeout(7000),
@@ -40,7 +51,7 @@ async function queryTokens(
     description: string,
     serial?: string,
 ): Promise<(PushToken & {description: string})[]> {
-    const query = new URLSearchParams({type: tokenType, description, page: "1", pagesize: "50"});
+    const query = new URLSearchParams({description, page: "1", pagesize: "50"});
     if (serial) query.set("serial", serial);
     const tokens: (PushToken & {description: string})[] = [];
 
@@ -52,8 +63,11 @@ async function queryTokens(
         }
         for (const entry of page.tokens) {
             const token = object(entry);
+            const kind = token?.tokentype;
             if (
-                token?.tokentype === tokenType &&
+                token &&
+                typeof kind === "string" &&
+                Object.hasOwn(testerTokenTypes, kind) &&
                 typeof token.description === "string" &&
                 testerDescription.test(token.description) &&
                 typeof token.serial === "string" &&
@@ -62,7 +76,8 @@ async function queryTokens(
                 tokens.push({
                     serial: token.serial,
                     description: token.description,
-                    enrolled: token.rollout_state === "enrolled",
+                    type: testerTokenTypes[kind as keyof typeof testerTokenTypes],
+                    enrolled: token.rollout_state === (kind === tokenType ? "enrolled" : ""),
                     active: token.active === true,
                 });
             }
@@ -85,26 +100,88 @@ export async function listTokens(connection: Connection, description: string, se
     const tokens = await queryTokens(connection, description, serial);
     return tokens
         .filter((token) => token.description === description)
-        .map(({serial, enrolled, active}) => ({serial, enrolled, active}));
+        .map(({serial, enrolled, active, type}) => ({serial, enrolled, active, type}));
+}
+
+export type PasskeyAccount = {user: string; realm: string};
+
+export async function startPasskey(
+    connection: Connection,
+    origin: string,
+    account: PasskeyAccount,
+    description: string,
+    serial: string,
+    expiresAt: number,
+) {
+    const {value, detail} = await request(connection, "/token/init", {
+        method: "POST",
+        headers: {Origin: origin},
+        body: new URLSearchParams({
+            ...account,
+            type: "webauthn",
+            description,
+            serial,
+            validity_period_end: new Date(expiresAt).toISOString().slice(0, 16) + "+0000",
+        }),
+    });
+    const registration = object(detail?.webAuthnRegisterRequest);
+    if (
+        value !== true ||
+        detail?.serial !== serial ||
+        registration?.serialNumber !== serial ||
+        typeof registration.nonce !== "string" ||
+        typeof registration.transaction_id !== "string" ||
+        object(registration.relyingParty)?.id !== new URL(origin).hostname ||
+        object(registration.authenticatorSelection)?.residentKey !== "required" ||
+        !Array.isArray(registration.pubKeyCredAlgorithms)
+    ) {
+        throw new Error("eduMFA did not return compatible passkey registration options.");
+    }
+    return registration as PasskeyRegistration;
+}
+
+export async function finishPasskey(
+    connection: Connection,
+    origin: string,
+    account: PasskeyAccount,
+    serial: string,
+    fields: URLSearchParams,
+) {
+    for (const [key, value] of Object.entries({...account, type: "webauthn", serial})) fields.set(key, value);
+    const {value, detail} = await request(connection, "/token/init", {
+        method: "POST",
+        headers: {Origin: origin},
+        body: fields,
+    });
+    if (value !== true || !object(detail?.webAuthnRegisterResponse)) {
+        throw new Error("eduMFA did not confirm passkey registration.");
+    }
 }
 
 export function listTesterInventory(connection: Connection) {
     return queryTokens(connection, testerDescriptionPrefix + "*");
 }
 
-export async function enrollToken(connection: Connection, description: string, serial: string, expiresAt: number) {
+export async function enrollToken(
+    connection: Connection,
+    description: string,
+    serial: string,
+    expiresAt: number,
+    type: "push" | "totp" = "push",
+) {
     const {value, detail} = await request(connection, "/token/init", {
         method: "POST",
         body: new URLSearchParams({
-            type: tokenType,
+            type: type === "totp" ? "totp" : tokenType,
             genkey: "1",
             description,
             serial,
             tokenissuer: "eduMFA Push Tester",
+            ...(type === "totp" ? {otplen: "6", tokenlabel: "<s>"} : {}),
             validity_period_end: new Date(expiresAt).toISOString().slice(0, 16) + "+0000",
         }),
     });
-    const image = object(detail?.pushurl)?.img;
+    const image = object(type === "totp" ? detail?.googleurl : detail?.pushurl)?.img;
     if (
         value !== true ||
         detail?.serial !== serial ||
@@ -116,6 +193,70 @@ export async function enrollToken(connection: Connection, description: string, s
         );
     }
     return {serial, image};
+}
+
+export async function verifyTotp(connection: Connection, serial: string, code: string): Promise<boolean> {
+    const {value} = await request(connection, "/validate/check", {
+        method: "POST",
+        body: new URLSearchParams({serial, pass: code}),
+    });
+    if (typeof value !== "boolean") throw new Error("eduMFA did not return a TOTP verification result.");
+    return value;
+}
+
+export async function enrollIndexedSecret(
+    connection: Connection,
+    description: string,
+    serial: string,
+    expiresAt: number,
+): Promise<IndexedEnrollment> {
+    const secret = Array.from({length: matrixSize}, () => matrixAlphabet[randomInt(matrixAlphabet.length)]).join("");
+    const {value, detail} = await request(connection, "/token/init", {
+        method: "POST",
+        body: new URLSearchParams({
+            type: "indexedsecret",
+            otpkey: secret,
+            serial,
+            description,
+            validity_period_end: new Date(expiresAt).toISOString().slice(0, 16) + "+0000",
+        }),
+    });
+    if (value !== true || detail?.serial !== serial) {
+        throw new Error("eduMFA did not confirm Indexed Secret enrollment.");
+    }
+    return {serial, secret};
+}
+
+export async function triggerIndexedChallenge(connection: Connection, serial: string): Promise<IndexedChallenge> {
+    const {value, detail} = await request(connection, "/validate/triggerchallenge", {
+        method: "POST",
+        body: new URLSearchParams({serial, type: "indexedsecret"}),
+    });
+    const id = detail?.transaction_id;
+    const positions = object(detail?.attributes)?.random_positions;
+    if (
+        value !== 1 ||
+        typeof id !== "string" ||
+        !/^[\w-]{1,128}$/.test(id) ||
+        !Array.isArray(positions) ||
+        positions.length !== 6 ||
+        !positions.every(
+            (p: unknown): p is number => typeof p === "number" && Number.isInteger(p) && p >= 1 && p <= matrixSize,
+        )
+    ) {
+        throw new Error("eduMFA did not return a valid Indexed Secret challenge.");
+    }
+    return {id, positions};
+}
+
+export async function verifyIndexedSecret(connection: Connection, serial: string, id: string, answer: string) {
+    if ((await readChallenge(connection, serial, id)) === "expired") return "expired";
+    const {value} = await request(connection, "/validate/check", {
+        method: "POST",
+        body: new URLSearchParams({serial, transaction_id: id, pass: answer}),
+    });
+    if (typeof value !== "boolean") throw new Error("eduMFA did not return an Indexed Secret verification result.");
+    return value ? "accepted" : "declined";
 }
 
 export async function removeToken(connection: Connection, serial: string) {
@@ -135,6 +276,51 @@ export async function triggerChallenge(connection: Connection, serial: string) {
         throw new Error("eduMFA did not create a challenge for this token.");
     }
     return id;
+}
+
+export async function triggerPasskeyChallenge(
+    connection: Connection,
+    origin: string,
+    account: PasskeyAccount,
+    serial: string,
+): Promise<PasskeyChallenge> {
+    const {value, detail} = await request(connection, "/validate/triggerchallenge", {
+        method: "POST",
+        headers: {Origin: origin},
+        body: new URLSearchParams({...account, serial, type: "webauthn"}),
+    });
+    const attributes = object(detail?.attributes);
+    const options = object(attributes?.webAuthnSignRequest);
+    const id = detail?.transaction_id;
+    if (
+        value !== 1 ||
+        typeof id !== "string" ||
+        !id ||
+        typeof options?.challenge !== "string" ||
+        options.rpId !== new URL(origin).hostname ||
+        !Array.isArray(options.allowCredentials) ||
+        options.allowCredentials.length !== 1
+    ) {
+        throw new Error("eduMFA did not return a challenge scoped to the selected passkey.");
+    }
+    return {id, options: options as PasskeyChallenge["options"]};
+}
+
+export async function verifyPasskeyChallenge(
+    connection: Connection,
+    origin: string,
+    account: PasskeyAccount,
+    serial: string,
+    fields: URLSearchParams,
+): Promise<boolean> {
+    for (const [key, value] of Object.entries({...account, type: "webauthn", serial, pass: ""})) fields.set(key, value);
+    const {value} = await request(connection, "/validate/check", {
+        method: "POST",
+        headers: {Origin: origin},
+        body: fields,
+    });
+    if (typeof value !== "boolean") throw new Error("eduMFA did not return a verification result.");
+    return value;
 }
 
 export async function readChallenge(connection: Connection, serial: string, id: string): Promise<ChallengeStatus> {

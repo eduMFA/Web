@@ -33,9 +33,10 @@ request's `Accept-Language` header, falling back to English, and sets the HTML l
 accordingly. Forward this header through the reverse proxy and respect Next.js's
 cache-control headers so language-specific responses are not cached across visitors.
 The former `/en` and `/de` URLs permanently redirect to `/`.
-## Push token tester
 
-Open **Push token tester** in the home page footer. The tester uses a shared eduMFA instance. Each browser gets its own token list. Scan an enrollment QR code with eduMFA Authenticator, then send a challenge to see whether it was accepted, declined, or expired. Removing a token deletes it from the test instance.
+## Token tester
+
+Open **Token tester** in the home page footer. The tester uses a shared eduMFA instance. Each browser gets its own token list. For a push token, scan the QR code with eduMFA Authenticator and send a challenge. For TOTP, scan the QR code with a TOTP authenticator app and enter its current six-digit code in the dashboard. For Indexed Secret, keep a copy of the 9×9 enrollment matrix, request a challenge, and enter the characters at the requested coordinates in order. Removing a token deletes it from the test instance.
 
 GitHub Pages serves the UI. Run the tester service separately with Node.js 24 and `bun run push-tester`. For local development, set these variables in `.env.local`, start the tester service, and run `bun run dev` in a second terminal.
 
@@ -70,6 +71,14 @@ location / {
 ```
 
 If another proxy sits in front of Nginx, configure Nginx to resolve client IPs from that trusted proxy before using IP limits. Clearing browser storage starts a new browser session. Its old tokens still expire on schedule.
+
+To enable passkey enrollment, set `EDUMFA_PASSKEY_TEST_USER` and `EDUMFA_PASSKEY_TEST_REALM` on the tester service and set `NEXT_PUBLIC_PUSH_TESTER_PASSKEYS=1` for the website build or local dev server. On GitHub Pages, set the public flag as a repository variable. Use a dedicated, unprivileged account on the isolated eduMFA test instance with no access to other services. All passkeys enrolled through the public tester are assigned to that account, while the tester keeps each browser’s token list separate.
+
+Allow WebAuthn enrollment for the service account and configure `webauthn_relying_party_id` to match the hostname in `PUSH_TESTER_ORIGIN`, `webauthn_relying_party_name` to a test name, and `webauthn_resident_key=required` in the applicable [eduMFA enrollment policy](https://edumfa.readthedocs.io/en/latest/policies/enrollment.html). Open the tester in a secure browser context and select **Enroll passkey** to open the browser’s registration prompt. Select **Verify passkey** on an enrolled token to sign a fresh challenge and see the result from eduMFA. Passkeys share the tester’s quota and expiry rules. Removing one deletes its registration from eduMFA. To remove the local credential too, use the device’s passkey manager.
+
+If the test-user policy sets `webauthn_authenticator_attestation_form=none`, also set `webauthn_authenticator_attestation_level=none` in that policy. eduMFA otherwise rejects the registration when the browser omits attestation.
+
+For matrix challenges, configure an eduMFA policy with scope `authentication` and action `indexedsecret_count=6`. Limit it to tester tokens with an active token condition on `description`, comparator `matches`, and value `^eduMFA Web Push Tester [a-f0-9]{32}$`. The tester requires six positions and verifies the six characters in the order eduMFA requests them.
 
 ## Manage your Organization Listing
 
