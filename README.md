@@ -38,6 +38,8 @@ The former `/en` and `/de` URLs permanently redirect to `/`.
 
 Open **Token tester** in the home page footer. The tester uses a shared eduMFA instance. Each browser gets its own token list. For a push token, scan the QR code with eduMFA Authenticator and send a challenge. For TOTP, scan the QR code with a TOTP authenticator app and enter its current six-digit code in the dashboard. For Indexed Secret, keep a copy of the 9×9 enrollment matrix, request a challenge, and enter the characters at the requested coordinates in order. Removing a token deletes it from the test instance.
 
+For Apple App Review, share `/token-tester?review=apple`. This view offers Push enrollment and displays Push tokens with guidance for scanning the enrollment QR code, receiving notifications, approving or declining challenges, and testing expiration. Use a computer for this page and the review device for eduMFA Authenticator. The query parameter selects the dashboard presentation and uses the existing browser session and tester limits.
+
 The Next.js server serves both the dashboard at `/token-tester` and the API at `/api/token-tester`. Use Node.js 24. For local development, set these variables in `.env.local` and run `bun run dev`.
 
 ```dotenv

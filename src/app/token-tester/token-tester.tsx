@@ -421,7 +421,15 @@ function TokenRow({
     );
 }
 
-function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysEnabled: boolean}) {
+function TokenList({
+    serviceUrl,
+    passkeysEnabled,
+    reviewMode,
+}: {
+    serviceUrl: string;
+    passkeysEnabled: boolean;
+    reviewMode: boolean;
+}) {
     const {t} = useLingui();
     const [connection, setConnection] = useState<Connection>();
     const [tokens, setTokens] = useState<TestToken[]>([]);
@@ -433,9 +441,12 @@ function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysE
     const [actionInProgress, setActionInProgress] = useState<TesterAction | undefined>("load");
     const [error, setError] = useState("");
     const working = actionInProgress !== undefined;
-    const visibleTypes: TokenType[] = passkeysEnabled
-        ? ["push", "totp", "passkey", "indexedsecret"]
-        : ["push", "totp", "indexedsecret"];
+    const visibleTypes: TokenType[] = reviewMode
+        ? ["push"]
+        : passkeysEnabled
+          ? ["push", "totp", "passkey", "indexedsecret"]
+          : ["push", "totp", "indexedsecret"];
+    const visibleTokens = reviewMode ? tokens.filter((token) => (token.type ?? "push") === "push") : tokens;
 
     useEffect(() => {
         const controller = new AbortController();
@@ -590,19 +601,54 @@ function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysE
 
     return (
         <div className="space-y-6">
+            {reviewMode && (
+                <section
+                    aria-labelledby="review-guide"
+                    className="rounded-xl border border-separator bg-surface p-4 shadow-sm sm:p-5"
+                >
+                    <h2 id="review-guide" className="text-lg font-semibold">
+                        <Trans>Testing push notifications</Trans>
+                    </h2>
+                    <p className="mt-2 text-sm text-muted">
+                        <Trans>
+                            Keep this page open on a computer and use eduMFA Authenticator on the review device.
+                        </Trans>
+                    </p>
+                    <ol className="mt-3 list-decimal space-y-3 pl-5 text-sm leading-relaxed">
+                        <li>
+                            <Trans>
+                                Select Enroll push token below. In eduMFA Authenticator, scan the QR code and allow
+                                notifications when prompted. This page updates when enrollment completes.
+                            </Trans>
+                        </li>
+                        <li>
+                            <Trans>
+                                Select Send challenge on the enrolled token. Open the notification on the review device
+                                and approve the request. This page displays Challenge accepted.
+                            </Trans>
+                        </li>
+                        <li>
+                            <Trans>
+                                Send another challenge to test declining a request, or leave it unanswered to see it
+                                expire. Wait at least 30 seconds between challenges. Select Remove when finished.
+                            </Trans>
+                        </li>
+                    </ol>
+                </section>
+            )}
             <section aria-labelledby="enrollment-options">
                 <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                     <h2 className="text-lg font-semibold" id="enrollment-options">
                         <Trans>Enroll a token</Trans>
                     </h2>
-                    {tokens.length > 0 && (
+                    {visibleTokens.length > 0 && (
                         <a className="text-sm text-accent underline sm:hidden" href="#test-tokens">
                             <Trans>Your test tokens</Trans>
                         </a>
                     )}
                 </div>
                 <ul
-                    className={`grid gap-3 sm:grid-cols-2 lg:gap-4 ${passkeysEnabled ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
+                    className={`grid gap-3 ${reviewMode ? "" : `sm:grid-cols-2 lg:gap-4 ${passkeysEnabled ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}`}
                 >
                     {visibleTypes.map((type) => {
                         const {description, action} = enrollmentOptions[type];
@@ -705,13 +751,13 @@ function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysE
                     </Button>
                 </div>
                 {connection ? (
-                    tokens.length === 0 ? (
+                    visibleTokens.length === 0 ? (
                         <p className="px-4 py-6 text-sm text-muted sm:px-5">
                             <Trans>No test tokens yet.</Trans>
                         </p>
                     ) : (
                         <ul className="divide-y divide-separator">
-                            {tokens.map((token) => (
+                            {visibleTokens.map((token) => (
                                 <TokenRow key={token.serial} token={token} connection={connection} onRemove={removed} />
                             ))}
                         </ul>
@@ -728,19 +774,34 @@ function TokenList({serviceUrl, passkeysEnabled}: {serviceUrl: string; passkeysE
     );
 }
 
-export function TokenTester({serviceUrl, passkeysEnabled}: {serviceUrl?: string; passkeysEnabled: boolean}) {
+export function TokenTester({
+    serviceUrl,
+    passkeysEnabled,
+    reviewMode = false,
+}: {
+    serviceUrl?: string;
+    passkeysEnabled: boolean;
+    reviewMode?: boolean;
+}) {
     return (
         <div className="flex min-h-screen flex-col bg-gray-100">
             <NavigationBar />
-            <main className="mx-auto w-full max-w-6xl grow px-4 py-8 sm:px-6 sm:py-10">
+            <main
+                className={`mx-auto w-full grow px-4 py-8 sm:px-6 sm:py-10 ${reviewMode ? "max-w-3xl" : "max-w-6xl"}`}
+            >
                 <h1 className="text-3xl font-bold">
-                    <Trans>Token tester</Trans>
+                    {reviewMode ? <Trans>eduMFA Authenticator review</Trans> : <Trans>Token tester</Trans>}
                 </h1>
                 <p className="mt-2 mb-8 text-muted">
                     <Trans>Enroll a test token, then verify it with eduMFA.</Trans>
                 </p>
                 {serviceUrl ? (
-                    <TokenList key={serviceUrl} serviceUrl={serviceUrl} passkeysEnabled={passkeysEnabled} />
+                    <TokenList
+                        key={`${serviceUrl}-${reviewMode}`}
+                        serviceUrl={serviceUrl}
+                        passkeysEnabled={passkeysEnabled}
+                        reviewMode={reviewMode}
+                    />
                 ) : (
                     <p className="text-gray-600">
                         <Trans>The token tester is currently unavailable.</Trans>

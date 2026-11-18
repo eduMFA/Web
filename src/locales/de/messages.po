@@ -100,6 +100,10 @@ msgstr "Lade eine Kopie herunter, bevor du die Matrix schließt. Sie wird nur be
 msgid "Download PDF"
 msgstr "PDF herunterladen"
 
+#: src/app/token-tester/token-tester.tsx
+msgid "eduMFA Authenticator review"
+msgstr "eduMFA Authenticator prüfen"
+
 #. js-lingui-explicit-id
 #: src/app/page.tsx
 msgid "HomePage.supportContent"
@@ -187,6 +191,10 @@ msgstr "Indexed Secret verwendet eine gemeinsame Zeichenmatrix. Jede Challenge f
 #: src/app/page.tsx
 msgid "HomePage.installTitle"
 msgstr "Installation"
+
+#: src/app/token-tester/token-tester.tsx
+msgid "Keep this page open on a computer and use eduMFA Authenticator on the review device."
+msgstr "Lass diese Seite auf einem Computer geöffnet und verwende eduMFA Authenticator auf dem Prüfgerät."
 
 #. js-lingui-explicit-id
 #: src/app/page.tsx
@@ -282,6 +290,18 @@ msgid "Scan with your authenticator app"
 msgstr "Mit Ihrer Authenticator-App scannen"
 
 #: src/app/token-tester/token-tester.tsx
+msgid "Select Enroll push token below. In eduMFA Authenticator, scan the QR code and allow notifications when prompted. This page updates when enrollment completes."
+msgstr "Wähle unten „Push-Token registrieren“. Scanne den QR-Code mit eduMFA Authenticator und erlaube Mitteilungen, wenn du dazu aufgefordert wirst. Diese Seite aktualisiert sich, sobald die Registrierung abgeschlossen ist."
+
+#: src/app/token-tester/token-tester.tsx
+msgid "Select Send challenge on the enrolled token. Open the notification on the review device and approve the request. This page displays Challenge accepted."
+msgstr "Wähle beim registrierten Token „Push-Anfrage senden“. Öffne die Mitteilung auf dem Prüfgerät und bestätige die Anfrage. Diese Seite zeigt „Push-Anfrage bestätigt“ an."
+
+#: src/app/token-tester/token-tester.tsx
+msgid "Send another challenge to test declining a request, or leave it unanswered to see it expire. Wait at least 30 seconds between challenges. Select Remove when finished."
+msgstr "Sende eine weitere Anfrage, um das Ablehnen zu testen, oder lass sie unbeantwortet, damit sie abläuft. Warte mindestens 30 Sekunden zwischen den Anfragen. Wähle zum Abschluss „Entfernen“."
+
+#: src/app/token-tester/token-tester.tsx
 msgid "Send challenge"
 msgstr "Push-Anfrage senden"
 
@@ -302,6 +322,10 @@ msgstr "Support und Entwicklung"
 #: src/components/OrganizationBox.tsx
 msgid "OrganizationBox.phaseTest"
 msgstr "Test"
+
+#: src/app/token-tester/token-tester.tsx
+msgid "Testing push notifications"
+msgstr "Push-Mitteilungen testen"
 
 #. js-lingui-explicit-id
 #: src/app/page.tsx
