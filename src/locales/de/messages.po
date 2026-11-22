@@ -16,7 +16,7 @@ msgstr ""
 #. js-lingui-explicit-id
 #: src/components/Footer.tsx
 msgid "Footer.copyright"
-msgstr "© 2024 eduMFA. Alle Rechte vorbehalten."
+msgstr "© 2026 eduMFA. Alle Rechte vorbehalten."
 
 #. js-lingui-explicit-id
 #: src/app/[locale]/page.tsx
