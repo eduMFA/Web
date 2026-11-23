@@ -1,7 +1,11 @@
 import React from "react";
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import {locales} from "@/i18n/routing";
+import {headers} from "next/headers";
+import {detectLocale} from "@/i18n/routing";
+import {loadMessages} from "@/i18n/messages";
+import {Providers} from "./providers";
+import "./globals.css";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -15,20 +19,20 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "https://edumfa.io",
-        languages: locales.reduce(
-            (acc: Record<string, string>, locale) => {
-                acc[locale] = `https://edumfa.io/${locale}`;
-                return acc;
-            },
-            {"x-default": "https://edumfa.io/en"},
-        ),
     },
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default async function RootLayout({children}: {children: React.ReactNode}) {
+    const locale = detectLocale((await headers()).get("accept-language"));
+    const messages = loadMessages(locale);
+
     return (
-        <html lang="en">
-            <body className={inter.className}>{children}</body>
+        <html lang={locale}>
+            <body className={inter.className}>
+                <Providers key={locale} messages={messages} locale={locale}>
+                    {children}
+                </Providers>
+            </body>
         </html>
     );
 }
